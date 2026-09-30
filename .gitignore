@@ -1,0 +1,73 @@
+# ------------------------------------------------------------------
+# NOTE: vendor-prefixed/, lib/ and content-publisher/build/ are
+# intentionally committed. There is no composer.json / package.json in
+# this repo to regenerate them, and the plugins will not load without them.
+# ------------------------------------------------------------------
+
+# Dependency folders (only relevant if a build toolchain is added later)
+node_modules/
+/vendor/
+content-publisher/vendor/
+content-publisher-connector/vendor/
+
+# Secrets & local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+auth.json
+wp-config.php
+wp-config-local.php
+
+# Packaged plugin releases / archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+/dist/
+/release/
+
+# Logs, caches, temp files
+*.log
+debug.log
+*.cache
+.phpunit.result.cache
+.phpcs-cache
+.php-cs-fixer.cache
+.eslintcache
+*.tmp
+*.bak
+*.swp
+*~
+
+# Local test / tooling config overrides
+phpunit.xml
+phpcs.xml.local
+coverage/
+.phpunit.cache/
+
+# Local WordPress / database dumps
+*.sql
+*.sqlite
+uploads/
+
+# Editor / IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.project
+.settings/
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db

@@ -1,0 +1,50 @@
+
+
+How We Cut Our Office Electricity Bill by 30% This Summer
+Written by Ahmed Al-Balushi
+Last updated: 14 September 2026
+
+
+
+Every June our electricity bill jumps, and every June we tell ourselves
+we'll "look into it." This year we actually did — and the results
+surprised us.   
+Here's the short version:
+Cooling was 70% of the bill
+Most of it ran when nobody was in the office
+Three cheap changes fixed most of it
+
+It worked.
+
+WHERE THE ENERGY WAS GOING
+We borrowed a plug-in energy meter and logged usage for two weeks. The
+pattern was obvious once we saw it: the AC units ran at full power
+from 6am to 11pm, even though the office is empty after 6pm.
+Other culprits we found:
+• Two old fridges in the pantry (one was completely empty)
+• Monitors left on standby over the weekend
+* The server-room AC, set to 18°C "just to be safe"
+- Printers that never go to sleep
+
+What we changed:
+1) Put every AC unit on a timer: on at 7:30am, off at 6pm, and
+off entirely on Fridays and Saturdays.
+2) Raised the thermostat from 21°C to 24°C. After the first week,
+nobody noticed.
+3) Unplugged the spare fridge & replaced the other with an efficient model.
+4) Set monitors and printers to sleep after 15 minutes.
+
+Note: we checked the server room with our IT provider before touching it. Don't skip that step — some equipment really does need cooler air.
+
+
+The Results
+July's bill was 31% lower than last July's, even though it was a hotter month. The timers cost less than 60 rials in total and paid for themselves in under three weeks.
+
+Want to try this yourself?  The meter we used is listed at https://www.example.com/energy-meter, and the government's efficiency guide is at www.example.org/save-energy.
+If you have questions, visit us or write to us:
+Office 204, Al Khuwair Business Tower
+Way 3311, Al Khuwair
+Muscat, Sultanate of Oman
+
+Thanks for reading!
+— The Operations Team

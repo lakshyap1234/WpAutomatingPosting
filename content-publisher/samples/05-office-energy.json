@@ -1,0 +1,8 @@
+{"title":1,"excluded":[{"line":2,"kind":"byline"},{"line":3,"kind":"date"}],"blocks":[
+{"type":"paragraph","lines":[4,5,6]},{"type":"paragraph","lines":[7]},{"type":"list","ordered":false,"list_items":[[8],[9],[10]]},
+{"type":"paragraph","lines":[11]},{"type":"heading","level":2,"lines":[12]},{"type":"paragraph","lines":[13,14,15]},
+{"type":"paragraph","lines":[16]},{"type":"list","ordered":false,"list_items":[[17],[18],[19],[20]]},
+{"type":"paragraph","lines":[21]},{"type":"list","ordered":true,"list_items":[[22,23],[24,25],[26],[27]]},
+{"type":"paragraph","lines":[28]},{"type":"heading","level":2,"lines":[29]},{"type":"paragraph","lines":[30]},
+{"type":"paragraph","lines":[31]},{"type":"paragraph","lines":[32]},{"type":"paragraph","breaks":true,"lines":[33,34,35]},
+{"type":"paragraph","lines":[36]},{"type":"paragraph","lines":[37]}]}
