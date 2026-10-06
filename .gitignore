@@ -78,3 +78,6 @@ uploads/
 Thumbs.db
 desktop.ini
 ehthumbs.db
+
+# Local test library path (TESTING.md: running without wp-env)
+/.wp-tests.env
