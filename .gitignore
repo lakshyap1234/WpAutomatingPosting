@@ -1,14 +1,17 @@
 # ------------------------------------------------------------------
-# NOTE: vendor-prefixed/, lib/ and content-publisher/build/ are
-# intentionally committed. There is no composer.json / package.json in
-# this repo to regenerate them, and the plugins will not load without them.
+# NOTE: vendor-prefixed/ (both plugins), content-publisher/lib/ and
+# content-publisher/build/ are generated, but committed so a fresh clone
+# runs without building. Regenerate them with bin/build.sh (see BUILDING.md);
+# `bin/build.sh check` confirms the committed copies match the sources.
+# Don't edit them by hand.
 # ------------------------------------------------------------------
 
-# Dependency folders (only relevant if a build toolchain is added later)
+# Dependency folders and build tools
 node_modules/
 /vendor/
 content-publisher/vendor/
 content-publisher-connector/vendor/
+/.build-tools/
 
 # Secrets & local configuration
 .env

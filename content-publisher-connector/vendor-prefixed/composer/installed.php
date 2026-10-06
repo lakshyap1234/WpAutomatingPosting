@@ -2,9 +2,9 @@
   'root' => 
   array (
     'name' => 'cpub/connector',
-    'pretty_version' => 'dev-master',
-    'version' => 'dev-master',
-    'reference' => 'c13b554aa752be8e29aad66d32026be80586f77c',
+    'pretty_version' => '0.5.0',
+    'version' => '0.5.0.0',
+    'reference' => NULL,
     'type' => 'wordpress-plugin',
     'install_path' => __DIR__ . '/../',
     'aliases' => 

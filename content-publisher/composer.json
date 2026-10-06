@@ -1,0 +1,31 @@
+{
+    "name": "cpub/publisher",
+    "description": "Agency-side plugin: turns client content into reviewed WordPress posts and sends them through the client's Connector.",
+    "version": "0.6.0",
+    "type": "wordpress-plugin",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.2",
+        "ext-sodium": "*",
+        "ext-json": "*",
+        "league/commonmark": "^2.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "CPub\\Publisher\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "platform-check": false
+    },
+    "extra": {
+        "strauss": {
+            "target_directory": "vendor-prefixed",
+            "namespace_prefix": "CPub\\Publisher\\Vendor\\",
+            "classmap_prefix": "CPub_Publisher_Vendor_",
+            "constant_prefix": "CPUB_PUBLISHER_VENDOR_",
+            "delete_vendor_packages": true
+        }
+    }
+}
