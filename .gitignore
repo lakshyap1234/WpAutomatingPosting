@@ -13,6 +13,10 @@ content-publisher/vendor/
 content-publisher-connector/vendor/
 /.build-tools/
 
+# Local development (dev/README.md): generated secrets and certificates
+/dev/.env
+/dev/certs/
+
 # Secrets & local configuration
 .env
 .env.*

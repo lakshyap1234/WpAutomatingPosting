@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# WP-CLI on a local site:  dev/wp agency <command>   or   dev/wp client <command>
+#   dev/wp agency action-scheduler run      process queued posts and send approved ones now
+#   dev/wp client post list --post_status=draft
+set -euo pipefail
+cd "$(dirname "$0")"
+site="${1:-}"
+[[ "$site" == agency || "$site" == client ]] || { echo "usage: dev/wp agency|client <wp-cli command>" >&2; exit 1; }
+shift
+exec docker compose run --rm "wp-$site" wp "$@"

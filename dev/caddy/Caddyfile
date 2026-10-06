@@ -1,0 +1,15 @@
+# TLS for both sites with the mkcert certificate made by dev/setup.sh.
+# Caddy passes the original Host and sets X-Forwarded-Proto: https.
+{
+	auto_https disable_certs
+}
+
+agency.test {
+	tls /certs/dev.pem /certs/dev-key.pem
+	reverse_proxy agency:80
+}
+
+client.test {
+	tls /certs/dev.pem /certs/dev-key.pem
+	reverse_proxy client:80
+}

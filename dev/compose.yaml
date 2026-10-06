@@ -1,0 +1,107 @@
+# Two local WordPress sites for Content Publisher, over HTTPS:
+#   https://agency.test  - the agency (Content Publisher plugin)
+#   https://client.test  - a client  (Content Publisher Connector plugin)
+# Run dev/setup.sh, not this file directly (it makes the certificates and dev/.env first).
+#
+# Same hostnames everywhere: your browser reaches agency.test/client.test through
+# /etc/hosts -> 127.0.0.1 -> Caddy (ports 80/443). Inside Docker, the same names are
+# network aliases of the Caddy container, so a server-to-server call (the token
+# exchange, sending a draft) goes through the same Caddy, with the same certificate.
+name: cpub-dev
+
+services:
+  proxy:
+    image: caddy:2-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./certs:/certs:ro
+    networks:
+      default:
+        aliases:
+          - agency.test
+          - client.test
+    depends_on: [agency, client]
+
+  db:
+    image: mariadb:11
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 3s
+      retries: 40
+
+  agency:
+    image: ${WP_IMAGE:-wordpress:php8.2-apache}
+    depends_on:
+      db: { condition: service_healthy }
+    environment: &agency-env
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: agency
+      WORDPRESS_DB_PASSWORD: agency
+      WORDPRESS_DB_NAME: agency
+      CPUB_PUBLISHER_KEY: ${CPUB_PUBLISHER_KEY:?run dev/setup.sh first}
+      CPUB_DEV_RECORDED_AI: ${CPUB_DEV_RECORDED_AI:-1}
+      WORDPRESS_CONFIG_EXTRA: |
+        define( 'WP_ENVIRONMENT_TYPE', 'local' );
+        define( 'WP_HOME', 'https://agency.test' );
+        define( 'WP_SITEURL', 'https://agency.test' );
+        if ( 'https' === ( $$_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '' ) ) { $$_SERVER['HTTPS'] = 'on'; }
+        define( 'CPUB_PUBLISHER_KEY', getenv( 'CPUB_PUBLISHER_KEY' ) );
+        define( 'CPUB_DEV_CA_FILE', '/certs/rootCA.pem' );
+        define( 'CPUB_DEV_RECORDED_AI', '1' === getenv( 'CPUB_DEV_RECORDED_AI' ) );
+    volumes: &agency-vol
+      - agency:/var/www/html
+      - ../content-publisher:/var/www/html/wp-content/plugins/content-publisher
+      - ./mu-plugins/agency:/var/www/html/wp-content/mu-plugins:ro
+      - ./certs:/certs:ro
+
+  client:
+    image: ${WP_IMAGE:-wordpress:php8.2-apache}
+    depends_on:
+      db: { condition: service_healthy }
+    environment: &client-env
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: client
+      WORDPRESS_DB_PASSWORD: client
+      WORDPRESS_DB_NAME: client
+      WORDPRESS_CONFIG_EXTRA: |
+        define( 'WP_ENVIRONMENT_TYPE', 'local' );
+        define( 'WP_HOME', 'https://client.test' );
+        define( 'WP_SITEURL', 'https://client.test' );
+        if ( 'https' === ( $$_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '' ) ) { $$_SERVER['HTTPS'] = 'on'; }
+        define( 'CPUB_DEV_AGENCY_URL', 'https://agency.test' );
+    volumes: &client-vol
+      - client:/var/www/html
+      - ../content-publisher-connector:/var/www/html/wp-content/plugins/content-publisher-connector
+      - ./mu-plugins/client:/var/www/html/wp-content/mu-plugins:ro
+
+  # WP-CLI, sharing each site's files and settings: dev/wp agency ... / dev/wp client ...
+  wp-agency:
+    image: ${WP_CLI_IMAGE:-wordpress:cli-php8.2}
+    profiles: [cli]
+    user: "33:33"
+    depends_on:
+      db: { condition: service_healthy }
+    environment: *agency-env
+    volumes: *agency-vol
+
+  wp-client:
+    image: ${WP_CLI_IMAGE:-wordpress:cli-php8.2}
+    profiles: [cli]
+    user: "33:33"
+    depends_on:
+      db: { condition: service_healthy }
+    environment: *client-env
+    volumes: *client-vol
+
+volumes:
+  db:
+  agency:
+  client:
