@@ -1,0 +1,22 @@
+# 5 Ways to Keep Your Garden Alive Through an Omani Summer
+
+Summer in Muscat is brutal on gardens. Temperatures regularly pass 45°C, and even hardy plants struggle without a plan.
+
+## Water at the Right Time
+
+Water early in the morning, before 7am. Evening watering leaves soil damp overnight, which invites fungus.
+
+## Choose Plants That Belong Here
+
+Some plants simply cope better:
+
+- Bougainvillea
+- Desert rose (Adenium)
+- Frangipani
+- Aloe vera
+
+More ideas are listed at https://example.org/native-plants.
+
+## Final Thoughts
+
+A little planning goes a long way. Start with shade, water, and the right plants.

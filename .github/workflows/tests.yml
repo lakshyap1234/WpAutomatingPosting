@@ -1,0 +1,62 @@
+# Both plugins' PHPUnit suites in wp-env (TESTING.md), on every push.
+name: Tests
+
+on:
+  push:
+  workflow_dispatch:
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  phpunit:
+    name: PHPUnit (WordPress ${{ matrix.wordpress }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - wordpress: latest
+            core: ''                            # .wp-env.json: the latest release
+          - wordpress: '6.9'
+            core: 'WordPress/WordPress#6.9'     # the Publisher's minimum
+    env:
+      WP_ENV_CORE: ${{ matrix.core }}
+      WP_ENV: npx --yes @wordpress/env@11.16.0
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: PHP (only to install the test tools; tests run in wp-env's PHP 8.2)
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+          coverage: none
+
+      - name: Composer install (PHPUnit, polyfills)
+        uses: ramsey/composer-install@v3
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 20
+
+      - name: Start wp-env
+        run: $WP_ENV start                     # an empty WP_ENV_CORE is ignored
+
+      - name: Connector suite (OAuth, token permissions, REST)
+        run: $WP_ENV run tests-cli --env-cwd=cpub-repo vendor/bin/phpunit -c content-publisher-connector/phpunit.xml.dist
+
+      - name: Golden files (samples/*.txt to expected blocks)
+        run: $WP_ENV run tests-cli --env-cwd=cpub-repo vendor/bin/phpunit -c content-publisher/phpunit.xml.dist --filter GoldenSamplesTest
+
+      - name: Publisher suite
+        run: $WP_ENV run tests-cli --env-cwd=cpub-repo vendor/bin/phpunit -c content-publisher/phpunit.xml.dist
+
+      - name: Logs on failure
+        if: failure()
+        run: $WP_ENV logs tests --watch=false || true

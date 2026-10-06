@@ -1,0 +1,194 @@
+{
+ "type": "object",
+ "required": [
+  "title",
+  "excluded",
+  "blocks"
+ ],
+ "properties": {
+  "title": {
+   "type": "integer",
+   "description": "ID of the line that is the post title."
+  },
+  "excluded": {
+   "type": "array",
+   "description": "Lines that are not body content: bylines, dates, and metadata lines such as \"Tags: …\" or \"Category: …\". Usually few. Never put body content here.",
+   "items": {
+    "type": "object",
+    "required": [
+     "line",
+     "kind"
+    ],
+    "properties": {
+     "line": {
+      "type": "integer"
+     },
+     "kind": {
+      "type": "string",
+      "enum": [
+       "byline",
+       "date",
+       "metadata"
+      ]
+     }
+    }
+   }
+  },
+  "blocks": {
+   "type": "array",
+   "description": "Body blocks in reading order.",
+   "items": {
+    "anyOf": [
+     {
+      "type": "object",
+      "title": "Paragraph",
+      "required": [
+       "type",
+       "lines"
+      ],
+      "properties": {
+       "type": {
+        "type": "string",
+        "enum": [
+         "paragraph"
+        ]
+       },
+       "lines": {
+        "type": "array",
+        "items": {
+         "type": "integer"
+        },
+        "description": "Consecutive line IDs joined into one paragraph."
+       },
+       "breaks": {
+        "type": "boolean",
+        "description": "Keep line breaks (addresses, verse)."
+       }
+      }
+     },
+     {
+      "type": "object",
+      "title": "Heading",
+      "required": [
+       "type",
+       "level",
+       "lines"
+      ],
+      "properties": {
+       "type": {
+        "type": "string",
+        "enum": [
+         "heading"
+        ]
+       },
+       "level": {
+        "type": "integer",
+        "enum": [
+         2,
+         3,
+         4
+        ]
+       },
+       "lines": {
+        "type": "array",
+        "items": {
+         "type": "integer"
+        },
+        "description": "Exactly one line ID."
+       }
+      }
+     },
+     {
+      "type": "object",
+      "title": "List",
+      "required": [
+       "type",
+       "ordered",
+       "list_items"
+      ],
+      "properties": {
+       "type": {
+        "type": "string",
+        "enum": [
+         "list"
+        ]
+       },
+       "ordered": {
+        "type": "boolean"
+       },
+       "list_items": {
+        "type": "array",
+        "description": "One entry per list item; each entry is the consecutive line IDs of that item.",
+        "items": {
+         "type": "array",
+         "items": {
+          "type": "integer"
+         },
+         "description": "Line IDs of one list item."
+        }
+       }
+      }
+     },
+     {
+      "type": "object",
+      "title": "Table",
+      "required": [
+       "type",
+       "header",
+       "lines"
+      ],
+      "properties": {
+       "type": {
+        "type": "string",
+        "enum": [
+         "table"
+        ]
+       },
+       "header": {
+        "type": "boolean",
+        "description": "True if the first row holds column titles."
+       },
+       "lines": {
+        "type": "array",
+        "items": {
+         "type": "integer"
+        },
+        "description": "Consecutive line IDs of every row, including any |---| separator row."
+       }
+      }
+     },
+     {
+      "type": "object",
+      "title": "Image",
+      "required": [
+       "type",
+       "lines"
+      ],
+      "properties": {
+       "type": {
+        "type": "string",
+        "enum": [
+         "image"
+        ]
+       },
+       "lines": {
+        "type": "array",
+        "items": {
+         "type": "integer"
+        },
+        "description": "Consecutive line IDs of one image: its [IMAGE: …], Image URL:, Alt text: and Caption: lines."
+       }
+      }
+     }
+    ]
+   }
+  },
+  "notes_not_applied": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   },
+   "description": "Revision requests you could not apply (e.g. requests to change wording)."
+  }
+ }
+}

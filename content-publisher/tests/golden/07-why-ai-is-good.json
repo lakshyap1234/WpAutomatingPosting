@@ -1,0 +1,22 @@
+{
+    "title": "Why AI Is Good for Us: The Case for Artificial Intelligence",
+    "encoding": "utf-8",
+    "counts": {
+        "headings": 8,
+        "paragraphs": 9,
+        "lists": 1,
+        "tables": 2,
+        "images": 4
+    },
+    "warnings": [],
+    "removed": [
+        {
+            "line": 60,
+            "text": "Tags: artificial intelligence, technology, machine learning, future of work"
+        },
+        {
+            "line": 61,
+            "text": "Category: Technology"
+        }
+    ]
+}

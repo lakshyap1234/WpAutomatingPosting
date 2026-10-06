@@ -1,0 +1,32 @@
+{
+  "name": "cpub/content-publisher-repo",
+  "description": "Development tools for both plugins (tests). The plugins' own dependencies are in each plugin's composer.json.",
+  "type": "project",
+  "license": "proprietary",
+  "require": {
+    "php": ">=8.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.6",
+    "yoast/phpunit-polyfills": "^1.1"
+  },
+  "config": {
+    "sort-packages": true,
+    "platform-check": false
+  },
+  "scripts": {
+    "test": [
+      "@test:connector",
+      "@test:publisher"
+    ],
+    "test:connector": "phpunit -c content-publisher-connector/phpunit.xml.dist",
+    "test:publisher": "phpunit -c content-publisher/phpunit.xml.dist",
+    "test:golden": "phpunit -c content-publisher/phpunit.xml.dist --filter GoldenSamplesTest"
+  },
+  "scripts-descriptions": {
+    "test": "Both plugins' test suites (needs WP_TESTS_DIR: see TESTING.md)",
+    "test:connector": "Connector: OAuth, token permissions, REST",
+    "test:publisher": "Publisher, including the golden files",
+    "test:golden": "Only the golden files (samples/*.txt to expected blocks). UPDATE_GOLDEN=1 regenerates them."
+  }
+}

@@ -1,0 +1,22 @@
+{
+    "title": "How We Cut Our Office Electricity Bill by 30% This Summer",
+    "encoding": "utf-8",
+    "counts": {
+        "headings": 2,
+        "paragraphs": 13,
+        "lists": 3,
+        "tables": 0,
+        "images": 0
+    },
+    "warnings": [],
+    "removed": [
+        {
+            "line": 2,
+            "text": "Written by Ahmed Al-Balushi"
+        },
+        {
+            "line": 3,
+            "text": "Last updated: 14 September 2026"
+        }
+    ]
+}

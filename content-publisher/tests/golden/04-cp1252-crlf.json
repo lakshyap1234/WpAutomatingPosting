@@ -1,0 +1,13 @@
+{
+    "title": "Windows File Test",
+    "encoding": "windows-1252 (fallback)",
+    "counts": {
+        "headings": 0,
+        "paragraphs": 1,
+        "lists": 0,
+        "tables": 0,
+        "images": 0
+    },
+    "warnings": [],
+    "removed": []
+}

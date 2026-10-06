@@ -1,0 +1,3442 @@
+[
+{
+"job": {
+"op": "validate",
+"name": "01-clean",
+"base64": "NSBXYXlzIHRvIEtlZXAgWW91ciBHYXJkZW4gQWxpdmUgVGhyb3VnaCBhbiBPbWFuaSBTdW1tZXIKCkJ5IFNhcmEgQWwtSGFydGh5CgpTdW1tZXIgaW4gTXVzY2F0IGlzIGJydXRhbCBvbiBnYXJkZW5zLiBUZW1wZXJhdHVyZXMgcmVndWxhcmx5IHBhc3MgNDXCsEMsIGFuZCBldmVuIGhhcmR5IHBsYW50cyBzdHJ1Z2dsZSB3aXRob3V0IGEgcGxhbi4KCldhdGVyIGF0IHRoZSBSaWdodCBUaW1lCgpXYXRlciBlYXJseSBpbiB0aGUgbW9ybmluZywgYmVmb3JlIDdhbS4gRXZlbmluZyB3YXRlcmluZyBsZWF2ZXMgc29pbCBkYW1wIG92ZXJuaWdodCwgd2hpY2ggaW52aXRlcyBmdW5ndXMuCgpDaG9vc2UgUGxhbnRzIFRoYXQgQmVsb25nIEhlcmUKClNvbWUgcGxhbnRzIHNpbXBseSBjb3BlIGJldHRlcjoKCi0gQm91Z2FpbnZpbGxlYQotIERlc2VydCByb3NlIChBZGVuaXVtKQotIEZyYW5naXBhbmkKLSBBbG9lIHZlcmEKCk1vcmUgaWRlYXMgYXJlIGxpc3RlZCBhdCBodHRwczovL2V4YW1wbGUub3JnL25hdGl2ZS1wbGFudHMuCgpGaW5hbCBUaG91Z2h0cwoKQSBsaXR0bGUgcGxhbm5pbmcgZ29lcyBhIGxvbmcgd2F5LiBTdGFydCB3aXRoIHNoYWRlLCB3YXRlciwgYW5kIHRoZSByaWdodCBwbGFudHMuCg==",
+"map": {
+"title": 1,
+"excluded": [
+{
+"line": 2,
+"kind": "byline"
+}
+],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+3
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+4
+]
+},
+{
+"type": "paragraph",
+"lines": [
+5
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+6
+]
+},
+{
+"type": "paragraph",
+"lines": [
+7
+]
+},
+{
+"type": "list",
+"ordered": false,
+"list_items": [
+[
+8
+],
+[
+9
+],
+[
+10
+],
+[
+11
+]
+]
+},
+{
+"type": "paragraph",
+"lines": [
+12
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+13
+]
+},
+{
+"type": "paragraph",
+"lines": [
+14
+]
+}
+]
+}
+},
+"expected": {
+"ok": true,
+"errors": [],
+"warnings": [],
+"map": {
+"title": 1,
+"excluded": [
+{
+"line": 2,
+"kind": "byline"
+}
+],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+3
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+4
+]
+},
+{
+"type": "paragraph",
+"lines": [
+5
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+6
+]
+},
+{
+"type": "paragraph",
+"lines": [
+7
+]
+},
+{
+"type": "list",
+"ordered": false,
+"items": [
+[
+8
+],
+[
+9
+],
+[
+10
+],
+[
+11
+]
+]
+},
+{
+"type": "paragraph",
+"lines": [
+12
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+13
+]
+},
+{
+"type": "paragraph",
+"lines": [
+14
+]
+}
+]
+}
+}
+},
+{
+"job": {
+"op": "toMarkdown",
+"name": "01-clean",
+"base64": "NSBXYXlzIHRvIEtlZXAgWW91ciBHYXJkZW4gQWxpdmUgVGhyb3VnaCBhbiBPbWFuaSBTdW1tZXIKCkJ5IFNhcmEgQWwtSGFydGh5CgpTdW1tZXIgaW4gTXVzY2F0IGlzIGJydXRhbCBvbiBnYXJkZW5zLiBUZW1wZXJhdHVyZXMgcmVndWxhcmx5IHBhc3MgNDXCsEMsIGFuZCBldmVuIGhhcmR5IHBsYW50cyBzdHJ1Z2dsZSB3aXRob3V0IGEgcGxhbi4KCldhdGVyIGF0IHRoZSBSaWdodCBUaW1lCgpXYXRlciBlYXJseSBpbiB0aGUgbW9ybmluZywgYmVmb3JlIDdhbS4gRXZlbmluZyB3YXRlcmluZyBsZWF2ZXMgc29pbCBkYW1wIG92ZXJuaWdodCwgd2hpY2ggaW52aXRlcyBmdW5ndXMuCgpDaG9vc2UgUGxhbnRzIFRoYXQgQmVsb25nIEhlcmUKClNvbWUgcGxhbnRzIHNpbXBseSBjb3BlIGJldHRlcjoKCi0gQm91Z2FpbnZpbGxlYQotIERlc2VydCByb3NlIChBZGVuaXVtKQotIEZyYW5naXBhbmkKLSBBbG9lIHZlcmEKCk1vcmUgaWRlYXMgYXJlIGxpc3RlZCBhdCBodHRwczovL2V4YW1wbGUub3JnL25hdGl2ZS1wbGFudHMuCgpGaW5hbCBUaG91Z2h0cwoKQSBsaXR0bGUgcGxhbm5pbmcgZ29lcyBhIGxvbmcgd2F5LiBTdGFydCB3aXRoIHNoYWRlLCB3YXRlciwgYW5kIHRoZSByaWdodCBwbGFudHMuCg==",
+"map": {
+"title": 1,
+"excluded": [
+{
+"line": 2,
+"kind": "byline"
+}
+],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+3
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+4
+]
+},
+{
+"type": "paragraph",
+"lines": [
+5
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+6
+]
+},
+{
+"type": "paragraph",
+"lines": [
+7
+]
+},
+{
+"type": "list",
+"ordered": false,
+"list_items": [
+[
+8
+],
+[
+9
+],
+[
+10
+],
+[
+11
+]
+]
+},
+{
+"type": "paragraph",
+"lines": [
+12
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+13
+]
+},
+{
+"type": "paragraph",
+"lines": [
+14
+]
+}
+]
+}
+},
+"expected": {
+"markdown": "# 5 Ways to Keep Your Garden Alive Through an Omani Summer\n\nSummer in Muscat is brutal on gardens. Temperatures regularly pass 45°C, and even hardy plants struggle without a plan.\n\n## Water at the Right Time\n\nWater early in the morning, before 7am. Evening watering leaves soil damp overnight, which invites fungus.\n\n## Choose Plants That Belong Here\n\nSome plants simply cope better:\n\n- Bougainvillea\n- Desert rose (Adenium)\n- Frangipani\n- Aloe vera\n\nMore ideas are listed at https://example.org/native-plants.\n\n## Final Thoughts\n\nA little planning goes a long way. Start with shade, water, and the right plants.\n",
+"removed": [
+{
+"line": 2,
+"kind": "byline",
+"text": "By Sara Al-Harthy"
+}
+],
+"body_text": "Summer in Muscat is brutal on gardens. Temperatures regularly pass 45°C, and even hardy plants struggle without a plan. Water at the Right Time Water early in the morning, before 7am. Evening watering leaves soil damp overnight, which invites fungus. Choose Plants That Belong Here Some plants simply cope better: Bougainvillea Desert rose (Adenium) Frangipani Aloe vera More ideas are listed at https://example.org/native-plants. Final Thoughts A little planning goes a long way. Start with shade, water, and the right plants.",
+"images": []
+}
+},
+{
+"job": {
+"op": "validate",
+"name": "02-hardwrapped",
+"base64": "V0hZIE9VUiBURUFNIFNXSVRDSEVEIFRPIFdFRUtMWSBQTEFOTklORwpQdWJsaXNoZWQgMyBNYXJjaCAyMDI2CgpGb3IgeWVhcnMgd2UgcGxhbm5lZCBpbiBtb250aGx5IGN5Y2xlcy4gSXQgZmVsdCBlZmZpY2llbnQ6IG9uZSBiaWcKbWVldGluZywgb25lIGJpZyBkb2N1bWVudCwgYW5kIHRoZW4gZXZlcnlvbmUgd2VudCBvZmYgdG8gZXhlY3V0ZS4KSW4gcHJhY3RpY2UsIGJ5IHdlZWsgdHdvIHRoZSBwbGFuIHdhcyBhbHJlYWR5IG91dCBvZiBkYXRlLgoKVEhFIFBST0JMRU0KTW9udGhseSBwbGFucyBhc3N1bWVkIHdlIGtuZXcgd2hhdCB0aGUgbW9udGggd291bGQgYnJpbmcuIFdlIG5ldmVyCmRpZC4gQ2xpZW50IHJlcXVlc3RzLCBidWdzLCBhbmQgaGlyaW5nIGFsbCBhcnJpdmVkIG9uIHRoZWlyIG93bgpzY2hlZHVsZS4KCldIQVQgV0UgQ0hBTkdFRAoxLiBFdmVyeSBNb25kYXksIGEgMzAtbWludXRlIHBsYW5uaW5nIGNhbGwuCjIuIEVhY2ggcGVyc29uIGNvbW1pdHMgdG8gdGhyZWUgb3V0Y29tZXMsIG5vdCB0YXNrcy4KMy4gRnJpZGF5LCBhIHNob3J0IHdyaXR0ZW4gcmVjYXAgb2Ygd2hhdCBzaGlwcGVkIGFuZAp3aGF0IHNsaXBwZWQsIGFuZCB3aHkuCgpUaGUgcmVzdWx0cyBhZnRlciBvbmUgcXVhcnRlcjogZmV3ZXIgbWlzc2VkIGRlYWRsaW5lcywgYW5kIGZhciBsZXNzCnRpbWUgc3BlbnQgcmUtcGxhbm5pbmcgaW4gdGhlIG1pZGRsZSBvZiB0aGUgbW9udGguIFNlZSB0aGUgdGVtcGxhdGUgd2UKdXNlIGF0IHd3dy5leGFtcGxlLmNvbS93ZWVrbHktdGVtcGxhdGUuCgpJZiB5b3UgdHJ5IGl0LCB0ZWxsIHVzIGhvdyBpdCBnb2VzLgo=",
+"map": {
+"title": 1,
+"excluded": [
+{
+"line": 2,
+"kind": "date"
+}
+],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+3,
+4,
+5
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+6
+]
+},
+{
+"type": "paragraph",
+"lines": [
+7,
+8,
+9
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+10
+]
+},
+{
+"type": "list",
+"ordered": true,
+"list_items": [
+[
+11
+],
+[
+12
+],
+[
+13,
+14
+]
+]
+},
+{
+"type": "paragraph",
+"lines": [
+15,
+16,
+17
+]
+},
+{
+"type": "paragraph",
+"lines": [
+18
+]
+}
+]
+}
+},
+"expected": {
+"ok": true,
+"errors": [],
+"warnings": [],
+"map": {
+"title": 1,
+"excluded": [
+{
+"line": 2,
+"kind": "date"
+}
+],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+3,
+4,
+5
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+6
+]
+},
+{
+"type": "paragraph",
+"lines": [
+7,
+8,
+9
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+10
+]
+},
+{
+"type": "list",
+"ordered": true,
+"items": [
+[
+11
+],
+[
+12
+],
+[
+13,
+14
+]
+]
+},
+{
+"type": "paragraph",
+"lines": [
+15,
+16,
+17
+]
+},
+{
+"type": "paragraph",
+"lines": [
+18
+]
+}
+]
+}
+}
+},
+{
+"job": {
+"op": "toMarkdown",
+"name": "02-hardwrapped",
+"base64": "V0hZIE9VUiBURUFNIFNXSVRDSEVEIFRPIFdFRUtMWSBQTEFOTklORwpQdWJsaXNoZWQgMyBNYXJjaCAyMDI2CgpGb3IgeWVhcnMgd2UgcGxhbm5lZCBpbiBtb250aGx5IGN5Y2xlcy4gSXQgZmVsdCBlZmZpY2llbnQ6IG9uZSBiaWcKbWVldGluZywgb25lIGJpZyBkb2N1bWVudCwgYW5kIHRoZW4gZXZlcnlvbmUgd2VudCBvZmYgdG8gZXhlY3V0ZS4KSW4gcHJhY3RpY2UsIGJ5IHdlZWsgdHdvIHRoZSBwbGFuIHdhcyBhbHJlYWR5IG91dCBvZiBkYXRlLgoKVEhFIFBST0JMRU0KTW9udGhseSBwbGFucyBhc3N1bWVkIHdlIGtuZXcgd2hhdCB0aGUgbW9udGggd291bGQgYnJpbmcuIFdlIG5ldmVyCmRpZC4gQ2xpZW50IHJlcXVlc3RzLCBidWdzLCBhbmQgaGlyaW5nIGFsbCBhcnJpdmVkIG9uIHRoZWlyIG93bgpzY2hlZHVsZS4KCldIQVQgV0UgQ0hBTkdFRAoxLiBFdmVyeSBNb25kYXksIGEgMzAtbWludXRlIHBsYW5uaW5nIGNhbGwuCjIuIEVhY2ggcGVyc29uIGNvbW1pdHMgdG8gdGhyZWUgb3V0Y29tZXMsIG5vdCB0YXNrcy4KMy4gRnJpZGF5LCBhIHNob3J0IHdyaXR0ZW4gcmVjYXAgb2Ygd2hhdCBzaGlwcGVkIGFuZAp3aGF0IHNsaXBwZWQsIGFuZCB3aHkuCgpUaGUgcmVzdWx0cyBhZnRlciBvbmUgcXVhcnRlcjogZmV3ZXIgbWlzc2VkIGRlYWRsaW5lcywgYW5kIGZhciBsZXNzCnRpbWUgc3BlbnQgcmUtcGxhbm5pbmcgaW4gdGhlIG1pZGRsZSBvZiB0aGUgbW9udGguIFNlZSB0aGUgdGVtcGxhdGUgd2UKdXNlIGF0IHd3dy5leGFtcGxlLmNvbS93ZWVrbHktdGVtcGxhdGUuCgpJZiB5b3UgdHJ5IGl0LCB0ZWxsIHVzIGhvdyBpdCBnb2VzLgo=",
+"map": {
+"title": 1,
+"excluded": [
+{
+"line": 2,
+"kind": "date"
+}
+],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+3,
+4,
+5
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+6
+]
+},
+{
+"type": "paragraph",
+"lines": [
+7,
+8,
+9
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+10
+]
+},
+{
+"type": "list",
+"ordered": true,
+"list_items": [
+[
+11
+],
+[
+12
+],
+[
+13,
+14
+]
+]
+},
+{
+"type": "paragraph",
+"lines": [
+15,
+16,
+17
+]
+},
+{
+"type": "paragraph",
+"lines": [
+18
+]
+}
+]
+}
+},
+"expected": {
+"markdown": "# WHY OUR TEAM SWITCHED TO WEEKLY PLANNING\n\nFor years we planned in monthly cycles. It felt efficient: one big meeting, one big document, and then everyone went off to execute. In practice, by week two the plan was already out of date.\n\n## THE PROBLEM\n\nMonthly plans assumed we knew what the month would bring. We never did. Client requests, bugs, and hiring all arrived on their own schedule.\n\n## WHAT WE CHANGED\n\n1. Every Monday, a 30-minute planning call.\n2. Each person commits to three outcomes, not tasks.\n3. Friday, a short written recap of what shipped and what slipped, and why.\n\nThe results after one quarter: fewer missed deadlines, and far less time spent re-planning in the middle of the month. See the template we use at www.example.com/weekly-template.\n\nIf you try it, tell us how it goes.\n",
+"removed": [
+{
+"line": 2,
+"kind": "date",
+"text": "Published 3 March 2026"
+}
+],
+"body_text": "For years we planned in monthly cycles. It felt efficient: one big meeting, one big document, and then everyone went off to execute. In practice, by week two the plan was already out of date. THE PROBLEM Monthly plans assumed we knew what the month would bring. We never did. Client requests, bugs, and hiring all arrived on their own schedule. WHAT WE CHANGED Every Monday, a 30-minute planning call. Each person commits to three outcomes, not tasks. Friday, a short written recap of what shipped and what slipped, and why. The results after one quarter: fewer missed deadlines, and far less time spent re-planning in the middle of the month. See the template we use at www.example.com/weekly-template. If you try it, tell us how it goes.",
+"images": []
+}
+},
+{
+"job": {
+"op": "validate",
+"name": "03-messy",
+"base64": "VGhlIEhpZGRlbiBDb3N0IG9mICJGcmVlIiBTb2Z0d2FyZQoKCgpFdmVyeW9uZSBsb3ZlcyBmcmVlIHRvb2xzLiBCdXQgImZyZWUiIHJhcmVseSBtZWFucyB6ZXJvIGNvc3Qg4oCUIGl0IHVzdWFsbHkgbWVhbnMgdGhlIGNvc3QgbW92ZWQgc29tZXdoZXJlIGVsc2UuCktleSB0aGluZ3Mgd2UgbG9vayBhdCBiZWZvcmUgYWRvcHRpbmcgYSBmcmVlIHRvb2w6CiogV2hvIG1haW50YWlucyBpdCwgYW5kIGhvdyBvZnRlbiBpdCdzIHVwZGF0ZWQKKiBXaGV0aGVyIHdlIGNhbiBleHBvcnQgb3VyIGRhdGEKKiBXaGF0IGhhcHBlbnMgaWYgdGhlIGNvbXBhbnkgYmVoaW5kIGl0IGRpc2FwcGVhcnMKU3VwcG9ydDoKRnJlZSB0b29scyBvZnRlbiBjb21lIHdpdGggY29tbXVuaXR5IHN1cHBvcnQgb25seS4gVGhhdCdzIGZpbmUgdW50aWwgc29tZXRoaW5nIGJyZWFrcyBhdCAyYW0uCk91ciBvZmZpY2UgYWRkcmVzcyBmb3IgcXVlc3Rpb25zOgpFeGFtcGxlIENvLiBPZmZpY2UKQnVpbGRpbmcgMTIsIFdheSAzMDIxCk11c2NhdCwgT21hbgpCb3R0b20gbGluZTogZnJlZSBpcyBhIHByaWNlLCBub3QgYSBndWFyYW50ZWUuIENob29zZSB0b29scyB3aGVyZSB5b3UgdW5kZXJzdGFuZCB0aGUgdHJhZGUtb2ZmLgo=",
+"map": {
+"title": 1,
+"excluded": [],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+2
+]
+},
+{
+"type": "paragraph",
+"lines": [
+3
+]
+},
+{
+"type": "list",
+"ordered": false,
+"list_items": [
+[
+4
+],
+[
+5
+],
+[
+6
+]
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+7
+]
+},
+{
+"type": "paragraph",
+"lines": [
+8
+]
+},
+{
+"type": "paragraph",
+"lines": [
+9
+]
+},
+{
+"type": "paragraph",
+"breaks": true,
+"lines": [
+10,
+11,
+12
+]
+},
+{
+"type": "paragraph",
+"lines": [
+13
+]
+}
+]
+}
+},
+"expected": {
+"ok": true,
+"errors": [],
+"warnings": [],
+"map": {
+"title": 1,
+"excluded": [],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+2
+]
+},
+{
+"type": "paragraph",
+"lines": [
+3
+]
+},
+{
+"type": "list",
+"ordered": false,
+"items": [
+[
+4
+],
+[
+5
+],
+[
+6
+]
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+7
+]
+},
+{
+"type": "paragraph",
+"lines": [
+8
+]
+},
+{
+"type": "paragraph",
+"lines": [
+9
+]
+},
+{
+"type": "paragraph",
+"lines": [
+10,
+11,
+12
+],
+"breaks": true
+},
+{
+"type": "paragraph",
+"lines": [
+13
+]
+}
+]
+}
+}
+},
+{
+"job": {
+"op": "toMarkdown",
+"name": "03-messy",
+"base64": "VGhlIEhpZGRlbiBDb3N0IG9mICJGcmVlIiBTb2Z0d2FyZQoKCgpFdmVyeW9uZSBsb3ZlcyBmcmVlIHRvb2xzLiBCdXQgImZyZWUiIHJhcmVseSBtZWFucyB6ZXJvIGNvc3Qg4oCUIGl0IHVzdWFsbHkgbWVhbnMgdGhlIGNvc3QgbW92ZWQgc29tZXdoZXJlIGVsc2UuCktleSB0aGluZ3Mgd2UgbG9vayBhdCBiZWZvcmUgYWRvcHRpbmcgYSBmcmVlIHRvb2w6CiogV2hvIG1haW50YWlucyBpdCwgYW5kIGhvdyBvZnRlbiBpdCdzIHVwZGF0ZWQKKiBXaGV0aGVyIHdlIGNhbiBleHBvcnQgb3VyIGRhdGEKKiBXaGF0IGhhcHBlbnMgaWYgdGhlIGNvbXBhbnkgYmVoaW5kIGl0IGRpc2FwcGVhcnMKU3VwcG9ydDoKRnJlZSB0b29scyBvZnRlbiBjb21lIHdpdGggY29tbXVuaXR5IHN1cHBvcnQgb25seS4gVGhhdCdzIGZpbmUgdW50aWwgc29tZXRoaW5nIGJyZWFrcyBhdCAyYW0uCk91ciBvZmZpY2UgYWRkcmVzcyBmb3IgcXVlc3Rpb25zOgpFeGFtcGxlIENvLiBPZmZpY2UKQnVpbGRpbmcgMTIsIFdheSAzMDIxCk11c2NhdCwgT21hbgpCb3R0b20gbGluZTogZnJlZSBpcyBhIHByaWNlLCBub3QgYSBndWFyYW50ZWUuIENob29zZSB0b29scyB3aGVyZSB5b3UgdW5kZXJzdGFuZCB0aGUgdHJhZGUtb2ZmLgo=",
+"map": {
+"title": 1,
+"excluded": [],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+2
+]
+},
+{
+"type": "paragraph",
+"lines": [
+3
+]
+},
+{
+"type": "list",
+"ordered": false,
+"list_items": [
+[
+4
+],
+[
+5
+],
+[
+6
+]
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+7
+]
+},
+{
+"type": "paragraph",
+"lines": [
+8
+]
+},
+{
+"type": "paragraph",
+"lines": [
+9
+]
+},
+{
+"type": "paragraph",
+"breaks": true,
+"lines": [
+10,
+11,
+12
+]
+},
+{
+"type": "paragraph",
+"lines": [
+13
+]
+}
+]
+}
+},
+"expected": {
+"markdown": "# The Hidden Cost of \"Free\" Software\n\nEveryone loves free tools. But \"free\" rarely means zero cost — it usually means the cost moved somewhere else.\n\nKey things we look at before adopting a free tool:\n\n- Who maintains it, and how often it's updated\n- Whether we can export our data\n- What happens if the company behind it disappears\n\n## Support:\n\nFree tools often come with community support only. That's fine until something breaks at 2am.\n\nOur office address for questions:\n\nExample Co. Office\\\nBuilding 12, Way 3021\\\nMuscat, Oman\n\nBottom line: free is a price, not a guarantee. Choose tools where you understand the trade-off.\n",
+"removed": [],
+"body_text": "Everyone loves free tools. But \"free\" rarely means zero cost — it usually means the cost moved somewhere else. Key things we look at before adopting a free tool: Who maintains it, and how often it's updated Whether we can export our data What happens if the company behind it disappears Support: Free tools often come with community support only. That's fine until something breaks at 2am. Our office address for questions: Example Co. Office Building 12, Way 3021 Muscat, Oman Bottom line: free is a price, not a guarantee. Choose tools where you understand the trade-off.",
+"images": []
+}
+},
+{
+"job": {
+"op": "validate",
+"name": "04-cp1252-crlf",
+"base64": "V2luZG93cyBGaWxlIFRlc3QNCg0KQ2Fm6SBwcmljZXMgcm9zZSAxMCUgJiBtb3JlIDxmYXN0Pi4NCg==",
+"map": {
+"title": 1,
+"excluded": [],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+2
+]
+}
+]
+}
+},
+"expected": {
+"ok": true,
+"errors": [],
+"warnings": [],
+"map": {
+"title": 1,
+"excluded": [],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+2
+]
+}
+]
+}
+}
+},
+{
+"job": {
+"op": "toMarkdown",
+"name": "04-cp1252-crlf",
+"base64": "V2luZG93cyBGaWxlIFRlc3QNCg0KQ2Fm6SBwcmljZXMgcm9zZSAxMCUgJiBtb3JlIDxmYXN0Pi4NCg==",
+"map": {
+"title": 1,
+"excluded": [],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+2
+]
+}
+]
+}
+},
+"expected": {
+"markdown": "# Windows File Test\n\nCafé prices rose 10% & more \\<fast>.\n",
+"removed": [],
+"body_text": "Café prices rose 10% & more <fast>.",
+"images": []
+}
+},
+{
+"job": {
+"op": "validate",
+"name": "05-office-energy",
+"base64": "CgpIb3cgV2UgQ3V0IE91ciBPZmZpY2UgRWxlY3RyaWNpdHkgQmlsbCBieSAzMCUgVGhpcyBTdW1tZXIKV3JpdHRlbiBieSBBaG1lZCBBbC1CYWx1c2hpCkxhc3QgdXBkYXRlZDogMTQgU2VwdGVtYmVyIDIwMjYKCgoKRXZlcnkgSnVuZSBvdXIgZWxlY3RyaWNpdHkgYmlsbCBqdW1wcywgYW5kIGV2ZXJ5IEp1bmUgd2UgdGVsbCBvdXJzZWx2ZXMKd2UnbGwgImxvb2sgaW50byBpdC4iIFRoaXMgeWVhciB3ZSBhY3R1YWxseSBkaWQg4oCUIGFuZCB0aGUgcmVzdWx0cwpzdXJwcmlzZWQgdXMuICAgCkhlcmUncyB0aGUgc2hvcnQgdmVyc2lvbjoKQ29vbGluZyB3YXMgNzAlIG9mIHRoZSBiaWxsCk1vc3Qgb2YgaXQgcmFuIHdoZW4gbm9ib2R5IHdhcyBpbiB0aGUgb2ZmaWNlClRocmVlIGNoZWFwIGNoYW5nZXMgZml4ZWQgbW9zdCBvZiBpdAoKSXQgd29ya2VkLgoKV0hFUkUgVEhFIEVORVJHWSBXQVMgR09JTkcKV2UgYm9ycm93ZWQgYSBwbHVnLWluIGVuZXJneSBtZXRlciBhbmQgbG9nZ2VkIHVzYWdlIGZvciB0d28gd2Vla3MuIFRoZQpwYXR0ZXJuIHdhcyBvYnZpb3VzIG9uY2Ugd2Ugc2F3IGl0OiB0aGUgQUMgdW5pdHMgcmFuIGF0IGZ1bGwgcG93ZXIKZnJvbSA2YW0gdG8gMTFwbSwgZXZlbiB0aG91Z2ggdGhlIG9mZmljZSBpcyBlbXB0eSBhZnRlciA2cG0uCk90aGVyIGN1bHByaXRzIHdlIGZvdW5kOgrigKIgVHdvIG9sZCBmcmlkZ2VzIGluIHRoZSBwYW50cnkgKG9uZSB3YXMgY29tcGxldGVseSBlbXB0eSkK4oCiIE1vbml0b3JzIGxlZnQgb24gc3RhbmRieSBvdmVyIHRoZSB3ZWVrZW5kCiogVGhlIHNlcnZlci1yb29tIEFDLCBzZXQgdG8gMTjCsEMgImp1c3QgdG8gYmUgc2FmZSIKLSBQcmludGVycyB0aGF0IG5ldmVyIGdvIHRvIHNsZWVwCgpXaGF0IHdlIGNoYW5nZWQ6CjEpIFB1dCBldmVyeSBBQyB1bml0IG9uIGEgdGltZXI6IG9uIGF0IDc6MzBhbSwgb2ZmIGF0IDZwbSwgYW5kCm9mZiBlbnRpcmVseSBvbiBGcmlkYXlzIGFuZCBTYXR1cmRheXMuCjIpIFJhaXNlZCB0aGUgdGhlcm1vc3RhdCBmcm9tIDIxwrBDIHRvIDI0wrBDLiBBZnRlciB0aGUgZmlyc3Qgd2VlaywKbm9ib2R5IG5vdGljZWQuCjMpIFVucGx1Z2dlZCB0aGUgc3BhcmUgZnJpZGdlICYgcmVwbGFjZWQgdGhlIG90aGVyIHdpdGggYW4gZWZmaWNpZW50IG1vZGVsLgo0KSBTZXQgbW9uaXRvcnMgYW5kIHByaW50ZXJzIHRvIHNsZWVwIGFmdGVyIDE1IG1pbnV0ZXMuCgpOb3RlOiB3ZSBjaGVja2VkIHRoZSBzZXJ2ZXIgcm9vbSB3aXRoIG91ciBJVCBwcm92aWRlciBiZWZvcmUgdG91Y2hpbmcgaXQuIERvbid0IHNraXAgdGhhdCBzdGVwIOKAlCBzb21lIGVxdWlwbWVudCByZWFsbHkgZG9lcyBuZWVkIGNvb2xlciBhaXIuCgoKVGhlIFJlc3VsdHMKSnVseSdzIGJpbGwgd2FzIDMxJSBsb3dlciB0aGFuIGxhc3QgSnVseSdzLCBldmVuIHRob3VnaCBpdCB3YXMgYSBob3R0ZXIgbW9udGguIFRoZSB0aW1lcnMgY29zdCBsZXNzIHRoYW4gNjAgcmlhbHMgaW4gdG90YWwgYW5kIHBhaWQgZm9yIHRoZW1zZWx2ZXMgaW4gdW5kZXIgdGhyZWUgd2Vla3MuCgpXYW50IHRvIHRyeSB0aGlzIHlvdXJzZWxmPyAgVGhlIG1ldGVyIHdlIHVzZWQgaXMgbGlzdGVkIGF0IGh0dHBzOi8vd3d3LmV4YW1wbGUuY29tL2VuZXJneS1tZXRlciwgYW5kIHRoZSBnb3Zlcm5tZW50J3MgZWZmaWNpZW5jeSBndWlkZSBpcyBhdCB3d3cuZXhhbXBsZS5vcmcvc2F2ZS1lbmVyZ3kuCklmIHlvdSBoYXZlIHF1ZXN0aW9ucywgdmlzaXQgdXMgb3Igd3JpdGUgdG8gdXM6Ck9mZmljZSAyMDQsIEFsIEtodXdhaXIgQnVzaW5lc3MgVG93ZXIKV2F5IDMzMTEsIEFsIEtodXdhaXIKTXVzY2F0LCBTdWx0YW5hdGUgb2YgT21hbgoKVGhhbmtzIGZvciByZWFkaW5nIQrigJQgVGhlIE9wZXJhdGlvbnMgVGVhbQo=",
+"map": {
+"title": 1,
+"excluded": [
+{
+"line": 2,
+"kind": "byline"
+},
+{
+"line": 3,
+"kind": "date"
+}
+],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+4,
+5,
+6
+]
+},
+{
+"type": "paragraph",
+"lines": [
+7
+]
+},
+{
+"type": "list",
+"ordered": false,
+"list_items": [
+[
+8
+],
+[
+9
+],
+[
+10
+]
+]
+},
+{
+"type": "paragraph",
+"lines": [
+11
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+12
+]
+},
+{
+"type": "paragraph",
+"lines": [
+13,
+14,
+15
+]
+},
+{
+"type": "paragraph",
+"lines": [
+16
+]
+},
+{
+"type": "list",
+"ordered": false,
+"list_items": [
+[
+17
+],
+[
+18
+],
+[
+19
+],
+[
+20
+]
+]
+},
+{
+"type": "paragraph",
+"lines": [
+21
+]
+},
+{
+"type": "list",
+"ordered": true,
+"list_items": [
+[
+22,
+23
+],
+[
+24,
+25
+],
+[
+26
+],
+[
+27
+]
+]
+},
+{
+"type": "paragraph",
+"lines": [
+28
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+29
+]
+},
+{
+"type": "paragraph",
+"lines": [
+30
+]
+},
+{
+"type": "paragraph",
+"lines": [
+31
+]
+},
+{
+"type": "paragraph",
+"lines": [
+32
+]
+},
+{
+"type": "paragraph",
+"breaks": true,
+"lines": [
+33,
+34,
+35
+]
+},
+{
+"type": "paragraph",
+"lines": [
+36
+]
+},
+{
+"type": "paragraph",
+"lines": [
+37
+]
+}
+]
+}
+},
+"expected": {
+"ok": true,
+"errors": [],
+"warnings": [],
+"map": {
+"title": 1,
+"excluded": [
+{
+"line": 2,
+"kind": "byline"
+},
+{
+"line": 3,
+"kind": "date"
+}
+],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+4,
+5,
+6
+]
+},
+{
+"type": "paragraph",
+"lines": [
+7
+]
+},
+{
+"type": "list",
+"ordered": false,
+"items": [
+[
+8
+],
+[
+9
+],
+[
+10
+]
+]
+},
+{
+"type": "paragraph",
+"lines": [
+11
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+12
+]
+},
+{
+"type": "paragraph",
+"lines": [
+13,
+14,
+15
+]
+},
+{
+"type": "paragraph",
+"lines": [
+16
+]
+},
+{
+"type": "list",
+"ordered": false,
+"items": [
+[
+17
+],
+[
+18
+],
+[
+19
+],
+[
+20
+]
+]
+},
+{
+"type": "paragraph",
+"lines": [
+21
+]
+},
+{
+"type": "list",
+"ordered": true,
+"items": [
+[
+22,
+23
+],
+[
+24,
+25
+],
+[
+26
+],
+[
+27
+]
+]
+},
+{
+"type": "paragraph",
+"lines": [
+28
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+29
+]
+},
+{
+"type": "paragraph",
+"lines": [
+30
+]
+},
+{
+"type": "paragraph",
+"lines": [
+31
+]
+},
+{
+"type": "paragraph",
+"lines": [
+32
+]
+},
+{
+"type": "paragraph",
+"lines": [
+33,
+34,
+35
+],
+"breaks": true
+},
+{
+"type": "paragraph",
+"lines": [
+36
+]
+},
+{
+"type": "paragraph",
+"lines": [
+37
+]
+}
+]
+}
+}
+},
+{
+"job": {
+"op": "toMarkdown",
+"name": "05-office-energy",
+"base64": "CgpIb3cgV2UgQ3V0IE91ciBPZmZpY2UgRWxlY3RyaWNpdHkgQmlsbCBieSAzMCUgVGhpcyBTdW1tZXIKV3JpdHRlbiBieSBBaG1lZCBBbC1CYWx1c2hpCkxhc3QgdXBkYXRlZDogMTQgU2VwdGVtYmVyIDIwMjYKCgoKRXZlcnkgSnVuZSBvdXIgZWxlY3RyaWNpdHkgYmlsbCBqdW1wcywgYW5kIGV2ZXJ5IEp1bmUgd2UgdGVsbCBvdXJzZWx2ZXMKd2UnbGwgImxvb2sgaW50byBpdC4iIFRoaXMgeWVhciB3ZSBhY3R1YWxseSBkaWQg4oCUIGFuZCB0aGUgcmVzdWx0cwpzdXJwcmlzZWQgdXMuICAgCkhlcmUncyB0aGUgc2hvcnQgdmVyc2lvbjoKQ29vbGluZyB3YXMgNzAlIG9mIHRoZSBiaWxsCk1vc3Qgb2YgaXQgcmFuIHdoZW4gbm9ib2R5IHdhcyBpbiB0aGUgb2ZmaWNlClRocmVlIGNoZWFwIGNoYW5nZXMgZml4ZWQgbW9zdCBvZiBpdAoKSXQgd29ya2VkLgoKV0hFUkUgVEhFIEVORVJHWSBXQVMgR09JTkcKV2UgYm9ycm93ZWQgYSBwbHVnLWluIGVuZXJneSBtZXRlciBhbmQgbG9nZ2VkIHVzYWdlIGZvciB0d28gd2Vla3MuIFRoZQpwYXR0ZXJuIHdhcyBvYnZpb3VzIG9uY2Ugd2Ugc2F3IGl0OiB0aGUgQUMgdW5pdHMgcmFuIGF0IGZ1bGwgcG93ZXIKZnJvbSA2YW0gdG8gMTFwbSwgZXZlbiB0aG91Z2ggdGhlIG9mZmljZSBpcyBlbXB0eSBhZnRlciA2cG0uCk90aGVyIGN1bHByaXRzIHdlIGZvdW5kOgrigKIgVHdvIG9sZCBmcmlkZ2VzIGluIHRoZSBwYW50cnkgKG9uZSB3YXMgY29tcGxldGVseSBlbXB0eSkK4oCiIE1vbml0b3JzIGxlZnQgb24gc3RhbmRieSBvdmVyIHRoZSB3ZWVrZW5kCiogVGhlIHNlcnZlci1yb29tIEFDLCBzZXQgdG8gMTjCsEMgImp1c3QgdG8gYmUgc2FmZSIKLSBQcmludGVycyB0aGF0IG5ldmVyIGdvIHRvIHNsZWVwCgpXaGF0IHdlIGNoYW5nZWQ6CjEpIFB1dCBldmVyeSBBQyB1bml0IG9uIGEgdGltZXI6IG9uIGF0IDc6MzBhbSwgb2ZmIGF0IDZwbSwgYW5kCm9mZiBlbnRpcmVseSBvbiBGcmlkYXlzIGFuZCBTYXR1cmRheXMuCjIpIFJhaXNlZCB0aGUgdGhlcm1vc3RhdCBmcm9tIDIxwrBDIHRvIDI0wrBDLiBBZnRlciB0aGUgZmlyc3Qgd2VlaywKbm9ib2R5IG5vdGljZWQuCjMpIFVucGx1Z2dlZCB0aGUgc3BhcmUgZnJpZGdlICYgcmVwbGFjZWQgdGhlIG90aGVyIHdpdGggYW4gZWZmaWNpZW50IG1vZGVsLgo0KSBTZXQgbW9uaXRvcnMgYW5kIHByaW50ZXJzIHRvIHNsZWVwIGFmdGVyIDE1IG1pbnV0ZXMuCgpOb3RlOiB3ZSBjaGVja2VkIHRoZSBzZXJ2ZXIgcm9vbSB3aXRoIG91ciBJVCBwcm92aWRlciBiZWZvcmUgdG91Y2hpbmcgaXQuIERvbid0IHNraXAgdGhhdCBzdGVwIOKAlCBzb21lIGVxdWlwbWVudCByZWFsbHkgZG9lcyBuZWVkIGNvb2xlciBhaXIuCgoKVGhlIFJlc3VsdHMKSnVseSdzIGJpbGwgd2FzIDMxJSBsb3dlciB0aGFuIGxhc3QgSnVseSdzLCBldmVuIHRob3VnaCBpdCB3YXMgYSBob3R0ZXIgbW9udGguIFRoZSB0aW1lcnMgY29zdCBsZXNzIHRoYW4gNjAgcmlhbHMgaW4gdG90YWwgYW5kIHBhaWQgZm9yIHRoZW1zZWx2ZXMgaW4gdW5kZXIgdGhyZWUgd2Vla3MuCgpXYW50IHRvIHRyeSB0aGlzIHlvdXJzZWxmPyAgVGhlIG1ldGVyIHdlIHVzZWQgaXMgbGlzdGVkIGF0IGh0dHBzOi8vd3d3LmV4YW1wbGUuY29tL2VuZXJneS1tZXRlciwgYW5kIHRoZSBnb3Zlcm5tZW50J3MgZWZmaWNpZW5jeSBndWlkZSBpcyBhdCB3d3cuZXhhbXBsZS5vcmcvc2F2ZS1lbmVyZ3kuCklmIHlvdSBoYXZlIHF1ZXN0aW9ucywgdmlzaXQgdXMgb3Igd3JpdGUgdG8gdXM6Ck9mZmljZSAyMDQsIEFsIEtodXdhaXIgQnVzaW5lc3MgVG93ZXIKV2F5IDMzMTEsIEFsIEtodXdhaXIKTXVzY2F0LCBTdWx0YW5hdGUgb2YgT21hbgoKVGhhbmtzIGZvciByZWFkaW5nIQrigJQgVGhlIE9wZXJhdGlvbnMgVGVhbQo=",
+"map": {
+"title": 1,
+"excluded": [
+{
+"line": 2,
+"kind": "byline"
+},
+{
+"line": 3,
+"kind": "date"
+}
+],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+4,
+5,
+6
+]
+},
+{
+"type": "paragraph",
+"lines": [
+7
+]
+},
+{
+"type": "list",
+"ordered": false,
+"list_items": [
+[
+8
+],
+[
+9
+],
+[
+10
+]
+]
+},
+{
+"type": "paragraph",
+"lines": [
+11
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+12
+]
+},
+{
+"type": "paragraph",
+"lines": [
+13,
+14,
+15
+]
+},
+{
+"type": "paragraph",
+"lines": [
+16
+]
+},
+{
+"type": "list",
+"ordered": false,
+"list_items": [
+[
+17
+],
+[
+18
+],
+[
+19
+],
+[
+20
+]
+]
+},
+{
+"type": "paragraph",
+"lines": [
+21
+]
+},
+{
+"type": "list",
+"ordered": true,
+"list_items": [
+[
+22,
+23
+],
+[
+24,
+25
+],
+[
+26
+],
+[
+27
+]
+]
+},
+{
+"type": "paragraph",
+"lines": [
+28
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+29
+]
+},
+{
+"type": "paragraph",
+"lines": [
+30
+]
+},
+{
+"type": "paragraph",
+"lines": [
+31
+]
+},
+{
+"type": "paragraph",
+"lines": [
+32
+]
+},
+{
+"type": "paragraph",
+"breaks": true,
+"lines": [
+33,
+34,
+35
+]
+},
+{
+"type": "paragraph",
+"lines": [
+36
+]
+},
+{
+"type": "paragraph",
+"lines": [
+37
+]
+}
+]
+}
+},
+"expected": {
+"markdown": "# How We Cut Our Office Electricity Bill by 30% This Summer\n\nEvery June our electricity bill jumps, and every June we tell ourselves we'll \"look into it.\" This year we actually did — and the results surprised us.\n\nHere's the short version:\n\n- Cooling was 70% of the bill\n- Most of it ran when nobody was in the office\n- Three cheap changes fixed most of it\n\nIt worked.\n\n## WHERE THE ENERGY WAS GOING\n\nWe borrowed a plug-in energy meter and logged usage for two weeks. The pattern was obvious once we saw it: the AC units ran at full power from 6am to 11pm, even though the office is empty after 6pm.\n\nOther culprits we found:\n\n- Two old fridges in the pantry (one was completely empty)\n- Monitors left on standby over the weekend\n- The server-room AC, set to 18°C \"just to be safe\"\n- Printers that never go to sleep\n\nWhat we changed:\n\n1. Put every AC unit on a timer: on at 7:30am, off at 6pm, and off entirely on Fridays and Saturdays.\n2. Raised the thermostat from 21°C to 24°C. After the first week, nobody noticed.\n3. Unplugged the spare fridge & replaced the other with an efficient model.\n4. Set monitors and printers to sleep after 15 minutes.\n\nNote: we checked the server room with our IT provider before touching it. Don't skip that step — some equipment really does need cooler air.\n\n## The Results\n\nJuly's bill was 31% lower than last July's, even though it was a hotter month. The timers cost less than 60 rials in total and paid for themselves in under three weeks.\n\nWant to try this yourself?  The meter we used is listed at https://www.example.com/energy-meter, and the government's efficiency guide is at www.example.org/save-energy.\n\nIf you have questions, visit us or write to us:\n\nOffice 204, Al Khuwair Business Tower\\\nWay 3311, Al Khuwair\\\nMuscat, Sultanate of Oman\n\nThanks for reading!\n\n— The Operations Team\n",
+"removed": [
+{
+"line": 2,
+"kind": "byline",
+"text": "Written by Ahmed Al-Balushi"
+},
+{
+"line": 3,
+"kind": "date",
+"text": "Last updated: 14 September 2026"
+}
+],
+"body_text": "Every June our electricity bill jumps, and every June we tell ourselves we'll \"look into it.\" This year we actually did — and the results surprised us. Here's the short version: Cooling was 70% of the bill Most of it ran when nobody was in the office Three cheap changes fixed most of it It worked. WHERE THE ENERGY WAS GOING We borrowed a plug-in energy meter and logged usage for two weeks. The pattern was obvious once we saw it: the AC units ran at full power from 6am to 11pm, even though the office is empty after 6pm. Other culprits we found: Two old fridges in the pantry (one was completely empty) Monitors left on standby over the weekend The server-room AC, set to 18°C \"just to be safe\" Printers that never go to sleep What we changed: Put every AC unit on a timer: on at 7:30am, off at 6pm, and off entirely on Fridays and Saturdays. Raised the thermostat from 21°C to 24°C. After the first week, nobody noticed. Unplugged the spare fridge & replaced the other with an efficient model. Set monitors and printers to sleep after 15 minutes. Note: we checked the server room with our IT provider before touching it. Don't skip that step — some equipment really does need cooler air. The Results July's bill was 31% lower than last July's, even though it was a hotter month. The timers cost less than 60 rials in total and paid for themselves in under three weeks. Want to try this yourself?  The meter we used is listed at https://www.example.com/energy-meter, and the government's efficiency guide is at www.example.org/save-energy. If you have questions, visit us or write to us: Office 204, Al Khuwair Business Tower Way 3311, Al Khuwair Muscat, Sultanate of Oman Thanks for reading! — The Operations Team",
+"images": []
+}
+},
+{
+"job": {
+"op": "validate",
+"name": "06-coffee-grinder",
+"base64": "SG93IHRvIENob29zZSBhIEhvbWUgQ29mZmVlIEdyaW5kZXIgaW4gMjAyNgoKSWYgeW91J3ZlIGV2ZXIgd29uZGVyZWQgd2h5IHRoZSBjb2ZmZWUgYXQgeW91ciBmYXZvdXJpdGUgY2Fmw6kgdGFzdGVzIGJldHRlciB0aGFuIHdoYXQgeW91IG1ha2UgYXQgaG9tZSwgdGhlIGFuc3dlciBpcyB1c3VhbGx5IG5vdCB0aGUgYmVhbnMgb3IgdGhlIG1hY2hpbmUuIEl0J3MgdGhlIGdyaW5kZXIuIEEgY29uc2lzdGVudCBncmluZCBpcyB0aGUgc2luZ2xlIGJpZ2dlc3QgdXBncmFkZSBtb3N0IGhvbWUgYnJld2VycyBjYW4gbWFrZSwgYW5kIGl0IGRvZXNuJ3QgaGF2ZSB0byBjb3N0IGEgZm9ydHVuZS4KCkluIHRoaXMgZ3VpZGUgd2UnbGwgd2FsayB0aHJvdWdoIHRoZSB0d28gbWFpbiBncmluZGVyIHR5cGVzLCB3aGF0IGdyaW5kIHNpemUgeW91IG5lZWQgZm9yIGVhY2ggYnJld2luZyBtZXRob2QsIGFuZCBhIGZldyBtb2RlbHMgd29ydGggY29uc2lkZXJpbmcgYXQgZGlmZmVyZW50IGJ1ZGdldHMuCgpbSU1BR0U6IGdyaW5kZXItaGVyby5qcGddCkltYWdlIFVSTDogaHR0cHM6Ly9waWNzdW0ucGhvdG9zL3NlZWQvZ3JpbmRlci1oZXJvLzEyMDAvNzAwCkFsdCB0ZXh0OiBBIGJ1cnIgY29mZmVlIGdyaW5kZXIgb24gYSBraXRjaGVuIGNvdW50ZXIgbmV4dCB0byBhIGJhZyBvZiB3aG9sZSBiZWFucwpDYXB0aW9uOiBBIGdvb2QgYnVyciBncmluZGVyIGlzIHRoZSBmb3VuZGF0aW9uIG9mIGJldHRlciBjb2ZmZWUgYXQgaG9tZS4KCkJsYWRlIHZzIEJ1cnIgR3JpbmRlcnMKCkJsYWRlIGdyaW5kZXJzIHdvcmsgbGlrZSBhIHNtYWxsIGJsZW5kZXIuIEEgc3Bpbm5pbmcgYmxhZGUgY2hvcHMgdGhlIGJlYW5zIGludG8gcGllY2VzIG9mIHdpbGRseSBkaWZmZXJlbnQgc2l6ZXMsIHNvbWUgYWxtb3N0IHBvd2RlciBhbmQgc29tZSBzdGlsbCBjaHVua3kuIFRoYXQgbWl4IGV4dHJhY3RzIHVuZXZlbmx5LCB3aGljaCBpcyB3aHkgYmxhZGUtZ3JvdW5kIGNvZmZlZSBvZnRlbiB0YXN0ZXMgYml0dGVyIGFuZCBzb3VyIGF0IHRoZSBzYW1lIHRpbWUuCgpCdXJyIGdyaW5kZXJzIGNydXNoIGJlYW5zIGJldHdlZW4gdHdvIGFicmFzaXZlIHN1cmZhY2VzIHNldCBhIGZpeGVkIGRpc3RhbmNlIGFwYXJ0LiBFdmVyeSBwYXJ0aWNsZSBjb21lcyBvdXQgY2xvc2UgdG8gdGhlIHNhbWUgc2l6ZSwgc28gZXh0cmFjdGlvbiBpcyBldmVuIGFuZCB0aGUgZmxhdm91ciBpcyBjbGVhbmVyLiBUaGVyZSBhcmUgdHdvIGtpbmRzIG9mIGJ1cnJzOgoKLSBDb25pY2FsIGJ1cnJzOiBxdWlldGVyLCBzbG93ZXIsIHJldGFpbiBsZXNzIGhlYXQsIHVzdWFsbHkgY2hlYXBlcgotIEZsYXQgYnVycnM6IG1vcmUgdW5pZm9ybSBncmluZCwgZmF2b3VyZWQgZm9yIGVzcHJlc3NvLCB1c3VhbGx5IHByaWNpZXIgYW5kIGxvdWRlcgoKR3JpbmQgU2l6ZSBieSBCcmV3aW5nIE1ldGhvZAoKVGhlIHJpZ2h0IGdyaW5kIGRlcGVuZHMgZW50aXJlbHkgb24gaG93IHlvdSBicmV3LiBVc2UgdGhpcyB0YWJsZSBhcyBhIHN0YXJ0aW5nIHBvaW50IGFuZCBhZGp1c3QgYnkgdGFzdGUuCgp8IEJyZXdpbmcgTWV0aG9kIHwgR3JpbmQgU2l6ZSAgICAgfCBUZXh0dXJlIENvbXBhcmlzb24gICB8IEJyZXcgVGltZSAgICAgfAp8LS0tLS0tLS0tLS0tLS0tLXwtLS0tLS0tLS0tLS0tLS0tfC0tLS0tLS0tLS0tLS0tLS0tLS0tLS18LS0tLS0tLS0tLS0tLS0tfAp8IFR1cmtpc2ggICAgICAgIHwgRXh0cmEgZmluZSAgICAgfCBGbG91ciAgICAgICAgICAgICAgICB8IDMtNCBtaW4gICAgICAgfAp8IEVzcHJlc3NvICAgICAgIHwgRmluZSAgICAgICAgICAgfCBUYWJsZSBzYWx0ICAgICAgICAgICB8IDI1LTMwIHNlYyAgICAgfAp8IEFlcm9QcmVzcyAgICAgIHwgRmluZS1tZWRpdW0gICAgfCBGaW5lIHNhbmQgICAgICAgICAgICB8IDEtMiBtaW4gICAgICAgfAp8IFBvdXIgb3ZlciAoVjYwKXwgTWVkaXVtLWZpbmUgICAgfCBDb2Fyc2Ugc2FuZCAgICAgICAgICB8IDIuNS0zLjUgbWluICAgfAp8IERyaXAgbWFjaGluZSAgIHwgTWVkaXVtICAgICAgICAgfCBSZWd1bGFyIHNhbmQgICAgICAgICB8IDQtNiBtaW4gICAgICAgfAp8IEZyZW5jaCBwcmVzcyAgIHwgQ29hcnNlICAgICAgICAgfCBTZWEgc2FsdCAgICAgICAgICAgICB8IDQgbWluICAgICAgICAgfAp8IENvbGQgYnJldyAgICAgIHwgRXh0cmEgY29hcnNlICAgfCBQZXBwZXJjb3JucyAgICAgICAgICB8IDEyLTI0IGhvdXJzICAgfAoKW0lNQUdFOiBncmluZC1zaXplcy5qcGddCkltYWdlIFVSTDogaHR0cHM6Ly9waWNzdW0ucGhvdG9zL3NlZWQvZ3JpbmQtc2l6ZXMvMTAwMC82MDAKQWx0IHRleHQ6IEZpdmUgc21hbGwgcGlsZXMgb2YgZ3JvdW5kIGNvZmZlZSBhcnJhbmdlZCBmcm9tIGV4dHJhIGZpbmUgdG8gZXh0cmEgY29hcnNlCkNhcHRpb246IEZyb20gbGVmdCB0byByaWdodDogZXh0cmEgZmluZSwgZmluZSwgbWVkaXVtLCBjb2Fyc2UsIGV4dHJhIGNvYXJzZS4KCkdyaW5kZXJzIFdvcnRoIENvbnNpZGVyaW5nCgpCZWxvdyBhcmUgZm91ciBncmluZGVycyBhY3Jvc3MgZGlmZmVyZW50IHByaWNlIHBvaW50cy4gUHJpY2VzIGFyZSBhcHByb3hpbWF0ZSByZXRhaWwgaW4gT01SIGFuZCB3aWxsIHZhcnkgYnkgc3RvcmUuCgpNb2RlbAlUeXBlCUJ1cnIJUHJpY2UgKE9NUikJQmVzdCBGb3IKSGFyaW8gU2tlcnRvbiBQcm8JTWFudWFsCUNvbmljYWwgY2VyYW1pYwkyMglUcmF2ZWwgYW5kIEZyZW5jaCBwcmVzcwpCYXJhdHphIEVuY29yZSBFU1AJRWxlY3RyaWMJQ29uaWNhbCBzdGVlbAk3OAlQb3VyIG92ZXIgYW5kIGJlZ2lubmVyIGVzcHJlc3NvCkZlbGxvdyBPcHVzCUVsZWN0cmljCUNvbmljYWwgc3RlZWwJNzUJQWxsLXJvdW5kZXIsIGRyaXAgdG8gZXNwcmVzc28KTmljaGUgWmVybwlFbGVjdHJpYwlDb25pY2FsIHN0ZWVsCTI2MAlTZXJpb3VzIGVzcHJlc3NvIGF0IGhvbWUKCkhvdyB0byBHZXQgdGhlIE1vc3QgRnJvbSBZb3VyIEdyaW5kZXIKCjEuIEdyaW5kIHJpZ2h0IGJlZm9yZSBicmV3aW5nLiBHcm91bmQgY29mZmVlIGxvc2VzIGFyb21hIHdpdGhpbiBtaW51dGVzLgoyLiBTdGFydCBhdCB0aGUgbWFudWZhY3R1cmVyJ3MgcmVjb21tZW5kZWQgc2V0dGluZywgdGhlbiBhZGp1c3Qgb25lIHN0ZXAgYXQgYSB0aW1lLgozLiBDbGVhbiB0aGUgYnVycnMgZXZlcnkgZmV3IHdlZWtzIHdpdGggYSBicnVzaCBvciBncmluZGVyIGNsZWFuaW5nIHRhYmxldHMuCjQuIFdlaWdoIHlvdXIgYmVhbnMgaW5zdGVhZCBvZiB1c2luZyBzY29vcHMgZm9yIHJlcGVhdGFibGUgcmVzdWx0cy4KCltJTUFHRTogcG91ci1vdmVyLmpwZ10KSW1hZ2UgVVJMOiBodHRwczovL3BpY3N1bS5waG90b3Mvc2VlZC9wb3VyLW92ZXIvMTIwMC84MDAKQWx0IHRleHQ6IEhvdCB3YXRlciBiZWluZyBwb3VyZWQgb3ZlciBmcmVzaCBjb2ZmZWUgZ3JvdW5kcyBpbiBhIHBvdXItb3ZlciBkcmlwcGVyCkNhcHRpb246IEZyZXNobHkgZ3JvdW5kIGNvZmZlZSBibG9vbWluZyBpbiBhIHBvdXItb3ZlciBkcmlwcGVyLgoKRmluYWwgVGhvdWdodHMKCllvdSBkb24ndCBuZWVkIHRoZSBtb3N0IGV4cGVuc2l2ZSBncmluZGVyIHRvIHRhc3RlIGEgZGlmZmVyZW5jZS4gTW92aW5nIGZyb20gYSBibGFkZSBncmluZGVyIHRvIGV2ZW4gYW4gZW50cnktbGV2ZWwgYnVyciBncmluZGVyIHdpbGwgY2hhbmdlIHlvdXIgbW9ybmluZyBjdXAgbW9yZSB0aGFuIGFueSBuZXcgbWFjaGluZSBvciBmYW5jeSBiZWFuLiBQaWNrIG9uZSB0aGF0IG1hdGNoZXMgaG93IHlvdSBicmV3LCBrZWVwIGl0IGNsZWFuLCBhbmQgZ3JpbmQgZnJlc2ggZXZlcnkgdGltZS4KClRhZ3M6IGNvZmZlZSwgaG9tZSBicmV3aW5nLCBncmluZGVycywgYnV5aW5nIGd1aWRlCkNhdGVnb3J5OiBHdWlkZXMK",
+"map": {
+"title": 1,
+"excluded": [
+{
+"line": 46,
+"kind": "metadata"
+},
+{
+"line": 47,
+"kind": "metadata"
+}
+],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+2
+]
+},
+{
+"type": "paragraph",
+"lines": [
+3
+]
+},
+{
+"type": "image",
+"lines": [
+4,
+5,
+6,
+7
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+8
+]
+},
+{
+"type": "paragraph",
+"lines": [
+9
+]
+},
+{
+"type": "paragraph",
+"lines": [
+10
+]
+},
+{
+"type": "list",
+"ordered": false,
+"list_items": [
+[
+11
+],
+[
+12
+]
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+13
+]
+},
+{
+"type": "paragraph",
+"lines": [
+14
+]
+},
+{
+"type": "table",
+"header": true,
+"lines": [
+15,
+16,
+17,
+18,
+19,
+20,
+21,
+22,
+23
+]
+},
+{
+"type": "image",
+"lines": [
+24,
+25,
+26,
+27
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+28
+]
+},
+{
+"type": "paragraph",
+"lines": [
+29
+]
+},
+{
+"type": "table",
+"header": true,
+"lines": [
+30,
+31,
+32,
+33,
+34
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+35
+]
+},
+{
+"type": "list",
+"ordered": true,
+"list_items": [
+[
+36
+],
+[
+37
+],
+[
+38
+],
+[
+39
+]
+]
+},
+{
+"type": "image",
+"lines": [
+40,
+41,
+42,
+43
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+44
+]
+},
+{
+"type": "paragraph",
+"lines": [
+45
+]
+}
+]
+}
+},
+"expected": {
+"ok": true,
+"errors": [],
+"warnings": [],
+"map": {
+"title": 1,
+"excluded": [
+{
+"line": 46,
+"kind": "metadata"
+},
+{
+"line": 47,
+"kind": "metadata"
+}
+],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+2
+]
+},
+{
+"type": "paragraph",
+"lines": [
+3
+]
+},
+{
+"type": "image",
+"lines": [
+4,
+5,
+6,
+7
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+8
+]
+},
+{
+"type": "paragraph",
+"lines": [
+9
+]
+},
+{
+"type": "paragraph",
+"lines": [
+10
+]
+},
+{
+"type": "list",
+"ordered": false,
+"items": [
+[
+11
+],
+[
+12
+]
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+13
+]
+},
+{
+"type": "paragraph",
+"lines": [
+14
+]
+},
+{
+"type": "table",
+"lines": [
+15,
+16,
+17,
+18,
+19,
+20,
+21,
+22,
+23
+],
+"header": true
+},
+{
+"type": "image",
+"lines": [
+24,
+25,
+26,
+27
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+28
+]
+},
+{
+"type": "paragraph",
+"lines": [
+29
+]
+},
+{
+"type": "table",
+"lines": [
+30,
+31,
+32,
+33,
+34
+],
+"header": true
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+35
+]
+},
+{
+"type": "list",
+"ordered": true,
+"items": [
+[
+36
+],
+[
+37
+],
+[
+38
+],
+[
+39
+]
+]
+},
+{
+"type": "image",
+"lines": [
+40,
+41,
+42,
+43
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+44
+]
+},
+{
+"type": "paragraph",
+"lines": [
+45
+]
+}
+]
+}
+}
+},
+{
+"job": {
+"op": "toMarkdown",
+"name": "06-coffee-grinder",
+"base64": "SG93IHRvIENob29zZSBhIEhvbWUgQ29mZmVlIEdyaW5kZXIgaW4gMjAyNgoKSWYgeW91J3ZlIGV2ZXIgd29uZGVyZWQgd2h5IHRoZSBjb2ZmZWUgYXQgeW91ciBmYXZvdXJpdGUgY2Fmw6kgdGFzdGVzIGJldHRlciB0aGFuIHdoYXQgeW91IG1ha2UgYXQgaG9tZSwgdGhlIGFuc3dlciBpcyB1c3VhbGx5IG5vdCB0aGUgYmVhbnMgb3IgdGhlIG1hY2hpbmUuIEl0J3MgdGhlIGdyaW5kZXIuIEEgY29uc2lzdGVudCBncmluZCBpcyB0aGUgc2luZ2xlIGJpZ2dlc3QgdXBncmFkZSBtb3N0IGhvbWUgYnJld2VycyBjYW4gbWFrZSwgYW5kIGl0IGRvZXNuJ3QgaGF2ZSB0byBjb3N0IGEgZm9ydHVuZS4KCkluIHRoaXMgZ3VpZGUgd2UnbGwgd2FsayB0aHJvdWdoIHRoZSB0d28gbWFpbiBncmluZGVyIHR5cGVzLCB3aGF0IGdyaW5kIHNpemUgeW91IG5lZWQgZm9yIGVhY2ggYnJld2luZyBtZXRob2QsIGFuZCBhIGZldyBtb2RlbHMgd29ydGggY29uc2lkZXJpbmcgYXQgZGlmZmVyZW50IGJ1ZGdldHMuCgpbSU1BR0U6IGdyaW5kZXItaGVyby5qcGddCkltYWdlIFVSTDogaHR0cHM6Ly9waWNzdW0ucGhvdG9zL3NlZWQvZ3JpbmRlci1oZXJvLzEyMDAvNzAwCkFsdCB0ZXh0OiBBIGJ1cnIgY29mZmVlIGdyaW5kZXIgb24gYSBraXRjaGVuIGNvdW50ZXIgbmV4dCB0byBhIGJhZyBvZiB3aG9sZSBiZWFucwpDYXB0aW9uOiBBIGdvb2QgYnVyciBncmluZGVyIGlzIHRoZSBmb3VuZGF0aW9uIG9mIGJldHRlciBjb2ZmZWUgYXQgaG9tZS4KCkJsYWRlIHZzIEJ1cnIgR3JpbmRlcnMKCkJsYWRlIGdyaW5kZXJzIHdvcmsgbGlrZSBhIHNtYWxsIGJsZW5kZXIuIEEgc3Bpbm5pbmcgYmxhZGUgY2hvcHMgdGhlIGJlYW5zIGludG8gcGllY2VzIG9mIHdpbGRseSBkaWZmZXJlbnQgc2l6ZXMsIHNvbWUgYWxtb3N0IHBvd2RlciBhbmQgc29tZSBzdGlsbCBjaHVua3kuIFRoYXQgbWl4IGV4dHJhY3RzIHVuZXZlbmx5LCB3aGljaCBpcyB3aHkgYmxhZGUtZ3JvdW5kIGNvZmZlZSBvZnRlbiB0YXN0ZXMgYml0dGVyIGFuZCBzb3VyIGF0IHRoZSBzYW1lIHRpbWUuCgpCdXJyIGdyaW5kZXJzIGNydXNoIGJlYW5zIGJldHdlZW4gdHdvIGFicmFzaXZlIHN1cmZhY2VzIHNldCBhIGZpeGVkIGRpc3RhbmNlIGFwYXJ0LiBFdmVyeSBwYXJ0aWNsZSBjb21lcyBvdXQgY2xvc2UgdG8gdGhlIHNhbWUgc2l6ZSwgc28gZXh0cmFjdGlvbiBpcyBldmVuIGFuZCB0aGUgZmxhdm91ciBpcyBjbGVhbmVyLiBUaGVyZSBhcmUgdHdvIGtpbmRzIG9mIGJ1cnJzOgoKLSBDb25pY2FsIGJ1cnJzOiBxdWlldGVyLCBzbG93ZXIsIHJldGFpbiBsZXNzIGhlYXQsIHVzdWFsbHkgY2hlYXBlcgotIEZsYXQgYnVycnM6IG1vcmUgdW5pZm9ybSBncmluZCwgZmF2b3VyZWQgZm9yIGVzcHJlc3NvLCB1c3VhbGx5IHByaWNpZXIgYW5kIGxvdWRlcgoKR3JpbmQgU2l6ZSBieSBCcmV3aW5nIE1ldGhvZAoKVGhlIHJpZ2h0IGdyaW5kIGRlcGVuZHMgZW50aXJlbHkgb24gaG93IHlvdSBicmV3LiBVc2UgdGhpcyB0YWJsZSBhcyBhIHN0YXJ0aW5nIHBvaW50IGFuZCBhZGp1c3QgYnkgdGFzdGUuCgp8IEJyZXdpbmcgTWV0aG9kIHwgR3JpbmQgU2l6ZSAgICAgfCBUZXh0dXJlIENvbXBhcmlzb24gICB8IEJyZXcgVGltZSAgICAgfAp8LS0tLS0tLS0tLS0tLS0tLXwtLS0tLS0tLS0tLS0tLS0tfC0tLS0tLS0tLS0tLS0tLS0tLS0tLS18LS0tLS0tLS0tLS0tLS0tfAp8IFR1cmtpc2ggICAgICAgIHwgRXh0cmEgZmluZSAgICAgfCBGbG91ciAgICAgICAgICAgICAgICB8IDMtNCBtaW4gICAgICAgfAp8IEVzcHJlc3NvICAgICAgIHwgRmluZSAgICAgICAgICAgfCBUYWJsZSBzYWx0ICAgICAgICAgICB8IDI1LTMwIHNlYyAgICAgfAp8IEFlcm9QcmVzcyAgICAgIHwgRmluZS1tZWRpdW0gICAgfCBGaW5lIHNhbmQgICAgICAgICAgICB8IDEtMiBtaW4gICAgICAgfAp8IFBvdXIgb3ZlciAoVjYwKXwgTWVkaXVtLWZpbmUgICAgfCBDb2Fyc2Ugc2FuZCAgICAgICAgICB8IDIuNS0zLjUgbWluICAgfAp8IERyaXAgbWFjaGluZSAgIHwgTWVkaXVtICAgICAgICAgfCBSZWd1bGFyIHNhbmQgICAgICAgICB8IDQtNiBtaW4gICAgICAgfAp8IEZyZW5jaCBwcmVzcyAgIHwgQ29hcnNlICAgICAgICAgfCBTZWEgc2FsdCAgICAgICAgICAgICB8IDQgbWluICAgICAgICAgfAp8IENvbGQgYnJldyAgICAgIHwgRXh0cmEgY29hcnNlICAgfCBQZXBwZXJjb3JucyAgICAgICAgICB8IDEyLTI0IGhvdXJzICAgfAoKW0lNQUdFOiBncmluZC1zaXplcy5qcGddCkltYWdlIFVSTDogaHR0cHM6Ly9waWNzdW0ucGhvdG9zL3NlZWQvZ3JpbmQtc2l6ZXMvMTAwMC82MDAKQWx0IHRleHQ6IEZpdmUgc21hbGwgcGlsZXMgb2YgZ3JvdW5kIGNvZmZlZSBhcnJhbmdlZCBmcm9tIGV4dHJhIGZpbmUgdG8gZXh0cmEgY29hcnNlCkNhcHRpb246IEZyb20gbGVmdCB0byByaWdodDogZXh0cmEgZmluZSwgZmluZSwgbWVkaXVtLCBjb2Fyc2UsIGV4dHJhIGNvYXJzZS4KCkdyaW5kZXJzIFdvcnRoIENvbnNpZGVyaW5nCgpCZWxvdyBhcmUgZm91ciBncmluZGVycyBhY3Jvc3MgZGlmZmVyZW50IHByaWNlIHBvaW50cy4gUHJpY2VzIGFyZSBhcHByb3hpbWF0ZSByZXRhaWwgaW4gT01SIGFuZCB3aWxsIHZhcnkgYnkgc3RvcmUuCgpNb2RlbAlUeXBlCUJ1cnIJUHJpY2UgKE9NUikJQmVzdCBGb3IKSGFyaW8gU2tlcnRvbiBQcm8JTWFudWFsCUNvbmljYWwgY2VyYW1pYwkyMglUcmF2ZWwgYW5kIEZyZW5jaCBwcmVzcwpCYXJhdHphIEVuY29yZSBFU1AJRWxlY3RyaWMJQ29uaWNhbCBzdGVlbAk3OAlQb3VyIG92ZXIgYW5kIGJlZ2lubmVyIGVzcHJlc3NvCkZlbGxvdyBPcHVzCUVsZWN0cmljCUNvbmljYWwgc3RlZWwJNzUJQWxsLXJvdW5kZXIsIGRyaXAgdG8gZXNwcmVzc28KTmljaGUgWmVybwlFbGVjdHJpYwlDb25pY2FsIHN0ZWVsCTI2MAlTZXJpb3VzIGVzcHJlc3NvIGF0IGhvbWUKCkhvdyB0byBHZXQgdGhlIE1vc3QgRnJvbSBZb3VyIEdyaW5kZXIKCjEuIEdyaW5kIHJpZ2h0IGJlZm9yZSBicmV3aW5nLiBHcm91bmQgY29mZmVlIGxvc2VzIGFyb21hIHdpdGhpbiBtaW51dGVzLgoyLiBTdGFydCBhdCB0aGUgbWFudWZhY3R1cmVyJ3MgcmVjb21tZW5kZWQgc2V0dGluZywgdGhlbiBhZGp1c3Qgb25lIHN0ZXAgYXQgYSB0aW1lLgozLiBDbGVhbiB0aGUgYnVycnMgZXZlcnkgZmV3IHdlZWtzIHdpdGggYSBicnVzaCBvciBncmluZGVyIGNsZWFuaW5nIHRhYmxldHMuCjQuIFdlaWdoIHlvdXIgYmVhbnMgaW5zdGVhZCBvZiB1c2luZyBzY29vcHMgZm9yIHJlcGVhdGFibGUgcmVzdWx0cy4KCltJTUFHRTogcG91ci1vdmVyLmpwZ10KSW1hZ2UgVVJMOiBodHRwczovL3BpY3N1bS5waG90b3Mvc2VlZC9wb3VyLW92ZXIvMTIwMC84MDAKQWx0IHRleHQ6IEhvdCB3YXRlciBiZWluZyBwb3VyZWQgb3ZlciBmcmVzaCBjb2ZmZWUgZ3JvdW5kcyBpbiBhIHBvdXItb3ZlciBkcmlwcGVyCkNhcHRpb246IEZyZXNobHkgZ3JvdW5kIGNvZmZlZSBibG9vbWluZyBpbiBhIHBvdXItb3ZlciBkcmlwcGVyLgoKRmluYWwgVGhvdWdodHMKCllvdSBkb24ndCBuZWVkIHRoZSBtb3N0IGV4cGVuc2l2ZSBncmluZGVyIHRvIHRhc3RlIGEgZGlmZmVyZW5jZS4gTW92aW5nIGZyb20gYSBibGFkZSBncmluZGVyIHRvIGV2ZW4gYW4gZW50cnktbGV2ZWwgYnVyciBncmluZGVyIHdpbGwgY2hhbmdlIHlvdXIgbW9ybmluZyBjdXAgbW9yZSB0aGFuIGFueSBuZXcgbWFjaGluZSBvciBmYW5jeSBiZWFuLiBQaWNrIG9uZSB0aGF0IG1hdGNoZXMgaG93IHlvdSBicmV3LCBrZWVwIGl0IGNsZWFuLCBhbmQgZ3JpbmQgZnJlc2ggZXZlcnkgdGltZS4KClRhZ3M6IGNvZmZlZSwgaG9tZSBicmV3aW5nLCBncmluZGVycywgYnV5aW5nIGd1aWRlCkNhdGVnb3J5OiBHdWlkZXMK",
+"map": {
+"title": 1,
+"excluded": [
+{
+"line": 46,
+"kind": "metadata"
+},
+{
+"line": 47,
+"kind": "metadata"
+}
+],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+2
+]
+},
+{
+"type": "paragraph",
+"lines": [
+3
+]
+},
+{
+"type": "image",
+"lines": [
+4,
+5,
+6,
+7
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+8
+]
+},
+{
+"type": "paragraph",
+"lines": [
+9
+]
+},
+{
+"type": "paragraph",
+"lines": [
+10
+]
+},
+{
+"type": "list",
+"ordered": false,
+"list_items": [
+[
+11
+],
+[
+12
+]
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+13
+]
+},
+{
+"type": "paragraph",
+"lines": [
+14
+]
+},
+{
+"type": "table",
+"header": true,
+"lines": [
+15,
+16,
+17,
+18,
+19,
+20,
+21,
+22,
+23
+]
+},
+{
+"type": "image",
+"lines": [
+24,
+25,
+26,
+27
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+28
+]
+},
+{
+"type": "paragraph",
+"lines": [
+29
+]
+},
+{
+"type": "table",
+"header": true,
+"lines": [
+30,
+31,
+32,
+33,
+34
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+35
+]
+},
+{
+"type": "list",
+"ordered": true,
+"list_items": [
+[
+36
+],
+[
+37
+],
+[
+38
+],
+[
+39
+]
+]
+},
+{
+"type": "image",
+"lines": [
+40,
+41,
+42,
+43
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+44
+]
+},
+{
+"type": "paragraph",
+"lines": [
+45
+]
+}
+]
+}
+},
+"expected": {
+"markdown": "# How to Choose a Home Coffee Grinder in 2026\n\nIf you've ever wondered why the coffee at your favourite café tastes better than what you make at home, the answer is usually not the beans or the machine. It's the grinder. A consistent grind is the single biggest upgrade most home brewers can make, and it doesn't have to cost a fortune.\n\nIn this guide we'll walk through the two main grinder types, what grind size you need for each brewing method, and a few models worth considering at different budgets.\n\n![A burr coffee grinder on a kitchen counter next to a bag of whole beans](https://picsum.photos/seed/grinder-hero/1200/700 \"A good burr grinder is the foundation of better coffee at home.\")\n\n## Blade vs Burr Grinders\n\nBlade grinders work like a small blender. A spinning blade chops the beans into pieces of wildly different sizes, some almost powder and some still chunky. That mix extracts unevenly, which is why blade-ground coffee often tastes bitter and sour at the same time.\n\nBurr grinders crush beans between two abrasive surfaces set a fixed distance apart. Every particle comes out close to the same size, so extraction is even and the flavour is cleaner. There are two kinds of burrs:\n\n- Conical burrs: quieter, slower, retain less heat, usually cheaper\n- Flat burrs: more uniform grind, favoured for espresso, usually pricier and louder\n\n## Grind Size by Brewing Method\n\nThe right grind depends entirely on how you brew. Use this table as a starting point and adjust by taste.\n\n| Brewing Method | Grind Size | Texture Comparison | Brew Time |\n| --- | --- | --- | --- |\n| Turkish | Extra fine | Flour | 3-4 min |\n| Espresso | Fine | Table salt | 25-30 sec |\n| AeroPress | Fine-medium | Fine sand | 1-2 min |\n| Pour over (V60) | Medium-fine | Coarse sand | 2.5-3.5 min |\n| Drip machine | Medium | Regular sand | 4-6 min |\n| French press | Coarse | Sea salt | 4 min |\n| Cold brew | Extra coarse | Peppercorns | 12-24 hours |\n\n![Five small piles of ground coffee arranged from extra fine to extra coarse](https://picsum.photos/seed/grind-sizes/1000/600 \"From left to right: extra fine, fine, medium, coarse, extra coarse.\")\n\n## Grinders Worth Considering\n\nBelow are four grinders across different price points. Prices are approximate retail in OMR and will vary by store.\n\n| Model | Type | Burr | Price (OMR) | Best For |\n| --- | --- | --- | --- | --- |\n| Hario Skerton Pro | Manual | Conical ceramic | 22 | Travel and French press |\n| Baratza Encore ESP | Electric | Conical steel | 78 | Pour over and beginner espresso |\n| Fellow Opus | Electric | Conical steel | 75 | All-rounder, drip to espresso |\n| Niche Zero | Electric | Conical steel | 260 | Serious espresso at home |\n\n## How to Get the Most From Your Grinder\n\n1. Grind right before brewing. Ground coffee loses aroma within minutes.\n2. Start at the manufacturer's recommended setting, then adjust one step at a time.\n3. Clean the burrs every few weeks with a brush or grinder cleaning tablets.\n4. Weigh your beans instead of using scoops for repeatable results.\n\n![Hot water being poured over fresh coffee grounds in a pour-over dripper](https://picsum.photos/seed/pour-over/1200/800 \"Freshly ground coffee blooming in a pour-over dripper.\")\n\n## Final Thoughts\n\nYou don't need the most expensive grinder to taste a difference. Moving from a blade grinder to even an entry-level burr grinder will change your morning cup more than any new machine or fancy bean. Pick one that matches how you brew, keep it clean, and grind fresh every time.\n",
+"removed": [
+{
+"line": 46,
+"kind": "metadata",
+"text": "Tags: coffee, home brewing, grinders, buying guide"
+},
+{
+"line": 47,
+"kind": "metadata",
+"text": "Category: Guides"
+}
+],
+"body_text": "If you've ever wondered why the coffee at your favourite café tastes better than what you make at home, the answer is usually not the beans or the machine. It's the grinder. A consistent grind is the single biggest upgrade most home brewers can make, and it doesn't have to cost a fortune. In this guide we'll walk through the two main grinder types, what grind size you need for each brewing method, and a few models worth considering at different budgets. https://picsum.photos/seed/grinder-hero/1200/700 A burr coffee grinder on a kitchen counter next to a bag of whole beans A good burr grinder is the foundation of better coffee at home. Blade vs Burr Grinders Blade grinders work like a small blender. A spinning blade chops the beans into pieces of wildly different sizes, some almost powder and some still chunky. That mix extracts unevenly, which is why blade-ground coffee often tastes bitter and sour at the same time. Burr grinders crush beans between two abrasive surfaces set a fixed distance apart. Every particle comes out close to the same size, so extraction is even and the flavour is cleaner. There are two kinds of burrs: Conical burrs: quieter, slower, retain less heat, usually cheaper Flat burrs: more uniform grind, favoured for espresso, usually pricier and louder Grind Size by Brewing Method The right grind depends entirely on how you brew. Use this table as a starting point and adjust by taste. Brewing Method Grind Size Texture Comparison Brew Time Turkish Extra fine Flour 3-4 min Espresso Fine Table salt 25-30 sec AeroPress Fine-medium Fine sand 1-2 min Pour over (V60) Medium-fine Coarse sand 2.5-3.5 min Drip machine Medium Regular sand 4-6 min French press Coarse Sea salt 4 min Cold brew Extra coarse Peppercorns 12-24 hours https://picsum.photos/seed/grind-sizes/1000/600 Five small piles of ground coffee arranged from extra fine to extra coarse From left to right: extra fine, fine, medium, coarse, extra coarse. Grinders Worth Considering Below are four grinders across different price points. Prices are approximate retail in OMR and will vary by store. Model Type Burr Price (OMR) Best For Hario Skerton Pro Manual Conical ceramic 22 Travel and French press Baratza Encore ESP Electric Conical steel 78 Pour over and beginner espresso Fellow Opus Electric Conical steel 75 All-rounder, drip to espresso Niche Zero Electric Conical steel 260 Serious espresso at home How to Get the Most From Your Grinder Grind right before brewing. Ground coffee loses aroma within minutes. Start at the manufacturer's recommended setting, then adjust one step at a time. Clean the burrs every few weeks with a brush or grinder cleaning tablets. Weigh your beans instead of using scoops for repeatable results. https://picsum.photos/seed/pour-over/1200/800 Hot water being poured over fresh coffee grounds in a pour-over dripper Freshly ground coffee blooming in a pour-over dripper. Final Thoughts You don't need the most expensive grinder to taste a difference. Moving from a blade grinder to even an entry-level burr grinder will change your morning cup more than any new machine or fancy bean. Pick one that matches how you brew, keep it clean, and grind fresh every time.",
+"images": [
+{
+"src": "https://picsum.photos/seed/grinder-hero/1200/700",
+"filename": "grinder-hero.jpg"
+},
+{
+"src": "https://picsum.photos/seed/grind-sizes/1000/600",
+"filename": "grind-sizes.jpg"
+},
+{
+"src": "https://picsum.photos/seed/pour-over/1200/800",
+"filename": "pour-over.jpg"
+}
+]
+}
+},
+{
+"job": {
+"op": "validate",
+"name": "07-why-ai-is-good",
+"base64": "V2h5IEFJIElzIEdvb2QgZm9yIFVzOiBUaGUgQ2FzZSBmb3IgQXJ0aWZpY2lhbCBJbnRlbGxpZ2VuY2UKCkFydGlmaWNpYWwgaW50ZWxsaWdlbmNlIGdldHMgYSBsb3Qgb2YgaGVhZGxpbmVzLCBhbmQgbm90IGFsbCBvZiB0aGVtIGFyZSBraW5kLiBCdXQgYmVoaW5kIHRoZSBub2lzZSwgQUkgaXMgcXVpZXRseSBkb2luZyB1c2VmdWwgd29yayBpbiBob3NwaXRhbHMsIGxhYm9yYXRvcmllcywgY2xhc3Nyb29tcyBhbmQgb2ZmaWNlcy4gSXQgc3BlZWRzIHVwIHRhc2tzIHRoYXQgdXNlZCB0byB0YWtlIGRheXMsIGNhdGNoZXMgdGhpbmdzIHBlb3BsZSBtaXNzLCBhbmQgb3BlbnMgdXAgdG9vbHMgdGhhdCB3ZXJlIG9uY2Ugb25seSBhdmFpbGFibGUgdG8gbGFyZ2Ugb3JnYW5pc2F0aW9ucy4KClRoaXMgcG9zdCBsb29rcyBhdCB3aGF0IEFJIGFjdHVhbGx5IGlzLCB3aGVyZSBpdCBpcyBhbHJlYWR5IGhlbHBpbmcsIGFuZCB3aHksIHVzZWQgd2VsbCwgaXQgaXMgYSBuZXQgcG9zaXRpdmUuCgpbSU1BR0VdCkltYWdlIFVSTDogaHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy90aHVtYi80LzQ2L0NvbG9yZWRfbmV1cmFsX25ldHdvcmsuc3ZnLzEyODBweC1Db2xvcmVkX25ldXJhbF9uZXR3b3JrLnN2Zy5wbmcKQWx0IHRleHQ6IERpYWdyYW0gb2YgYW4gYXJ0aWZpY2lhbCBuZXVyYWwgbmV0d29yayB3aXRoIGFuIGlucHV0IGxheWVyLCBhIGhpZGRlbiBsYXllciBhbmQgYW4gb3V0cHV0IGxheWVyLCBjb25uZWN0ZWQgYnkgYXJyb3dzCkNhcHRpb246IE1vc3QgbW9kZXJuIEFJIGlzIGJ1aWx0IG9uIG5ldXJhbCBuZXR3b3JrczogbGF5ZXJzIG9mIHNpbXBsZSB1bml0cyB0aGF0IGxlYXJuIHBhdHRlcm5zIGZyb20gZXhhbXBsZXMuCkNyZWRpdDogV2lraW1lZGlhIENvbW1vbnMsIENDIEJZLVNBIDMuMAoKV2hhdCBXZSBNZWFuIGJ5IEFJCgpBdCBpdHMgY29yZSwgbW9kZXJuIEFJIGlzIHNvZnR3YXJlIHRoYXQgbGVhcm5zIGZyb20gZXhhbXBsZXMgaW5zdGVhZCBvZiBmb2xsb3dpbmcgaGFuZC13cml0dGVuIHJ1bGVzLiBTaG93IGEgc3lzdGVtIGVub3VnaCBsYWJlbGxlZCBYLXJheXMsIHNlbnRlbmNlcyBvciBwaG90b3MsIGFuZCBpdCBsZWFybnMgdG8gcmVjb2duaXNlIHRoZSBwYXR0ZXJucyBpbiB0aGVtLiBUaGF0IG9uZSBpZGVhIHBvd2VycyBldmVyeXRoaW5nIGZyb20gc3BhbSBmaWx0ZXJzIHRvIHRyYW5zbGF0aW9uIGFwcHMgdG8gdG9vbHMgdGhhdCBoZWxwIHNjaWVudGlzdHMgZGVzaWduIG5ldyBtZWRpY2luZXMuCgpBSSBIYXMgSW1wcm92ZWQgUmVtYXJrYWJseSBGYXN0CgpBIGdvb2QgaWxsdXN0cmF0aW9uIGlzIHRoZSBJbWFnZU5ldCBjaGFsbGVuZ2UsIGEgeWVhcmx5IGNvbXBldGl0aW9uIHdoZXJlIHN5c3RlbXMgaGFkIHRvIGlkZW50aWZ5IG9iamVjdHMgaW4gb3ZlciBhIG1pbGxpb24gcGhvdG9zLiBJbiAyMDEwIHRoZSBiZXN0IHN5c3RlbSBnb3QgdGhlIGFuc3dlciB3cm9uZyBtb3JlIHRoYW4gYSBxdWFydGVyIG9mIHRoZSB0aW1lLiBCeSAyMDE1IHRoZSB3aW5uaW5nIHN5c3RlbSB3YXMgbWFraW5nIGZld2VyIG1pc3Rha2VzIHRoYW4gdGhlIGNvbW1vbmx5IGNpdGVkIGh1bWFuIGVzdGltYXRlIG9uIHRoZSBzYW1lIHRlc3QuCgpUaGUgc2FtZSBwYXR0ZXJuIG9mIHJhcGlkIGltcHJvdmVtZW50IGhhcyBzaW5jZSByZXBlYXRlZCBpbiBzcGVlY2ggcmVjb2duaXRpb24sIHRyYW5zbGF0aW9uLCB3cml0aW5nIGFuZCBzY2llbnRpZmljIG1vZGVsbGluZy4KCldoZXJlIEFJIElzIEFscmVhZHkgSGVscGluZwoKQUkgaXMgbW9zdCB2YWx1YWJsZSB3aGVuIGl0IHRha2VzIG9uIHdvcmsgdGhhdCBpcyByZXBldGl0aXZlLCBzbG93IG9yIHRvbyBsYXJnZSBmb3IgcGVvcGxlIHRvIGRvIGJ5IGhhbmQsIGFuZCBmcmVlcyBwZW9wbGUgdXAgZm9yIHRoZSBwYXJ0cyB0aGF0IG5lZWQganVkZ2VtZW50LgoKfCBGaWVsZCAgICAgICAgIHwgV2hhdCBBSSBEb2VzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8IFdoeSBJdCBNYXR0ZXJzICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKfC0tLS0tLS0tLS0tLS0tLXwtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS18LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLXwKfCBIZWFsdGhjYXJlICAgIHwgRmxhZ3MgcG9zc2libGUgcHJvYmxlbXMgaW4gc2NhbnMgYW5kIFgtcmF5cyAgICAgICB8IEhlbHBzIGRvY3RvcnMgcHJpb3JpdGlzZSB1cmdlbnQgY2FzZXMgICAgIHwKfCBTY2llbmNlICAgICAgIHwgUHJlZGljdHMgdGhlIDNEIHNoYXBlIG9mIHByb3RlaW5zICAgICAgICAgICAgICAgICB8IFNwZWVkcyB1cCBkcnVnIGFuZCBkaXNlYXNlIHJlc2VhcmNoICAgICAgIHwKfCBBY2Nlc3NpYmlsaXR5IHwgTGl2ZSBjYXB0aW9ucywgaW1hZ2UgZGVzY3JpcHRpb25zLCB0ZXh0LXRvLXNwZWVjaCB8IE9wZW5zIGNvbnRlbnQgdG8gcGVvcGxlIHdpdGggZGlzYWJpbGl0aWVzIHwKfCBFZHVjYXRpb24gICAgIHwgRXhwbGFpbnMgdG9waWNzIGF0IGVhY2ggc3R1ZGVudCdzIG93biBwYWNlICAgICAgICB8IFBlcnNvbmFsIHR1dG9yaW5nIGZvciBtb3JlIGxlYXJuZXJzICAgICAgIHwKfCBBZ3JpY3VsdHVyZSAgIHwgU3BvdHMgY3JvcCBkaXNlYXNlIGZyb20gcGhvdG9zICAgICAgICAgICAgICAgICAgICB8IEVhcmxpZXIgdHJlYXRtZW50LCBsZXNzIGNyb3AgbG9zcyAgICAgICAgIHwKfCBCdXNpbmVzcyAgICAgIHwgU3VtbWFyaXNlcyBkb2N1bWVudHMgYW5kIGRyYWZ0cyByb3V0aW5lIHJlcGxpZXMgICB8IEhvdXJzIHNhdmVkIG9uIHJlcGV0aXRpdmUgd29yayAgICAgICAgICAgIHwKfCBMYW5ndWFnZSAgICAgIHwgVHJhbnNsYXRlcyB0ZXh0IGFuZCBzcGVlY2ggaW5zdGFudGx5ICAgICAgICAgICAgICB8IE1ha2VzIGl0IGVhc2llciB0byB0YWxrIGFjcm9zcyBsYW5ndWFnZXMgIHwKCltJTUFHRV0KSW1hZ2UgVVJMOiBodHRwczovL3VwbG9hZC53aWtpbWVkaWEub3JnL3dpa2lwZWRpYS9jb21tb25zL2EvYTQvQzEyb3JmMjlfQWxwaGFGb2xkLnBuZwpBbHQgdGV4dDogM0QgcmliYm9uIG1vZGVsIG9mIGEgcHJvdGVpbiBzdHJ1Y3R1cmUgcHJlZGljdGVkIGJ5IEFscGhhRm9sZApDYXB0aW9uOiBBIHByb3RlaW4gc3RydWN0dXJlIHByZWRpY3RlZCBieSBBbHBoYUZvbGQuIFdvcmtpbmcgb3V0IHNoYXBlcyBsaWtlIHRoaXMgdXNlZCB0byB0YWtlIHJlc2VhcmNoZXJzIG1vbnRocyBvciB5ZWFycy4KQ3JlZGl0OiBXaWtpbWVkaWEgQ29tbW9ucwoKS2V5IE1pbGVzdG9uZXMKClllYXIJTWlsZXN0b25lCVdoeSBJdCBNYXR0ZXJlZAoxOTk3CUlCTSBEZWVwIEJsdWUgYmVhdHMgd29ybGQgY2hlc3MgY2hhbXBpb24gR2FycnkgS2FzcGFyb3YJRmlyc3QgdGltZSBhIGNvbXB1dGVyIGJlYXQgYSByZWlnbmluZyB3b3JsZCBjaGFtcGlvbiBpbiBhIG1hdGNoCjIwMTIJQWxleE5ldCB3aW5zIHRoZSBJbWFnZU5ldCBjaGFsbGVuZ2UgYnkgYSB3aWRlIG1hcmdpbglLaWNrZWQgb2ZmIHRoZSBkZWVwIGxlYXJuaW5nIGVyYQoyMDE2CURlZXBNaW5kJ3MgQWxwaGFHbyBiZWF0cyBHbyBjaGFtcGlvbiBMZWUgU2Vkb2wJTWFzdGVyZWQgYSBnYW1lIGxvbmcgdGhvdWdodCB0b28gY29tcGxleCBmb3IgY29tcHV0ZXJzCjIwMjAJQWxwaGFGb2xkIDIgdG9wcyB0aGUgQ0FTUDE0IHByb3RlaW4gc3RydWN0dXJlIGFzc2Vzc21lbnQJTGFyZ2VseSBzb2x2ZWQgYSA1MC15ZWFyLW9sZCBwcm9ibGVtIGluIGJpb2xvZ3kKMjAyMglPcGVuQUkgcmVsZWFzZXMgQ2hhdEdQVAlCcm91Z2h0IGNvbnZlcnNhdGlvbmFsIEFJIHRvIHRoZSBnZW5lcmFsIHB1YmxpYwoyMDI0CU5vYmVsIFByaXplIGluIENoZW1pc3RyeSBhd2FyZGVkIHBhcnRseSBmb3IgQWxwaGFGb2xkCUZvcm1hbCByZWNvZ25pdGlvbiBvZiBBSSdzIHNjaWVudGlmaWMgY29udHJpYnV0aW9uCgpbSU1BR0VdCkltYWdlIFVSTDogaHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy9lL2VlL0lCTV9EZWVwX0JsdWVfYXRfQ29tcHV0ZXJfSGlzdG9yeV9NdXNldW1fKDkzNjE2ODU1MzcpLmpwZwpBbHQgdGV4dDogSUJNIERlZXAgQmx1ZSBjb21wdXRlciBvbiBkaXNwbGF5IGF0IHRoZSBDb21wdXRlciBIaXN0b3J5IE11c2V1bQpDYXB0aW9uOiBJQk0ncyBEZWVwIEJsdWUsIHdoaWNoIGJlYXQgd29ybGQgY2hlc3MgY2hhbXBpb24gR2FycnkgS2FzcGFyb3YgaW4gMTk5Nywgbm93IG9uIGRpc3BsYXkgYXQgdGhlIENvbXB1dGVyIEhpc3RvcnkgTXVzZXVtLgpDcmVkaXQ6IFdpa2ltZWRpYSBDb21tb25zCgpXaHkgSXQncyBhIE5ldCBQb3NpdGl2ZQoKMS4gSXQgc2F2ZXMgdGltZS4gVGFza3MgbGlrZSBzdW1tYXJpc2luZyBhIGxvbmcgcmVwb3J0IG9yIHNvcnRpbmcgdGhvdXNhbmRzIG9mIHJlY29yZHMgdGFrZSBtaW51dGVzIGluc3RlYWQgb2YgZGF5cy4KMi4gSXQgaW1wcm92ZXMgY29uc2lzdGVuY3kuIEFuIEFJIHN5c3RlbSBkb2Vzbid0IGdldCB0aXJlZCBhdCB0aGUgZW5kIG9mIGEgc2hpZnQsIHdoaWNoIG1ha2VzIGl0IGEgc3Ryb25nIHNlY29uZCBwYWlyIG9mIGV5ZXMuCjMuIEl0IHdpZGVucyBhY2Nlc3MuIFR1dG9yaW5nLCB0cmFuc2xhdGlvbiBhbmQgZXhwZXJ0LWxldmVsIGV4cGxhbmF0aW9ucyBhcmUgbm8gbG9uZ2VyIGxpbWl0ZWQgdG8gcGVvcGxlIHdobyBjYW4gcGF5IGZvciB0aGVtLgo0LiBJdCBzcGVlZHMgdXAgZGlzY292ZXJ5LiBTY2llbnRpc3RzIGNhbiB0ZXN0IGlkZWFzIGluIHNvZnR3YXJlIGJlZm9yZSBzcGVuZGluZyBtb250aHMgaW4gdGhlIGxhYi4KNS4gSXQgbGV0cyBwZW9wbGUgZm9jdXMgb24ganVkZ2VtZW50LiBXaGVuIEFJIGhhbmRsZXMgdGhlIHJvdXRpbmUgcGFydHMsIGh1bWFucyBjYW4gc3BlbmQgdGhlaXIgdGltZSBvbiBkZWNpc2lvbnMsIGNyZWF0aXZpdHkgYW5kIGNhcmUuCgpUaGUgQmVzdCBSZXN1bHRzIENvbWUgRnJvbSBBSSBhbmQgUGVvcGxlIFdvcmtpbmcgVG9nZXRoZXIKClRoZSBzdHJvbmdlc3QgdXNlIG9mIEFJIGlzIG5vdCByZXBsYWNpbmcgcGVvcGxlIGJ1dCB3b3JraW5nIGFsb25nc2lkZSB0aGVtLiBUaGUgQUkgcHJvZHVjZXMgYSBmaXJzdCBkcmFmdCwgYSBmbGFnIG9yIGEgcHJlZGljdGlvbjsgYSBwZXJzb24gcmV2aWV3cyBpdCwgY29ycmVjdHMgaXQgYW5kIG1ha2VzIHRoZSBmaW5hbCBjYWxsLiBUaG9zZSBjb3JyZWN0aW9ucyB0aGVuIGhlbHAgdGhlIHN5c3RlbSBnZXQgYmV0dGVyIG92ZXIgdGltZS4KCltJTUFHRV0KSW1hZ2UgVVJMOiBodHRwczovL3VwbG9hZC53aWtpbWVkaWEub3JnL3dpa2lwZWRpYS9jb21tb25zLzkvOTEvUmFkaW9sb2dpc3RfaW5fU2FuX0RpZWdvX0NBXzIwMTAuanBnCkFsdCB0ZXh0OiBBIHJhZGlvbG9naXN0IHJldmlld2luZyBtZWRpY2FsIHNjYW5zIG9uIGNvbXB1dGVyIG1vbml0b3JzCkNhcHRpb246IEFJIHRvb2xzIGNhbiBmbGFnIHNjYW5zIHRoYXQgbmVlZCBhIGNsb3NlciBsb29rLCBidXQgdGhlIGRpYWdub3NpcyBzdGF5cyB3aXRoIHRoZSBkb2N0b3IuCkNyZWRpdDogV2lraW1lZGlhIENvbW1vbnMKCkEgRmFpciBXb3JkIG9uIHRoZSBMaW1pdHMKCkFJIGlzIG5vdCBwZXJmZWN0LiBJdCBjYW4gYmUgY29uZmlkZW50bHkgd3JvbmcsIGl0IGNhbiByZWZsZWN0IGJpYXNlcyBpbiB0aGUgZGF0YSBpdCBsZWFybmVkIGZyb20sIGFuZCBpdCByYWlzZXMgcmVhbCBxdWVzdGlvbnMgYWJvdXQgcHJpdmFjeSwgam9icyBhbmQgd2hvIGlzIGFjY291bnRhYmxlIHdoZW4gdGhpbmdzIGdvIHdyb25nLiBUaGVzZSBhcmUgc2VyaW91cyBpc3N1ZXMsIGFuZCB0aGV5IGFyZSB0aGUgcmVhc29uIGh1bWFuIG92ZXJzaWdodCBtYXR0ZXJzLiBCZWluZyBvcHRpbWlzdGljIGFib3V0IEFJIGRvZXNuJ3QgbWVhbiBpZ25vcmluZyB0aGVzZSBwcm9ibGVtczsgaXQgbWVhbnMgYnVpbGRpbmcgYW5kIHVzaW5nIGl0IGNhcmVmdWxseS4KCkZpbmFsIFRob3VnaHRzCgpBSSBpcyBhIHRvb2wsIGFuZCBsaWtlIGFueSBwb3dlcmZ1bCB0b29sIGl0cyB2YWx1ZSBkZXBlbmRzIG9uIGhvdyBpdCBpcyB1c2VkLiBVc2VkIHRob3VnaHRmdWxseSwgd2l0aCBwZW9wbGUgc3RheWluZyBpbiBjaGFyZ2Ugb2YgdGhlIGRlY2lzaW9ucyB0aGF0IG1hdHRlciwgaXQgY2FuIG1ha2Ugd29yayBmYXN0ZXIsIGtub3dsZWRnZSBtb3JlIGFjY2Vzc2libGUgYW5kIHNjaWVuY2UgbW9yZSBhbWJpdGlvdXMuIFRoYXQgaXMgYSBmdXR1cmUgd29ydGggYnVpbGRpbmcuCgpUYWdzOiBhcnRpZmljaWFsIGludGVsbGlnZW5jZSwgdGVjaG5vbG9neSwgbWFjaGluZSBsZWFybmluZywgZnV0dXJlIG9mIHdvcmsKQ2F0ZWdvcnk6IFRlY2hub2xvZ3kK",
+"map": {
+"title": 1,
+"excluded": [
+{
+"line": 60,
+"kind": "metadata"
+},
+{
+"line": 61,
+"kind": "metadata"
+}
+],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+2
+]
+},
+{
+"type": "paragraph",
+"lines": [
+3
+]
+},
+{
+"type": "image",
+"lines": [
+4,
+5,
+6,
+7,
+8
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+9
+]
+},
+{
+"type": "paragraph",
+"lines": [
+10
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+11
+]
+},
+{
+"type": "paragraph",
+"lines": [
+12
+]
+},
+{
+"type": "paragraph",
+"lines": [
+13
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+14
+]
+},
+{
+"type": "paragraph",
+"lines": [
+15
+]
+},
+{
+"type": "table",
+"header": true,
+"lines": [
+16,
+17,
+18,
+19,
+20,
+21,
+22,
+23,
+24
+]
+},
+{
+"type": "image",
+"lines": [
+25,
+26,
+27,
+28,
+29
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+30
+]
+},
+{
+"type": "table",
+"header": true,
+"lines": [
+31,
+32,
+33,
+34,
+35,
+36,
+37
+]
+},
+{
+"type": "image",
+"lines": [
+38,
+39,
+40,
+41,
+42
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+43
+]
+},
+{
+"type": "list",
+"ordered": true,
+"list_items": [
+[
+44
+],
+[
+45
+],
+[
+46
+],
+[
+47
+],
+[
+48
+]
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+49
+]
+},
+{
+"type": "paragraph",
+"lines": [
+50
+]
+},
+{
+"type": "image",
+"lines": [
+51,
+52,
+53,
+54,
+55
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+56
+]
+},
+{
+"type": "paragraph",
+"lines": [
+57
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+58
+]
+},
+{
+"type": "paragraph",
+"lines": [
+59
+]
+}
+]
+}
+},
+"expected": {
+"ok": true,
+"errors": [],
+"warnings": [],
+"map": {
+"title": 1,
+"excluded": [
+{
+"line": 60,
+"kind": "metadata"
+},
+{
+"line": 61,
+"kind": "metadata"
+}
+],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+2
+]
+},
+{
+"type": "paragraph",
+"lines": [
+3
+]
+},
+{
+"type": "image",
+"lines": [
+4,
+5,
+6,
+7,
+8
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+9
+]
+},
+{
+"type": "paragraph",
+"lines": [
+10
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+11
+]
+},
+{
+"type": "paragraph",
+"lines": [
+12
+]
+},
+{
+"type": "paragraph",
+"lines": [
+13
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+14
+]
+},
+{
+"type": "paragraph",
+"lines": [
+15
+]
+},
+{
+"type": "table",
+"lines": [
+16,
+17,
+18,
+19,
+20,
+21,
+22,
+23,
+24
+],
+"header": true
+},
+{
+"type": "image",
+"lines": [
+25,
+26,
+27,
+28,
+29
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+30
+]
+},
+{
+"type": "table",
+"lines": [
+31,
+32,
+33,
+34,
+35,
+36,
+37
+],
+"header": true
+},
+{
+"type": "image",
+"lines": [
+38,
+39,
+40,
+41,
+42
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+43
+]
+},
+{
+"type": "list",
+"ordered": true,
+"items": [
+[
+44
+],
+[
+45
+],
+[
+46
+],
+[
+47
+],
+[
+48
+]
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+49
+]
+},
+{
+"type": "paragraph",
+"lines": [
+50
+]
+},
+{
+"type": "image",
+"lines": [
+51,
+52,
+53,
+54,
+55
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+56
+]
+},
+{
+"type": "paragraph",
+"lines": [
+57
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+58
+]
+},
+{
+"type": "paragraph",
+"lines": [
+59
+]
+}
+]
+}
+}
+},
+{
+"job": {
+"op": "toMarkdown",
+"name": "07-why-ai-is-good",
+"base64": "V2h5IEFJIElzIEdvb2QgZm9yIFVzOiBUaGUgQ2FzZSBmb3IgQXJ0aWZpY2lhbCBJbnRlbGxpZ2VuY2UKCkFydGlmaWNpYWwgaW50ZWxsaWdlbmNlIGdldHMgYSBsb3Qgb2YgaGVhZGxpbmVzLCBhbmQgbm90IGFsbCBvZiB0aGVtIGFyZSBraW5kLiBCdXQgYmVoaW5kIHRoZSBub2lzZSwgQUkgaXMgcXVpZXRseSBkb2luZyB1c2VmdWwgd29yayBpbiBob3NwaXRhbHMsIGxhYm9yYXRvcmllcywgY2xhc3Nyb29tcyBhbmQgb2ZmaWNlcy4gSXQgc3BlZWRzIHVwIHRhc2tzIHRoYXQgdXNlZCB0byB0YWtlIGRheXMsIGNhdGNoZXMgdGhpbmdzIHBlb3BsZSBtaXNzLCBhbmQgb3BlbnMgdXAgdG9vbHMgdGhhdCB3ZXJlIG9uY2Ugb25seSBhdmFpbGFibGUgdG8gbGFyZ2Ugb3JnYW5pc2F0aW9ucy4KClRoaXMgcG9zdCBsb29rcyBhdCB3aGF0IEFJIGFjdHVhbGx5IGlzLCB3aGVyZSBpdCBpcyBhbHJlYWR5IGhlbHBpbmcsIGFuZCB3aHksIHVzZWQgd2VsbCwgaXQgaXMgYSBuZXQgcG9zaXRpdmUuCgpbSU1BR0VdCkltYWdlIFVSTDogaHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy90aHVtYi80LzQ2L0NvbG9yZWRfbmV1cmFsX25ldHdvcmsuc3ZnLzEyODBweC1Db2xvcmVkX25ldXJhbF9uZXR3b3JrLnN2Zy5wbmcKQWx0IHRleHQ6IERpYWdyYW0gb2YgYW4gYXJ0aWZpY2lhbCBuZXVyYWwgbmV0d29yayB3aXRoIGFuIGlucHV0IGxheWVyLCBhIGhpZGRlbiBsYXllciBhbmQgYW4gb3V0cHV0IGxheWVyLCBjb25uZWN0ZWQgYnkgYXJyb3dzCkNhcHRpb246IE1vc3QgbW9kZXJuIEFJIGlzIGJ1aWx0IG9uIG5ldXJhbCBuZXR3b3JrczogbGF5ZXJzIG9mIHNpbXBsZSB1bml0cyB0aGF0IGxlYXJuIHBhdHRlcm5zIGZyb20gZXhhbXBsZXMuCkNyZWRpdDogV2lraW1lZGlhIENvbW1vbnMsIENDIEJZLVNBIDMuMAoKV2hhdCBXZSBNZWFuIGJ5IEFJCgpBdCBpdHMgY29yZSwgbW9kZXJuIEFJIGlzIHNvZnR3YXJlIHRoYXQgbGVhcm5zIGZyb20gZXhhbXBsZXMgaW5zdGVhZCBvZiBmb2xsb3dpbmcgaGFuZC13cml0dGVuIHJ1bGVzLiBTaG93IGEgc3lzdGVtIGVub3VnaCBsYWJlbGxlZCBYLXJheXMsIHNlbnRlbmNlcyBvciBwaG90b3MsIGFuZCBpdCBsZWFybnMgdG8gcmVjb2duaXNlIHRoZSBwYXR0ZXJucyBpbiB0aGVtLiBUaGF0IG9uZSBpZGVhIHBvd2VycyBldmVyeXRoaW5nIGZyb20gc3BhbSBmaWx0ZXJzIHRvIHRyYW5zbGF0aW9uIGFwcHMgdG8gdG9vbHMgdGhhdCBoZWxwIHNjaWVudGlzdHMgZGVzaWduIG5ldyBtZWRpY2luZXMuCgpBSSBIYXMgSW1wcm92ZWQgUmVtYXJrYWJseSBGYXN0CgpBIGdvb2QgaWxsdXN0cmF0aW9uIGlzIHRoZSBJbWFnZU5ldCBjaGFsbGVuZ2UsIGEgeWVhcmx5IGNvbXBldGl0aW9uIHdoZXJlIHN5c3RlbXMgaGFkIHRvIGlkZW50aWZ5IG9iamVjdHMgaW4gb3ZlciBhIG1pbGxpb24gcGhvdG9zLiBJbiAyMDEwIHRoZSBiZXN0IHN5c3RlbSBnb3QgdGhlIGFuc3dlciB3cm9uZyBtb3JlIHRoYW4gYSBxdWFydGVyIG9mIHRoZSB0aW1lLiBCeSAyMDE1IHRoZSB3aW5uaW5nIHN5c3RlbSB3YXMgbWFraW5nIGZld2VyIG1pc3Rha2VzIHRoYW4gdGhlIGNvbW1vbmx5IGNpdGVkIGh1bWFuIGVzdGltYXRlIG9uIHRoZSBzYW1lIHRlc3QuCgpUaGUgc2FtZSBwYXR0ZXJuIG9mIHJhcGlkIGltcHJvdmVtZW50IGhhcyBzaW5jZSByZXBlYXRlZCBpbiBzcGVlY2ggcmVjb2duaXRpb24sIHRyYW5zbGF0aW9uLCB3cml0aW5nIGFuZCBzY2llbnRpZmljIG1vZGVsbGluZy4KCldoZXJlIEFJIElzIEFscmVhZHkgSGVscGluZwoKQUkgaXMgbW9zdCB2YWx1YWJsZSB3aGVuIGl0IHRha2VzIG9uIHdvcmsgdGhhdCBpcyByZXBldGl0aXZlLCBzbG93IG9yIHRvbyBsYXJnZSBmb3IgcGVvcGxlIHRvIGRvIGJ5IGhhbmQsIGFuZCBmcmVlcyBwZW9wbGUgdXAgZm9yIHRoZSBwYXJ0cyB0aGF0IG5lZWQganVkZ2VtZW50LgoKfCBGaWVsZCAgICAgICAgIHwgV2hhdCBBSSBEb2VzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8IFdoeSBJdCBNYXR0ZXJzICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKfC0tLS0tLS0tLS0tLS0tLXwtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS18LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLXwKfCBIZWFsdGhjYXJlICAgIHwgRmxhZ3MgcG9zc2libGUgcHJvYmxlbXMgaW4gc2NhbnMgYW5kIFgtcmF5cyAgICAgICB8IEhlbHBzIGRvY3RvcnMgcHJpb3JpdGlzZSB1cmdlbnQgY2FzZXMgICAgIHwKfCBTY2llbmNlICAgICAgIHwgUHJlZGljdHMgdGhlIDNEIHNoYXBlIG9mIHByb3RlaW5zICAgICAgICAgICAgICAgICB8IFNwZWVkcyB1cCBkcnVnIGFuZCBkaXNlYXNlIHJlc2VhcmNoICAgICAgIHwKfCBBY2Nlc3NpYmlsaXR5IHwgTGl2ZSBjYXB0aW9ucywgaW1hZ2UgZGVzY3JpcHRpb25zLCB0ZXh0LXRvLXNwZWVjaCB8IE9wZW5zIGNvbnRlbnQgdG8gcGVvcGxlIHdpdGggZGlzYWJpbGl0aWVzIHwKfCBFZHVjYXRpb24gICAgIHwgRXhwbGFpbnMgdG9waWNzIGF0IGVhY2ggc3R1ZGVudCdzIG93biBwYWNlICAgICAgICB8IFBlcnNvbmFsIHR1dG9yaW5nIGZvciBtb3JlIGxlYXJuZXJzICAgICAgIHwKfCBBZ3JpY3VsdHVyZSAgIHwgU3BvdHMgY3JvcCBkaXNlYXNlIGZyb20gcGhvdG9zICAgICAgICAgICAgICAgICAgICB8IEVhcmxpZXIgdHJlYXRtZW50LCBsZXNzIGNyb3AgbG9zcyAgICAgICAgIHwKfCBCdXNpbmVzcyAgICAgIHwgU3VtbWFyaXNlcyBkb2N1bWVudHMgYW5kIGRyYWZ0cyByb3V0aW5lIHJlcGxpZXMgICB8IEhvdXJzIHNhdmVkIG9uIHJlcGV0aXRpdmUgd29yayAgICAgICAgICAgIHwKfCBMYW5ndWFnZSAgICAgIHwgVHJhbnNsYXRlcyB0ZXh0IGFuZCBzcGVlY2ggaW5zdGFudGx5ICAgICAgICAgICAgICB8IE1ha2VzIGl0IGVhc2llciB0byB0YWxrIGFjcm9zcyBsYW5ndWFnZXMgIHwKCltJTUFHRV0KSW1hZ2UgVVJMOiBodHRwczovL3VwbG9hZC53aWtpbWVkaWEub3JnL3dpa2lwZWRpYS9jb21tb25zL2EvYTQvQzEyb3JmMjlfQWxwaGFGb2xkLnBuZwpBbHQgdGV4dDogM0QgcmliYm9uIG1vZGVsIG9mIGEgcHJvdGVpbiBzdHJ1Y3R1cmUgcHJlZGljdGVkIGJ5IEFscGhhRm9sZApDYXB0aW9uOiBBIHByb3RlaW4gc3RydWN0dXJlIHByZWRpY3RlZCBieSBBbHBoYUZvbGQuIFdvcmtpbmcgb3V0IHNoYXBlcyBsaWtlIHRoaXMgdXNlZCB0byB0YWtlIHJlc2VhcmNoZXJzIG1vbnRocyBvciB5ZWFycy4KQ3JlZGl0OiBXaWtpbWVkaWEgQ29tbW9ucwoKS2V5IE1pbGVzdG9uZXMKClllYXIJTWlsZXN0b25lCVdoeSBJdCBNYXR0ZXJlZAoxOTk3CUlCTSBEZWVwIEJsdWUgYmVhdHMgd29ybGQgY2hlc3MgY2hhbXBpb24gR2FycnkgS2FzcGFyb3YJRmlyc3QgdGltZSBhIGNvbXB1dGVyIGJlYXQgYSByZWlnbmluZyB3b3JsZCBjaGFtcGlvbiBpbiBhIG1hdGNoCjIwMTIJQWxleE5ldCB3aW5zIHRoZSBJbWFnZU5ldCBjaGFsbGVuZ2UgYnkgYSB3aWRlIG1hcmdpbglLaWNrZWQgb2ZmIHRoZSBkZWVwIGxlYXJuaW5nIGVyYQoyMDE2CURlZXBNaW5kJ3MgQWxwaGFHbyBiZWF0cyBHbyBjaGFtcGlvbiBMZWUgU2Vkb2wJTWFzdGVyZWQgYSBnYW1lIGxvbmcgdGhvdWdodCB0b28gY29tcGxleCBmb3IgY29tcHV0ZXJzCjIwMjAJQWxwaGFGb2xkIDIgdG9wcyB0aGUgQ0FTUDE0IHByb3RlaW4gc3RydWN0dXJlIGFzc2Vzc21lbnQJTGFyZ2VseSBzb2x2ZWQgYSA1MC15ZWFyLW9sZCBwcm9ibGVtIGluIGJpb2xvZ3kKMjAyMglPcGVuQUkgcmVsZWFzZXMgQ2hhdEdQVAlCcm91Z2h0IGNvbnZlcnNhdGlvbmFsIEFJIHRvIHRoZSBnZW5lcmFsIHB1YmxpYwoyMDI0CU5vYmVsIFByaXplIGluIENoZW1pc3RyeSBhd2FyZGVkIHBhcnRseSBmb3IgQWxwaGFGb2xkCUZvcm1hbCByZWNvZ25pdGlvbiBvZiBBSSdzIHNjaWVudGlmaWMgY29udHJpYnV0aW9uCgpbSU1BR0VdCkltYWdlIFVSTDogaHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy9lL2VlL0lCTV9EZWVwX0JsdWVfYXRfQ29tcHV0ZXJfSGlzdG9yeV9NdXNldW1fKDkzNjE2ODU1MzcpLmpwZwpBbHQgdGV4dDogSUJNIERlZXAgQmx1ZSBjb21wdXRlciBvbiBkaXNwbGF5IGF0IHRoZSBDb21wdXRlciBIaXN0b3J5IE11c2V1bQpDYXB0aW9uOiBJQk0ncyBEZWVwIEJsdWUsIHdoaWNoIGJlYXQgd29ybGQgY2hlc3MgY2hhbXBpb24gR2FycnkgS2FzcGFyb3YgaW4gMTk5Nywgbm93IG9uIGRpc3BsYXkgYXQgdGhlIENvbXB1dGVyIEhpc3RvcnkgTXVzZXVtLgpDcmVkaXQ6IFdpa2ltZWRpYSBDb21tb25zCgpXaHkgSXQncyBhIE5ldCBQb3NpdGl2ZQoKMS4gSXQgc2F2ZXMgdGltZS4gVGFza3MgbGlrZSBzdW1tYXJpc2luZyBhIGxvbmcgcmVwb3J0IG9yIHNvcnRpbmcgdGhvdXNhbmRzIG9mIHJlY29yZHMgdGFrZSBtaW51dGVzIGluc3RlYWQgb2YgZGF5cy4KMi4gSXQgaW1wcm92ZXMgY29uc2lzdGVuY3kuIEFuIEFJIHN5c3RlbSBkb2Vzbid0IGdldCB0aXJlZCBhdCB0aGUgZW5kIG9mIGEgc2hpZnQsIHdoaWNoIG1ha2VzIGl0IGEgc3Ryb25nIHNlY29uZCBwYWlyIG9mIGV5ZXMuCjMuIEl0IHdpZGVucyBhY2Nlc3MuIFR1dG9yaW5nLCB0cmFuc2xhdGlvbiBhbmQgZXhwZXJ0LWxldmVsIGV4cGxhbmF0aW9ucyBhcmUgbm8gbG9uZ2VyIGxpbWl0ZWQgdG8gcGVvcGxlIHdobyBjYW4gcGF5IGZvciB0aGVtLgo0LiBJdCBzcGVlZHMgdXAgZGlzY292ZXJ5LiBTY2llbnRpc3RzIGNhbiB0ZXN0IGlkZWFzIGluIHNvZnR3YXJlIGJlZm9yZSBzcGVuZGluZyBtb250aHMgaW4gdGhlIGxhYi4KNS4gSXQgbGV0cyBwZW9wbGUgZm9jdXMgb24ganVkZ2VtZW50LiBXaGVuIEFJIGhhbmRsZXMgdGhlIHJvdXRpbmUgcGFydHMsIGh1bWFucyBjYW4gc3BlbmQgdGhlaXIgdGltZSBvbiBkZWNpc2lvbnMsIGNyZWF0aXZpdHkgYW5kIGNhcmUuCgpUaGUgQmVzdCBSZXN1bHRzIENvbWUgRnJvbSBBSSBhbmQgUGVvcGxlIFdvcmtpbmcgVG9nZXRoZXIKClRoZSBzdHJvbmdlc3QgdXNlIG9mIEFJIGlzIG5vdCByZXBsYWNpbmcgcGVvcGxlIGJ1dCB3b3JraW5nIGFsb25nc2lkZSB0aGVtLiBUaGUgQUkgcHJvZHVjZXMgYSBmaXJzdCBkcmFmdCwgYSBmbGFnIG9yIGEgcHJlZGljdGlvbjsgYSBwZXJzb24gcmV2aWV3cyBpdCwgY29ycmVjdHMgaXQgYW5kIG1ha2VzIHRoZSBmaW5hbCBjYWxsLiBUaG9zZSBjb3JyZWN0aW9ucyB0aGVuIGhlbHAgdGhlIHN5c3RlbSBnZXQgYmV0dGVyIG92ZXIgdGltZS4KCltJTUFHRV0KSW1hZ2UgVVJMOiBodHRwczovL3VwbG9hZC53aWtpbWVkaWEub3JnL3dpa2lwZWRpYS9jb21tb25zLzkvOTEvUmFkaW9sb2dpc3RfaW5fU2FuX0RpZWdvX0NBXzIwMTAuanBnCkFsdCB0ZXh0OiBBIHJhZGlvbG9naXN0IHJldmlld2luZyBtZWRpY2FsIHNjYW5zIG9uIGNvbXB1dGVyIG1vbml0b3JzCkNhcHRpb246IEFJIHRvb2xzIGNhbiBmbGFnIHNjYW5zIHRoYXQgbmVlZCBhIGNsb3NlciBsb29rLCBidXQgdGhlIGRpYWdub3NpcyBzdGF5cyB3aXRoIHRoZSBkb2N0b3IuCkNyZWRpdDogV2lraW1lZGlhIENvbW1vbnMKCkEgRmFpciBXb3JkIG9uIHRoZSBMaW1pdHMKCkFJIGlzIG5vdCBwZXJmZWN0LiBJdCBjYW4gYmUgY29uZmlkZW50bHkgd3JvbmcsIGl0IGNhbiByZWZsZWN0IGJpYXNlcyBpbiB0aGUgZGF0YSBpdCBsZWFybmVkIGZyb20sIGFuZCBpdCByYWlzZXMgcmVhbCBxdWVzdGlvbnMgYWJvdXQgcHJpdmFjeSwgam9icyBhbmQgd2hvIGlzIGFjY291bnRhYmxlIHdoZW4gdGhpbmdzIGdvIHdyb25nLiBUaGVzZSBhcmUgc2VyaW91cyBpc3N1ZXMsIGFuZCB0aGV5IGFyZSB0aGUgcmVhc29uIGh1bWFuIG92ZXJzaWdodCBtYXR0ZXJzLiBCZWluZyBvcHRpbWlzdGljIGFib3V0IEFJIGRvZXNuJ3QgbWVhbiBpZ25vcmluZyB0aGVzZSBwcm9ibGVtczsgaXQgbWVhbnMgYnVpbGRpbmcgYW5kIHVzaW5nIGl0IGNhcmVmdWxseS4KCkZpbmFsIFRob3VnaHRzCgpBSSBpcyBhIHRvb2wsIGFuZCBsaWtlIGFueSBwb3dlcmZ1bCB0b29sIGl0cyB2YWx1ZSBkZXBlbmRzIG9uIGhvdyBpdCBpcyB1c2VkLiBVc2VkIHRob3VnaHRmdWxseSwgd2l0aCBwZW9wbGUgc3RheWluZyBpbiBjaGFyZ2Ugb2YgdGhlIGRlY2lzaW9ucyB0aGF0IG1hdHRlciwgaXQgY2FuIG1ha2Ugd29yayBmYXN0ZXIsIGtub3dsZWRnZSBtb3JlIGFjY2Vzc2libGUgYW5kIHNjaWVuY2UgbW9yZSBhbWJpdGlvdXMuIFRoYXQgaXMgYSBmdXR1cmUgd29ydGggYnVpbGRpbmcuCgpUYWdzOiBhcnRpZmljaWFsIGludGVsbGlnZW5jZSwgdGVjaG5vbG9neSwgbWFjaGluZSBsZWFybmluZywgZnV0dXJlIG9mIHdvcmsKQ2F0ZWdvcnk6IFRlY2hub2xvZ3kK",
+"map": {
+"title": 1,
+"excluded": [
+{
+"line": 60,
+"kind": "metadata"
+},
+{
+"line": 61,
+"kind": "metadata"
+}
+],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+2
+]
+},
+{
+"type": "paragraph",
+"lines": [
+3
+]
+},
+{
+"type": "image",
+"lines": [
+4,
+5,
+6,
+7,
+8
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+9
+]
+},
+{
+"type": "paragraph",
+"lines": [
+10
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+11
+]
+},
+{
+"type": "paragraph",
+"lines": [
+12
+]
+},
+{
+"type": "paragraph",
+"lines": [
+13
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+14
+]
+},
+{
+"type": "paragraph",
+"lines": [
+15
+]
+},
+{
+"type": "table",
+"header": true,
+"lines": [
+16,
+17,
+18,
+19,
+20,
+21,
+22,
+23,
+24
+]
+},
+{
+"type": "image",
+"lines": [
+25,
+26,
+27,
+28,
+29
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+30
+]
+},
+{
+"type": "table",
+"header": true,
+"lines": [
+31,
+32,
+33,
+34,
+35,
+36,
+37
+]
+},
+{
+"type": "image",
+"lines": [
+38,
+39,
+40,
+41,
+42
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+43
+]
+},
+{
+"type": "list",
+"ordered": true,
+"list_items": [
+[
+44
+],
+[
+45
+],
+[
+46
+],
+[
+47
+],
+[
+48
+]
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+49
+]
+},
+{
+"type": "paragraph",
+"lines": [
+50
+]
+},
+{
+"type": "image",
+"lines": [
+51,
+52,
+53,
+54,
+55
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+56
+]
+},
+{
+"type": "paragraph",
+"lines": [
+57
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+58
+]
+},
+{
+"type": "paragraph",
+"lines": [
+59
+]
+}
+]
+}
+},
+"expected": {
+"markdown": "# Why AI Is Good for Us: The Case for Artificial Intelligence\n\nArtificial intelligence gets a lot of headlines, and not all of them are kind. But behind the noise, AI is quietly doing useful work in hospitals, laboratories, classrooms and offices. It speeds up tasks that used to take days, catches things people miss, and opens up tools that were once only available to large organisations.\n\nThis post looks at what AI actually is, where it is already helping, and why, used well, it is a net positive.\n\n![Diagram of an artificial neural network with an input layer, a hidden layer and an output layer, connected by arrows](https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Colored_neural_network.svg/1280px-Colored_neural_network.svg.png \"Most modern AI is built on neural networks: layers of simple units that learn patterns from examples. Credit: Wikimedia Commons, CC BY-SA 3.0\")\n\n## What We Mean by AI\n\nAt its core, modern AI is software that learns from examples instead of following hand-written rules. Show a system enough labelled X-rays, sentences or photos, and it learns to recognise the patterns in them. That one idea powers everything from spam filters to translation apps to tools that help scientists design new medicines.\n\n## AI Has Improved Remarkably Fast\n\nA good illustration is the ImageNet challenge, a yearly competition where systems had to identify objects in over a million photos. In 2010 the best system got the answer wrong more than a quarter of the time. By 2015 the winning system was making fewer mistakes than the commonly cited human estimate on the same test.\n\nThe same pattern of rapid improvement has since repeated in speech recognition, translation, writing and scientific modelling.\n\n## Where AI Is Already Helping\n\nAI is most valuable when it takes on work that is repetitive, slow or too large for people to do by hand, and frees people up for the parts that need judgement.\n\n| Field | What AI Does | Why It Matters |\n| --- | --- | --- |\n| Healthcare | Flags possible problems in scans and X-rays | Helps doctors prioritise urgent cases |\n| Science | Predicts the 3D shape of proteins | Speeds up drug and disease research |\n| Accessibility | Live captions, image descriptions, text-to-speech | Opens content to people with disabilities |\n| Education | Explains topics at each student's own pace | Personal tutoring for more learners |\n| Agriculture | Spots crop disease from photos | Earlier treatment, less crop loss |\n| Business | Summarises documents and drafts routine replies | Hours saved on repetitive work |\n| Language | Translates text and speech instantly | Makes it easier to talk across languages |\n\n![3D ribbon model of a protein structure predicted by AlphaFold](https://upload.wikimedia.org/wikipedia/commons/a/a4/C12orf29_AlphaFold.png \"A protein structure predicted by AlphaFold. Working out shapes like this used to take researchers months or years. Credit: Wikimedia Commons\")\n\n## Key Milestones\n\n| Year | Milestone | Why It Mattered |\n| --- | --- | --- |\n| 1997 | IBM Deep Blue beats world chess champion Garry Kasparov | First time a computer beat a reigning world champion in a match |\n| 2012 | AlexNet wins the ImageNet challenge by a wide margin | Kicked off the deep learning era |\n| 2016 | DeepMind's AlphaGo beats Go champion Lee Sedol | Mastered a game long thought too complex for computers |\n| 2020 | AlphaFold 2 tops the CASP14 protein structure assessment | Largely solved a 50-year-old problem in biology |\n| 2022 | OpenAI releases ChatGPT | Brought conversational AI to the general public |\n| 2024 | Nobel Prize in Chemistry awarded partly for AlphaFold | Formal recognition of AI's scientific contribution |\n\n![IBM Deep Blue computer on display at the Computer History Museum](<https://upload.wikimedia.org/wikipedia/commons/e/ee/IBM_Deep_Blue_at_Computer_History_Museum_(9361685537).jpg> \"IBM's Deep Blue, which beat world chess champion Garry Kasparov in 1997, now on display at the Computer History Museum. Credit: Wikimedia Commons\")\n\n## Why It's a Net Positive\n\n1. It saves time. Tasks like summarising a long report or sorting thousands of records take minutes instead of days.\n2. It improves consistency. An AI system doesn't get tired at the end of a shift, which makes it a strong second pair of eyes.\n3. It widens access. Tutoring, translation and expert-level explanations are no longer limited to people who can pay for them.\n4. It speeds up discovery. Scientists can test ideas in software before spending months in the lab.\n5. It lets people focus on judgement. When AI handles the routine parts, humans can spend their time on decisions, creativity and care.\n\n## The Best Results Come From AI and People Working Together\n\nThe strongest use of AI is not replacing people but working alongside them. The AI produces a first draft, a flag or a prediction; a person reviews it, corrects it and makes the final call. Those corrections then help the system get better over time.\n\n![A radiologist reviewing medical scans on computer monitors](https://upload.wikimedia.org/wikipedia/commons/9/91/Radiologist_in_San_Diego_CA_2010.jpg \"AI tools can flag scans that need a closer look, but the diagnosis stays with the doctor. Credit: Wikimedia Commons\")\n\n## A Fair Word on the Limits\n\nAI is not perfect. It can be confidently wrong, it can reflect biases in the data it learned from, and it raises real questions about privacy, jobs and who is accountable when things go wrong. These are serious issues, and they are the reason human oversight matters. Being optimistic about AI doesn't mean ignoring these problems; it means building and using it carefully.\n\n## Final Thoughts\n\nAI is a tool, and like any powerful tool its value depends on how it is used. Used thoughtfully, with people staying in charge of the decisions that matter, it can make work faster, knowledge more accessible and science more ambitious. That is a future worth building.\n",
+"removed": [
+{
+"line": 60,
+"kind": "metadata",
+"text": "Tags: artificial intelligence, technology, machine learning, future of work"
+},
+{
+"line": 61,
+"kind": "metadata",
+"text": "Category: Technology"
+}
+],
+"body_text": "Artificial intelligence gets a lot of headlines, and not all of them are kind. But behind the noise, AI is quietly doing useful work in hospitals, laboratories, classrooms and offices. It speeds up tasks that used to take days, catches things people miss, and opens up tools that were once only available to large organisations. This post looks at what AI actually is, where it is already helping, and why, used well, it is a net positive. https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Colored_neural_network.svg/1280px-Colored_neural_network.svg.png Diagram of an artificial neural network with an input layer, a hidden layer and an output layer, connected by arrows Most modern AI is built on neural networks: layers of simple units that learn patterns from examples. Credit: Wikimedia Commons, CC BY-SA 3.0 What We Mean by AI At its core, modern AI is software that learns from examples instead of following hand-written rules. Show a system enough labelled X-rays, sentences or photos, and it learns to recognise the patterns in them. That one idea powers everything from spam filters to translation apps to tools that help scientists design new medicines. AI Has Improved Remarkably Fast A good illustration is the ImageNet challenge, a yearly competition where systems had to identify objects in over a million photos. In 2010 the best system got the answer wrong more than a quarter of the time. By 2015 the winning system was making fewer mistakes than the commonly cited human estimate on the same test. The same pattern of rapid improvement has since repeated in speech recognition, translation, writing and scientific modelling. Where AI Is Already Helping AI is most valuable when it takes on work that is repetitive, slow or too large for people to do by hand, and frees people up for the parts that need judgement. Field What AI Does Why It Matters Healthcare Flags possible problems in scans and X-rays Helps doctors prioritise urgent cases Science Predicts the 3D shape of proteins Speeds up drug and disease research Accessibility Live captions, image descriptions, text-to-speech Opens content to people with disabilities Education Explains topics at each student's own pace Personal tutoring for more learners Agriculture Spots crop disease from photos Earlier treatment, less crop loss Business Summarises documents and drafts routine replies Hours saved on repetitive work Language Translates text and speech instantly Makes it easier to talk across languages https://upload.wikimedia.org/wikipedia/commons/a/a4/C12orf29_AlphaFold.png 3D ribbon model of a protein structure predicted by AlphaFold A protein structure predicted by AlphaFold. Working out shapes like this used to take researchers months or years. Credit: Wikimedia Commons Key Milestones Year Milestone Why It Mattered 1997 IBM Deep Blue beats world chess champion Garry Kasparov First time a computer beat a reigning world champion in a match 2012 AlexNet wins the ImageNet challenge by a wide margin Kicked off the deep learning era 2016 DeepMind's AlphaGo beats Go champion Lee Sedol Mastered a game long thought too complex for computers 2020 AlphaFold 2 tops the CASP14 protein structure assessment Largely solved a 50-year-old problem in biology 2022 OpenAI releases ChatGPT Brought conversational AI to the general public 2024 Nobel Prize in Chemistry awarded partly for AlphaFold Formal recognition of AI's scientific contribution https://upload.wikimedia.org/wikipedia/commons/e/ee/IBM_Deep_Blue_at_Computer_History_Museum_(9361685537).jpg IBM Deep Blue computer on display at the Computer History Museum IBM's Deep Blue, which beat world chess champion Garry Kasparov in 1997, now on display at the Computer History Museum. Credit: Wikimedia Commons Why It's a Net Positive It saves time. Tasks like summarising a long report or sorting thousands of records take minutes instead of days. It improves consistency. An AI system doesn't get tired at the end of a shift, which makes it a strong second pair of eyes. It widens access. Tutoring, translation and expert-level explanations are no longer limited to people who can pay for them. It speeds up discovery. Scientists can test ideas in software before spending months in the lab. It lets people focus on judgement. When AI handles the routine parts, humans can spend their time on decisions, creativity and care. The Best Results Come From AI and People Working Together The strongest use of AI is not replacing people but working alongside them. The AI produces a first draft, a flag or a prediction; a person reviews it, corrects it and makes the final call. Those corrections then help the system get better over time. https://upload.wikimedia.org/wikipedia/commons/9/91/Radiologist_in_San_Diego_CA_2010.jpg A radiologist reviewing medical scans on computer monitors AI tools can flag scans that need a closer look, but the diagnosis stays with the doctor. Credit: Wikimedia Commons A Fair Word on the Limits AI is not perfect. It can be confidently wrong, it can reflect biases in the data it learned from, and it raises real questions about privacy, jobs and who is accountable when things go wrong. These are serious issues, and they are the reason human oversight matters. Being optimistic about AI doesn't mean ignoring these problems; it means building and using it carefully. Final Thoughts AI is a tool, and like any powerful tool its value depends on how it is used. Used thoughtfully, with people staying in charge of the decisions that matter, it can make work faster, knowledge more accessible and science more ambitious. That is a future worth building.",
+"images": [
+{
+"src": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Colored_neural_network.svg/1280px-Colored_neural_network.svg.png",
+"filename": ""
+},
+{
+"src": "https://upload.wikimedia.org/wikipedia/commons/a/a4/C12orf29_AlphaFold.png",
+"filename": ""
+},
+{
+"src": "https://upload.wikimedia.org/wikipedia/commons/e/ee/IBM_Deep_Blue_at_Computer_History_Museum_(9361685537).jpg",
+"filename": ""
+},
+{
+"src": "https://upload.wikimedia.org/wikipedia/commons/9/91/Radiologist_in_San_Diego_CA_2010.jpg",
+"filename": ""
+}
+]
+}
+},
+{
+"job": {
+"op": "repair",
+"name": "07 missing [IMAGE] markers",
+"base64": "V2h5IEFJIElzIEdvb2QgZm9yIFVzOiBUaGUgQ2FzZSBmb3IgQXJ0aWZpY2lhbCBJbnRlbGxpZ2VuY2UKCkFydGlmaWNpYWwgaW50ZWxsaWdlbmNlIGdldHMgYSBsb3Qgb2YgaGVhZGxpbmVzLCBhbmQgbm90IGFsbCBvZiB0aGVtIGFyZSBraW5kLiBCdXQgYmVoaW5kIHRoZSBub2lzZSwgQUkgaXMgcXVpZXRseSBkb2luZyB1c2VmdWwgd29yayBpbiBob3NwaXRhbHMsIGxhYm9yYXRvcmllcywgY2xhc3Nyb29tcyBhbmQgb2ZmaWNlcy4gSXQgc3BlZWRzIHVwIHRhc2tzIHRoYXQgdXNlZCB0byB0YWtlIGRheXMsIGNhdGNoZXMgdGhpbmdzIHBlb3BsZSBtaXNzLCBhbmQgb3BlbnMgdXAgdG9vbHMgdGhhdCB3ZXJlIG9uY2Ugb25seSBhdmFpbGFibGUgdG8gbGFyZ2Ugb3JnYW5pc2F0aW9ucy4KClRoaXMgcG9zdCBsb29rcyBhdCB3aGF0IEFJIGFjdHVhbGx5IGlzLCB3aGVyZSBpdCBpcyBhbHJlYWR5IGhlbHBpbmcsIGFuZCB3aHksIHVzZWQgd2VsbCwgaXQgaXMgYSBuZXQgcG9zaXRpdmUuCgpbSU1BR0VdCkltYWdlIFVSTDogaHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy90aHVtYi80LzQ2L0NvbG9yZWRfbmV1cmFsX25ldHdvcmsuc3ZnLzEyODBweC1Db2xvcmVkX25ldXJhbF9uZXR3b3JrLnN2Zy5wbmcKQWx0IHRleHQ6IERpYWdyYW0gb2YgYW4gYXJ0aWZpY2lhbCBuZXVyYWwgbmV0d29yayB3aXRoIGFuIGlucHV0IGxheWVyLCBhIGhpZGRlbiBsYXllciBhbmQgYW4gb3V0cHV0IGxheWVyLCBjb25uZWN0ZWQgYnkgYXJyb3dzCkNhcHRpb246IE1vc3QgbW9kZXJuIEFJIGlzIGJ1aWx0IG9uIG5ldXJhbCBuZXR3b3JrczogbGF5ZXJzIG9mIHNpbXBsZSB1bml0cyB0aGF0IGxlYXJuIHBhdHRlcm5zIGZyb20gZXhhbXBsZXMuCkNyZWRpdDogV2lraW1lZGlhIENvbW1vbnMsIENDIEJZLVNBIDMuMAoKV2hhdCBXZSBNZWFuIGJ5IEFJCgpBdCBpdHMgY29yZSwgbW9kZXJuIEFJIGlzIHNvZnR3YXJlIHRoYXQgbGVhcm5zIGZyb20gZXhhbXBsZXMgaW5zdGVhZCBvZiBmb2xsb3dpbmcgaGFuZC13cml0dGVuIHJ1bGVzLiBTaG93IGEgc3lzdGVtIGVub3VnaCBsYWJlbGxlZCBYLXJheXMsIHNlbnRlbmNlcyBvciBwaG90b3MsIGFuZCBpdCBsZWFybnMgdG8gcmVjb2duaXNlIHRoZSBwYXR0ZXJucyBpbiB0aGVtLiBUaGF0IG9uZSBpZGVhIHBvd2VycyBldmVyeXRoaW5nIGZyb20gc3BhbSBmaWx0ZXJzIHRvIHRyYW5zbGF0aW9uIGFwcHMgdG8gdG9vbHMgdGhhdCBoZWxwIHNjaWVudGlzdHMgZGVzaWduIG5ldyBtZWRpY2luZXMuCgpBSSBIYXMgSW1wcm92ZWQgUmVtYXJrYWJseSBGYXN0CgpBIGdvb2QgaWxsdXN0cmF0aW9uIGlzIHRoZSBJbWFnZU5ldCBjaGFsbGVuZ2UsIGEgeWVhcmx5IGNvbXBldGl0aW9uIHdoZXJlIHN5c3RlbXMgaGFkIHRvIGlkZW50aWZ5IG9iamVjdHMgaW4gb3ZlciBhIG1pbGxpb24gcGhvdG9zLiBJbiAyMDEwIHRoZSBiZXN0IHN5c3RlbSBnb3QgdGhlIGFuc3dlciB3cm9uZyBtb3JlIHRoYW4gYSBxdWFydGVyIG9mIHRoZSB0aW1lLiBCeSAyMDE1IHRoZSB3aW5uaW5nIHN5c3RlbSB3YXMgbWFraW5nIGZld2VyIG1pc3Rha2VzIHRoYW4gdGhlIGNvbW1vbmx5IGNpdGVkIGh1bWFuIGVzdGltYXRlIG9uIHRoZSBzYW1lIHRlc3QuCgpUaGUgc2FtZSBwYXR0ZXJuIG9mIHJhcGlkIGltcHJvdmVtZW50IGhhcyBzaW5jZSByZXBlYXRlZCBpbiBzcGVlY2ggcmVjb2duaXRpb24sIHRyYW5zbGF0aW9uLCB3cml0aW5nIGFuZCBzY2llbnRpZmljIG1vZGVsbGluZy4KCldoZXJlIEFJIElzIEFscmVhZHkgSGVscGluZwoKQUkgaXMgbW9zdCB2YWx1YWJsZSB3aGVuIGl0IHRha2VzIG9uIHdvcmsgdGhhdCBpcyByZXBldGl0aXZlLCBzbG93IG9yIHRvbyBsYXJnZSBmb3IgcGVvcGxlIHRvIGRvIGJ5IGhhbmQsIGFuZCBmcmVlcyBwZW9wbGUgdXAgZm9yIHRoZSBwYXJ0cyB0aGF0IG5lZWQganVkZ2VtZW50LgoKfCBGaWVsZCAgICAgICAgIHwgV2hhdCBBSSBEb2VzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8IFdoeSBJdCBNYXR0ZXJzICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKfC0tLS0tLS0tLS0tLS0tLXwtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS18LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLXwKfCBIZWFsdGhjYXJlICAgIHwgRmxhZ3MgcG9zc2libGUgcHJvYmxlbXMgaW4gc2NhbnMgYW5kIFgtcmF5cyAgICAgICB8IEhlbHBzIGRvY3RvcnMgcHJpb3JpdGlzZSB1cmdlbnQgY2FzZXMgICAgIHwKfCBTY2llbmNlICAgICAgIHwgUHJlZGljdHMgdGhlIDNEIHNoYXBlIG9mIHByb3RlaW5zICAgICAgICAgICAgICAgICB8IFNwZWVkcyB1cCBkcnVnIGFuZCBkaXNlYXNlIHJlc2VhcmNoICAgICAgIHwKfCBBY2Nlc3NpYmlsaXR5IHwgTGl2ZSBjYXB0aW9ucywgaW1hZ2UgZGVzY3JpcHRpb25zLCB0ZXh0LXRvLXNwZWVjaCB8IE9wZW5zIGNvbnRlbnQgdG8gcGVvcGxlIHdpdGggZGlzYWJpbGl0aWVzIHwKfCBFZHVjYXRpb24gICAgIHwgRXhwbGFpbnMgdG9waWNzIGF0IGVhY2ggc3R1ZGVudCdzIG93biBwYWNlICAgICAgICB8IFBlcnNvbmFsIHR1dG9yaW5nIGZvciBtb3JlIGxlYXJuZXJzICAgICAgIHwKfCBBZ3JpY3VsdHVyZSAgIHwgU3BvdHMgY3JvcCBkaXNlYXNlIGZyb20gcGhvdG9zICAgICAgICAgICAgICAgICAgICB8IEVhcmxpZXIgdHJlYXRtZW50LCBsZXNzIGNyb3AgbG9zcyAgICAgICAgIHwKfCBCdXNpbmVzcyAgICAgIHwgU3VtbWFyaXNlcyBkb2N1bWVudHMgYW5kIGRyYWZ0cyByb3V0aW5lIHJlcGxpZXMgICB8IEhvdXJzIHNhdmVkIG9uIHJlcGV0aXRpdmUgd29yayAgICAgICAgICAgIHwKfCBMYW5ndWFnZSAgICAgIHwgVHJhbnNsYXRlcyB0ZXh0IGFuZCBzcGVlY2ggaW5zdGFudGx5ICAgICAgICAgICAgICB8IE1ha2VzIGl0IGVhc2llciB0byB0YWxrIGFjcm9zcyBsYW5ndWFnZXMgIHwKCltJTUFHRV0KSW1hZ2UgVVJMOiBodHRwczovL3VwbG9hZC53aWtpbWVkaWEub3JnL3dpa2lwZWRpYS9jb21tb25zL2EvYTQvQzEyb3JmMjlfQWxwaGFGb2xkLnBuZwpBbHQgdGV4dDogM0QgcmliYm9uIG1vZGVsIG9mIGEgcHJvdGVpbiBzdHJ1Y3R1cmUgcHJlZGljdGVkIGJ5IEFscGhhRm9sZApDYXB0aW9uOiBBIHByb3RlaW4gc3RydWN0dXJlIHByZWRpY3RlZCBieSBBbHBoYUZvbGQuIFdvcmtpbmcgb3V0IHNoYXBlcyBsaWtlIHRoaXMgdXNlZCB0byB0YWtlIHJlc2VhcmNoZXJzIG1vbnRocyBvciB5ZWFycy4KQ3JlZGl0OiBXaWtpbWVkaWEgQ29tbW9ucwoKS2V5IE1pbGVzdG9uZXMKClllYXIJTWlsZXN0b25lCVdoeSBJdCBNYXR0ZXJlZAoxOTk3CUlCTSBEZWVwIEJsdWUgYmVhdHMgd29ybGQgY2hlc3MgY2hhbXBpb24gR2FycnkgS2FzcGFyb3YJRmlyc3QgdGltZSBhIGNvbXB1dGVyIGJlYXQgYSByZWlnbmluZyB3b3JsZCBjaGFtcGlvbiBpbiBhIG1hdGNoCjIwMTIJQWxleE5ldCB3aW5zIHRoZSBJbWFnZU5ldCBjaGFsbGVuZ2UgYnkgYSB3aWRlIG1hcmdpbglLaWNrZWQgb2ZmIHRoZSBkZWVwIGxlYXJuaW5nIGVyYQoyMDE2CURlZXBNaW5kJ3MgQWxwaGFHbyBiZWF0cyBHbyBjaGFtcGlvbiBMZWUgU2Vkb2wJTWFzdGVyZWQgYSBnYW1lIGxvbmcgdGhvdWdodCB0b28gY29tcGxleCBmb3IgY29tcHV0ZXJzCjIwMjAJQWxwaGFGb2xkIDIgdG9wcyB0aGUgQ0FTUDE0IHByb3RlaW4gc3RydWN0dXJlIGFzc2Vzc21lbnQJTGFyZ2VseSBzb2x2ZWQgYSA1MC15ZWFyLW9sZCBwcm9ibGVtIGluIGJpb2xvZ3kKMjAyMglPcGVuQUkgcmVsZWFzZXMgQ2hhdEdQVAlCcm91Z2h0IGNvbnZlcnNhdGlvbmFsIEFJIHRvIHRoZSBnZW5lcmFsIHB1YmxpYwoyMDI0CU5vYmVsIFByaXplIGluIENoZW1pc3RyeSBhd2FyZGVkIHBhcnRseSBmb3IgQWxwaGFGb2xkCUZvcm1hbCByZWNvZ25pdGlvbiBvZiBBSSdzIHNjaWVudGlmaWMgY29udHJpYnV0aW9uCgpbSU1BR0VdCkltYWdlIFVSTDogaHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy9lL2VlL0lCTV9EZWVwX0JsdWVfYXRfQ29tcHV0ZXJfSGlzdG9yeV9NdXNldW1fKDkzNjE2ODU1MzcpLmpwZwpBbHQgdGV4dDogSUJNIERlZXAgQmx1ZSBjb21wdXRlciBvbiBkaXNwbGF5IGF0IHRoZSBDb21wdXRlciBIaXN0b3J5IE11c2V1bQpDYXB0aW9uOiBJQk0ncyBEZWVwIEJsdWUsIHdoaWNoIGJlYXQgd29ybGQgY2hlc3MgY2hhbXBpb24gR2FycnkgS2FzcGFyb3YgaW4gMTk5Nywgbm93IG9uIGRpc3BsYXkgYXQgdGhlIENvbXB1dGVyIEhpc3RvcnkgTXVzZXVtLgpDcmVkaXQ6IFdpa2ltZWRpYSBDb21tb25zCgpXaHkgSXQncyBhIE5ldCBQb3NpdGl2ZQoKMS4gSXQgc2F2ZXMgdGltZS4gVGFza3MgbGlrZSBzdW1tYXJpc2luZyBhIGxvbmcgcmVwb3J0IG9yIHNvcnRpbmcgdGhvdXNhbmRzIG9mIHJlY29yZHMgdGFrZSBtaW51dGVzIGluc3RlYWQgb2YgZGF5cy4KMi4gSXQgaW1wcm92ZXMgY29uc2lzdGVuY3kuIEFuIEFJIHN5c3RlbSBkb2Vzbid0IGdldCB0aXJlZCBhdCB0aGUgZW5kIG9mIGEgc2hpZnQsIHdoaWNoIG1ha2VzIGl0IGEgc3Ryb25nIHNlY29uZCBwYWlyIG9mIGV5ZXMuCjMuIEl0IHdpZGVucyBhY2Nlc3MuIFR1dG9yaW5nLCB0cmFuc2xhdGlvbiBhbmQgZXhwZXJ0LWxldmVsIGV4cGxhbmF0aW9ucyBhcmUgbm8gbG9uZ2VyIGxpbWl0ZWQgdG8gcGVvcGxlIHdobyBjYW4gcGF5IGZvciB0aGVtLgo0LiBJdCBzcGVlZHMgdXAgZGlzY292ZXJ5LiBTY2llbnRpc3RzIGNhbiB0ZXN0IGlkZWFzIGluIHNvZnR3YXJlIGJlZm9yZSBzcGVuZGluZyBtb250aHMgaW4gdGhlIGxhYi4KNS4gSXQgbGV0cyBwZW9wbGUgZm9jdXMgb24ganVkZ2VtZW50LiBXaGVuIEFJIGhhbmRsZXMgdGhlIHJvdXRpbmUgcGFydHMsIGh1bWFucyBjYW4gc3BlbmQgdGhlaXIgdGltZSBvbiBkZWNpc2lvbnMsIGNyZWF0aXZpdHkgYW5kIGNhcmUuCgpUaGUgQmVzdCBSZXN1bHRzIENvbWUgRnJvbSBBSSBhbmQgUGVvcGxlIFdvcmtpbmcgVG9nZXRoZXIKClRoZSBzdHJvbmdlc3QgdXNlIG9mIEFJIGlzIG5vdCByZXBsYWNpbmcgcGVvcGxlIGJ1dCB3b3JraW5nIGFsb25nc2lkZSB0aGVtLiBUaGUgQUkgcHJvZHVjZXMgYSBmaXJzdCBkcmFmdCwgYSBmbGFnIG9yIGEgcHJlZGljdGlvbjsgYSBwZXJzb24gcmV2aWV3cyBpdCwgY29ycmVjdHMgaXQgYW5kIG1ha2VzIHRoZSBmaW5hbCBjYWxsLiBUaG9zZSBjb3JyZWN0aW9ucyB0aGVuIGhlbHAgdGhlIHN5c3RlbSBnZXQgYmV0dGVyIG92ZXIgdGltZS4KCltJTUFHRV0KSW1hZ2UgVVJMOiBodHRwczovL3VwbG9hZC53aWtpbWVkaWEub3JnL3dpa2lwZWRpYS9jb21tb25zLzkvOTEvUmFkaW9sb2dpc3RfaW5fU2FuX0RpZWdvX0NBXzIwMTAuanBnCkFsdCB0ZXh0OiBBIHJhZGlvbG9naXN0IHJldmlld2luZyBtZWRpY2FsIHNjYW5zIG9uIGNvbXB1dGVyIG1vbml0b3JzCkNhcHRpb246IEFJIHRvb2xzIGNhbiBmbGFnIHNjYW5zIHRoYXQgbmVlZCBhIGNsb3NlciBsb29rLCBidXQgdGhlIGRpYWdub3NpcyBzdGF5cyB3aXRoIHRoZSBkb2N0b3IuCkNyZWRpdDogV2lraW1lZGlhIENvbW1vbnMKCkEgRmFpciBXb3JkIG9uIHRoZSBMaW1pdHMKCkFJIGlzIG5vdCBwZXJmZWN0LiBJdCBjYW4gYmUgY29uZmlkZW50bHkgd3JvbmcsIGl0IGNhbiByZWZsZWN0IGJpYXNlcyBpbiB0aGUgZGF0YSBpdCBsZWFybmVkIGZyb20sIGFuZCBpdCByYWlzZXMgcmVhbCBxdWVzdGlvbnMgYWJvdXQgcHJpdmFjeSwgam9icyBhbmQgd2hvIGlzIGFjY291bnRhYmxlIHdoZW4gdGhpbmdzIGdvIHdyb25nLiBUaGVzZSBhcmUgc2VyaW91cyBpc3N1ZXMsIGFuZCB0aGV5IGFyZSB0aGUgcmVhc29uIGh1bWFuIG92ZXJzaWdodCBtYXR0ZXJzLiBCZWluZyBvcHRpbWlzdGljIGFib3V0IEFJIGRvZXNuJ3QgbWVhbiBpZ25vcmluZyB0aGVzZSBwcm9ibGVtczsgaXQgbWVhbnMgYnVpbGRpbmcgYW5kIHVzaW5nIGl0IGNhcmVmdWxseS4KCkZpbmFsIFRob3VnaHRzCgpBSSBpcyBhIHRvb2wsIGFuZCBsaWtlIGFueSBwb3dlcmZ1bCB0b29sIGl0cyB2YWx1ZSBkZXBlbmRzIG9uIGhvdyBpdCBpcyB1c2VkLiBVc2VkIHRob3VnaHRmdWxseSwgd2l0aCBwZW9wbGUgc3RheWluZyBpbiBjaGFyZ2Ugb2YgdGhlIGRlY2lzaW9ucyB0aGF0IG1hdHRlciwgaXQgY2FuIG1ha2Ugd29yayBmYXN0ZXIsIGtub3dsZWRnZSBtb3JlIGFjY2Vzc2libGUgYW5kIHNjaWVuY2UgbW9yZSBhbWJpdGlvdXMuIFRoYXQgaXMgYSBmdXR1cmUgd29ydGggYnVpbGRpbmcuCgpUYWdzOiBhcnRpZmljaWFsIGludGVsbGlnZW5jZSwgdGVjaG5vbG9neSwgbWFjaGluZSBsZWFybmluZywgZnV0dXJlIG9mIHdvcmsKQ2F0ZWdvcnk6IFRlY2hub2xvZ3kK",
+"map": {
+"title": 1,
+"excluded": [
+{
+"line": 60,
+"kind": "metadata"
+},
+{
+"line": 61,
+"kind": "metadata"
+}
+],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+2
+]
+},
+{
+"type": "paragraph",
+"lines": [
+3
+]
+},
+{
+"type": "image",
+"lines": [
+5,
+6,
+7,
+8
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+9
+]
+},
+{
+"type": "paragraph",
+"lines": [
+10
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+11
+]
+},
+{
+"type": "paragraph",
+"lines": [
+12
+]
+},
+{
+"type": "paragraph",
+"lines": [
+13
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+14
+]
+},
+{
+"type": "paragraph",
+"lines": [
+15
+]
+},
+{
+"type": "table",
+"header": true,
+"lines": [
+16,
+17,
+18,
+19,
+20,
+21,
+22,
+23,
+24
+]
+},
+{
+"type": "image",
+"lines": [
+26,
+27,
+28,
+29
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+30
+]
+},
+{
+"type": "table",
+"header": true,
+"lines": [
+31,
+32,
+33,
+34,
+35,
+36,
+37
+]
+},
+{
+"type": "image",
+"lines": [
+39,
+40,
+41,
+42
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+43
+]
+},
+{
+"type": "list",
+"ordered": true,
+"list_items": [
+[
+44
+],
+[
+45
+],
+[
+46
+],
+[
+47
+],
+[
+48
+]
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+49
+]
+},
+{
+"type": "paragraph",
+"lines": [
+50
+]
+},
+{
+"type": "image",
+"lines": [
+52,
+53,
+54,
+55
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+56
+]
+},
+{
+"type": "paragraph",
+"lines": [
+57
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+58
+]
+},
+{
+"type": "paragraph",
+"lines": [
+59
+]
+}
+]
+}
+},
+"expected": {
+"ok": true,
+"errors": [],
+"warnings": [],
+"map": {
+"title": 1,
+"excluded": [
+{
+"line": 60,
+"kind": "metadata"
+},
+{
+"line": 61,
+"kind": "metadata"
+}
+],
+"blocks": [
+{
+"type": "paragraph",
+"lines": [
+2
+]
+},
+{
+"type": "paragraph",
+"lines": [
+3
+]
+},
+{
+"type": "image",
+"lines": [
+4,
+5,
+6,
+7,
+8
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+9
+]
+},
+{
+"type": "paragraph",
+"lines": [
+10
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+11
+]
+},
+{
+"type": "paragraph",
+"lines": [
+12
+]
+},
+{
+"type": "paragraph",
+"lines": [
+13
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+14
+]
+},
+{
+"type": "paragraph",
+"lines": [
+15
+]
+},
+{
+"type": "table",
+"lines": [
+16,
+17,
+18,
+19,
+20,
+21,
+22,
+23,
+24
+],
+"header": true
+},
+{
+"type": "image",
+"lines": [
+25,
+26,
+27,
+28,
+29
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+30
+]
+},
+{
+"type": "table",
+"lines": [
+31,
+32,
+33,
+34,
+35,
+36,
+37
+],
+"header": true
+},
+{
+"type": "image",
+"lines": [
+38,
+39,
+40,
+41,
+42
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+43
+]
+},
+{
+"type": "list",
+"ordered": true,
+"items": [
+[
+44
+],
+[
+45
+],
+[
+46
+],
+[
+47
+],
+[
+48
+]
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+49
+]
+},
+{
+"type": "paragraph",
+"lines": [
+50
+]
+},
+{
+"type": "image",
+"lines": [
+51,
+52,
+53,
+54,
+55
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+56
+]
+},
+{
+"type": "paragraph",
+"lines": [
+57
+]
+},
+{
+"type": "heading",
+"level": 2,
+"lines": [
+58
+]
+},
+{
+"type": "paragraph",
+"lines": [
+59
+]
+}
+]
+}
+}
+},
+{
+"job": {
+"op": "post",
+"name": "01-clean blocks",
+"markdown": "# 5 Ways to Keep Your Garden Alive Through an Omani Summer\n\nSummer in Muscat is brutal on gardens. Temperatures regularly pass 45°C, and even hardy plants struggle without a plan.\n\n## Water at the Right Time\n\nWater early in the morning, before 7am. Evening watering leaves soil damp overnight, which invites fungus.\n\n## Choose Plants That Belong Here\n\nSome plants simply cope better:\n\n- Bougainvillea\n- Desert rose (Adenium)\n- Frangipani\n- Aloe vera\n\nMore ideas are listed at https://example.org/native-plants.\n\n## Final Thoughts\n\nA little planning goes a long way. Start with shade, water, and the right plants.\n",
+"format": "blocks"
+},
+"expected": {
+"title": "5 Ways to Keep Your Garden Alive Through an Omani Summer",
+"content": "<!-- wp:paragraph -->\n<p>Summer in Muscat is brutal on gardens. Temperatures regularly pass 45°C, and even hardy plants struggle without a plan.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">Water at the Right Time</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Water early in the morning, before 7am. Evening watering leaves soil damp overnight, which invites fungus.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">Choose Plants That Belong Here</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Some plants simply cope better:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:list -->\n<ul class=\"wp-block-list\"><!-- wp:list-item -->\n<li>Bougainvillea</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Desert rose (Adenium)</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Frangipani</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Aloe vera</li>\n<!-- /wp:list-item --></ul>\n<!-- /wp:list -->\n\n<!-- wp:paragraph -->\n<p>More ideas are listed at <a href=\"https://example.org/native-plants\">https://example.org/native-plants</a>.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">Final Thoughts</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>A little planning goes a long way. Start with shade, water, and the right plants.</p>\n<!-- /wp:paragraph -->",
+"errors": [],
+"plain_text": "Summer in Muscat is brutal on gardens. Temperatures regularly pass 45°C, and even hardy plants struggle without a plan. Water at the Right Time Water early in the morning, before 7am. Evening watering leaves soil damp overnight, which invites fungus. Choose Plants That Belong Here Some plants simply cope better: Bougainvillea Desert rose (Adenium) Frangipani Aloe vera More ideas are listed at https://example.org/native-plants. Final Thoughts A little planning goes a long way. Start with shade, water, and the right plants.",
+"counts": {
+"headings": 3,
+"paragraphs": 5,
+"lists": 1,
+"tables": 0,
+"images": 0
+},
+"images": []
+}
+},
+{
+"job": {
+"op": "post",
+"name": "01-clean html",
+"markdown": "# 5 Ways to Keep Your Garden Alive Through an Omani Summer\n\nSummer in Muscat is brutal on gardens. Temperatures regularly pass 45°C, and even hardy plants struggle without a plan.\n\n## Water at the Right Time\n\nWater early in the morning, before 7am. Evening watering leaves soil damp overnight, which invites fungus.\n\n## Choose Plants That Belong Here\n\nSome plants simply cope better:\n\n- Bougainvillea\n- Desert rose (Adenium)\n- Frangipani\n- Aloe vera\n\nMore ideas are listed at https://example.org/native-plants.\n\n## Final Thoughts\n\nA little planning goes a long way. Start with shade, water, and the right plants.\n",
+"format": "html"
+},
+"expected": {
+"title": "5 Ways to Keep Your Garden Alive Through an Omani Summer",
+"content": "<p>Summer in Muscat is brutal on gardens. Temperatures regularly pass 45°C, and even hardy plants struggle without a plan.</p>\n\n<h2>Water at the Right Time</h2>\n\n<p>Water early in the morning, before 7am. Evening watering leaves soil damp overnight, which invites fungus.</p>\n\n<h2>Choose Plants That Belong Here</h2>\n\n<p>Some plants simply cope better:</p>\n\n<ul><li>Bougainvillea</li>\n<li>Desert rose (Adenium)</li>\n<li>Frangipani</li>\n<li>Aloe vera</li></ul>\n\n<p>More ideas are listed at <a href=\"https://example.org/native-plants\">https://example.org/native-plants</a>.</p>\n\n<h2>Final Thoughts</h2>\n\n<p>A little planning goes a long way. Start with shade, water, and the right plants.</p>",
+"errors": [],
+"plain_text": "Summer in Muscat is brutal on gardens. Temperatures regularly pass 45°C, and even hardy plants struggle without a plan. Water at the Right Time Water early in the morning, before 7am. Evening watering leaves soil damp overnight, which invites fungus. Choose Plants That Belong Here Some plants simply cope better: Bougainvillea Desert rose (Adenium) Frangipani Aloe vera More ideas are listed at https://example.org/native-plants. Final Thoughts A little planning goes a long way. Start with shade, water, and the right plants.",
+"counts": {
+"headings": 3,
+"paragraphs": 5,
+"lists": 1,
+"tables": 0,
+"images": 0
+},
+"images": []
+}
+},
+{
+"job": {
+"op": "post",
+"name": "02-hardwrapped blocks",
+"markdown": "# WHY OUR TEAM SWITCHED TO WEEKLY PLANNING\n\nFor years we planned in monthly cycles. It felt efficient: one big meeting, one big document, and then everyone went off to execute. In practice, by week two the plan was already out of date.\n\n## THE PROBLEM\n\nMonthly plans assumed we knew what the month would bring. We never did. Client requests, bugs, and hiring all arrived on their own schedule.\n\n## WHAT WE CHANGED\n\n1. Every Monday, a 30-minute planning call.\n2. Each person commits to three outcomes, not tasks.\n3. Friday, a short written recap of what shipped and what slipped, and why.\n\nThe results after one quarter: fewer missed deadlines, and far less time spent re-planning in the middle of the month. See the template we use at www.example.com/weekly-template.\n\nIf you try it, tell us how it goes.\n",
+"format": "blocks"
+},
+"expected": {
+"title": "WHY OUR TEAM SWITCHED TO WEEKLY PLANNING",
+"content": "<!-- wp:paragraph -->\n<p>For years we planned in monthly cycles. It felt efficient: one big meeting, one big document, and then everyone went off to execute. In practice, by week two the plan was already out of date.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">THE PROBLEM</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Monthly plans assumed we knew what the month would bring. We never did. Client requests, bugs, and hiring all arrived on their own schedule.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">WHAT WE CHANGED</h2>\n<!-- /wp:heading -->\n\n<!-- wp:list {\"ordered\":true} -->\n<ol class=\"wp-block-list\"><!-- wp:list-item -->\n<li>Every Monday, a 30-minute planning call.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Each person commits to three outcomes, not tasks.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Friday, a short written recap of what shipped and what slipped, and why.</li>\n<!-- /wp:list-item --></ol>\n<!-- /wp:list -->\n\n<!-- wp:paragraph -->\n<p>The results after one quarter: fewer missed deadlines, and far less time spent re-planning in the middle of the month. See the template we use at <a href=\"https://www.example.com/weekly-template\">www.example.com/weekly-template</a>.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>If you try it, tell us how it goes.</p>\n<!-- /wp:paragraph -->",
+"errors": [],
+"plain_text": "For years we planned in monthly cycles. It felt efficient: one big meeting, one big document, and then everyone went off to execute. In practice, by week two the plan was already out of date. THE PROBLEM Monthly plans assumed we knew what the month would bring. We never did. Client requests, bugs, and hiring all arrived on their own schedule. WHAT WE CHANGED Every Monday, a 30-minute planning call. Each person commits to three outcomes, not tasks. Friday, a short written recap of what shipped and what slipped, and why. The results after one quarter: fewer missed deadlines, and far less time spent re-planning in the middle of the month. See the template we use at www.example.com/weekly-template. If you try it, tell us how it goes.",
+"counts": {
+"headings": 2,
+"paragraphs": 4,
+"lists": 1,
+"tables": 0,
+"images": 0
+},
+"images": []
+}
+},
+{
+"job": {
+"op": "post",
+"name": "02-hardwrapped html",
+"markdown": "# WHY OUR TEAM SWITCHED TO WEEKLY PLANNING\n\nFor years we planned in monthly cycles. It felt efficient: one big meeting, one big document, and then everyone went off to execute. In practice, by week two the plan was already out of date.\n\n## THE PROBLEM\n\nMonthly plans assumed we knew what the month would bring. We never did. Client requests, bugs, and hiring all arrived on their own schedule.\n\n## WHAT WE CHANGED\n\n1. Every Monday, a 30-minute planning call.\n2. Each person commits to three outcomes, not tasks.\n3. Friday, a short written recap of what shipped and what slipped, and why.\n\nThe results after one quarter: fewer missed deadlines, and far less time spent re-planning in the middle of the month. See the template we use at www.example.com/weekly-template.\n\nIf you try it, tell us how it goes.\n",
+"format": "html"
+},
+"expected": {
+"title": "WHY OUR TEAM SWITCHED TO WEEKLY PLANNING",
+"content": "<p>For years we planned in monthly cycles. It felt efficient: one big meeting, one big document, and then everyone went off to execute. In practice, by week two the plan was already out of date.</p>\n\n<h2>THE PROBLEM</h2>\n\n<p>Monthly plans assumed we knew what the month would bring. We never did. Client requests, bugs, and hiring all arrived on their own schedule.</p>\n\n<h2>WHAT WE CHANGED</h2>\n\n<ol><li>Every Monday, a 30-minute planning call.</li>\n<li>Each person commits to three outcomes, not tasks.</li>\n<li>Friday, a short written recap of what shipped and what slipped, and why.</li></ol>\n\n<p>The results after one quarter: fewer missed deadlines, and far less time spent re-planning in the middle of the month. See the template we use at <a href=\"https://www.example.com/weekly-template\">www.example.com/weekly-template</a>.</p>\n\n<p>If you try it, tell us how it goes.</p>",
+"errors": [],
+"plain_text": "For years we planned in monthly cycles. It felt efficient: one big meeting, one big document, and then everyone went off to execute. In practice, by week two the plan was already out of date. THE PROBLEM Monthly plans assumed we knew what the month would bring. We never did. Client requests, bugs, and hiring all arrived on their own schedule. WHAT WE CHANGED Every Monday, a 30-minute planning call. Each person commits to three outcomes, not tasks. Friday, a short written recap of what shipped and what slipped, and why. The results after one quarter: fewer missed deadlines, and far less time spent re-planning in the middle of the month. See the template we use at www.example.com/weekly-template. If you try it, tell us how it goes.",
+"counts": {
+"headings": 2,
+"paragraphs": 4,
+"lists": 1,
+"tables": 0,
+"images": 0
+},
+"images": []
+}
+},
+{
+"job": {
+"op": "post",
+"name": "03-messy blocks",
+"markdown": "# The Hidden Cost of \"Free\" Software\n\nEveryone loves free tools. But \"free\" rarely means zero cost — it usually means the cost moved somewhere else.\n\nKey things we look at before adopting a free tool:\n\n- Who maintains it, and how often it's updated\n- Whether we can export our data\n- What happens if the company behind it disappears\n\n## Support:\n\nFree tools often come with community support only. That's fine until something breaks at 2am.\n\nOur office address for questions:\n\nExample Co. Office\\\nBuilding 12, Way 3021\\\nMuscat, Oman\n\nBottom line: free is a price, not a guarantee. Choose tools where you understand the trade-off.\n",
+"format": "blocks"
+},
+"expected": {
+"title": "The Hidden Cost of \"Free\" Software",
+"content": "<!-- wp:paragraph -->\n<p>Everyone loves free tools. But &quot;free&quot; rarely means zero cost — it usually means the cost moved somewhere else.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Key things we look at before adopting a free tool:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:list -->\n<ul class=\"wp-block-list\"><!-- wp:list-item -->\n<li>Who maintains it, and how often it's updated</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Whether we can export our data</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>What happens if the company behind it disappears</li>\n<!-- /wp:list-item --></ul>\n<!-- /wp:list -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">Support:</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Free tools often come with community support only. That's fine until something breaks at 2am.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Our office address for questions:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Example Co. Office<br>Building 12, Way 3021<br>Muscat, Oman</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Bottom line: free is a price, not a guarantee. Choose tools where you understand the trade-off.</p>\n<!-- /wp:paragraph -->",
+"errors": [],
+"plain_text": "Everyone loves free tools. But \"free\" rarely means zero cost — it usually means the cost moved somewhere else. Key things we look at before adopting a free tool: Who maintains it, and how often it's updated Whether we can export our data What happens if the company behind it disappears Support: Free tools often come with community support only. That's fine until something breaks at 2am. Our office address for questions: Example Co. Office Building 12, Way 3021 Muscat, Oman Bottom line: free is a price, not a guarantee. Choose tools where you understand the trade-off.",
+"counts": {
+"headings": 1,
+"paragraphs": 6,
+"lists": 1,
+"tables": 0,
+"images": 0
+},
+"images": []
+}
+},
+{
+"job": {
+"op": "post",
+"name": "03-messy html",
+"markdown": "# The Hidden Cost of \"Free\" Software\n\nEveryone loves free tools. But \"free\" rarely means zero cost — it usually means the cost moved somewhere else.\n\nKey things we look at before adopting a free tool:\n\n- Who maintains it, and how often it's updated\n- Whether we can export our data\n- What happens if the company behind it disappears\n\n## Support:\n\nFree tools often come with community support only. That's fine until something breaks at 2am.\n\nOur office address for questions:\n\nExample Co. Office\\\nBuilding 12, Way 3021\\\nMuscat, Oman\n\nBottom line: free is a price, not a guarantee. Choose tools where you understand the trade-off.\n",
+"format": "html"
+},
+"expected": {
+"title": "The Hidden Cost of \"Free\" Software",
+"content": "<p>Everyone loves free tools. But &quot;free&quot; rarely means zero cost — it usually means the cost moved somewhere else.</p>\n\n<p>Key things we look at before adopting a free tool:</p>\n\n<ul><li>Who maintains it, and how often it's updated</li>\n<li>Whether we can export our data</li>\n<li>What happens if the company behind it disappears</li></ul>\n\n<h2>Support:</h2>\n\n<p>Free tools often come with community support only. That's fine until something breaks at 2am.</p>\n\n<p>Our office address for questions:</p>\n\n<p>Example Co. Office<br>Building 12, Way 3021<br>Muscat, Oman</p>\n\n<p>Bottom line: free is a price, not a guarantee. Choose tools where you understand the trade-off.</p>",
+"errors": [],
+"plain_text": "Everyone loves free tools. But \"free\" rarely means zero cost — it usually means the cost moved somewhere else. Key things we look at before adopting a free tool: Who maintains it, and how often it's updated Whether we can export our data What happens if the company behind it disappears Support: Free tools often come with community support only. That's fine until something breaks at 2am. Our office address for questions: Example Co. Office Building 12, Way 3021 Muscat, Oman Bottom line: free is a price, not a guarantee. Choose tools where you understand the trade-off.",
+"counts": {
+"headings": 1,
+"paragraphs": 6,
+"lists": 1,
+"tables": 0,
+"images": 0
+},
+"images": []
+}
+},
+{
+"job": {
+"op": "post",
+"name": "04-cp1252-crlf blocks",
+"markdown": "# Windows File Test\n\nCafé prices rose 10% & more \\<fast>.\n",
+"format": "blocks"
+},
+"expected": {
+"title": "Windows File Test",
+"content": "<!-- wp:paragraph -->\n<p>Café prices rose 10% &amp; more &lt;fast&gt;.</p>\n<!-- /wp:paragraph -->",
+"errors": [],
+"plain_text": "Café prices rose 10% & more <fast>.",
+"counts": {
+"headings": 0,
+"paragraphs": 1,
+"lists": 0,
+"tables": 0,
+"images": 0
+},
+"images": []
+}
+},
+{
+"job": {
+"op": "post",
+"name": "04-cp1252-crlf html",
+"markdown": "# Windows File Test\n\nCafé prices rose 10% & more \\<fast>.\n",
+"format": "html"
+},
+"expected": {
+"title": "Windows File Test",
+"content": "<p>Café prices rose 10% &amp; more &lt;fast&gt;.</p>",
+"errors": [],
+"plain_text": "Café prices rose 10% & more <fast>.",
+"counts": {
+"headings": 0,
+"paragraphs": 1,
+"lists": 0,
+"tables": 0,
+"images": 0
+},
+"images": []
+}
+},
+{
+"job": {
+"op": "post",
+"name": "05-office-energy blocks",
+"markdown": "# How We Cut Our Office Electricity Bill by 30% This Summer\n\nEvery June our electricity bill jumps, and every June we tell ourselves we'll \"look into it.\" This year we actually did — and the results surprised us.\n\nHere's the short version:\n\n- Cooling was 70% of the bill\n- Most of it ran when nobody was in the office\n- Three cheap changes fixed most of it\n\nIt worked.\n\n## WHERE THE ENERGY WAS GOING\n\nWe borrowed a plug-in energy meter and logged usage for two weeks. The pattern was obvious once we saw it: the AC units ran at full power from 6am to 11pm, even though the office is empty after 6pm.\n\nOther culprits we found:\n\n- Two old fridges in the pantry (one was completely empty)\n- Monitors left on standby over the weekend\n- The server-room AC, set to 18°C \"just to be safe\"\n- Printers that never go to sleep\n\nWhat we changed:\n\n1. Put every AC unit on a timer: on at 7:30am, off at 6pm, and off entirely on Fridays and Saturdays.\n2. Raised the thermostat from 21°C to 24°C. After the first week, nobody noticed.\n3. Unplugged the spare fridge & replaced the other with an efficient model.\n4. Set monitors and printers to sleep after 15 minutes.\n\nNote: we checked the server room with our IT provider before touching it. Don't skip that step — some equipment really does need cooler air.\n\n## The Results\n\nJuly's bill was 31% lower than last July's, even though it was a hotter month. The timers cost less than 60 rials in total and paid for themselves in under three weeks.\n\nWant to try this yourself?  The meter we used is listed at https://www.example.com/energy-meter, and the government's efficiency guide is at www.example.org/save-energy.\n\nIf you have questions, visit us or write to us:\n\nOffice 204, Al Khuwair Business Tower\\\nWay 3311, Al Khuwair\\\nMuscat, Sultanate of Oman\n\nThanks for reading!\n\n— The Operations Team\n",
+"format": "blocks"
+},
+"expected": {
+"title": "How We Cut Our Office Electricity Bill by 30% This Summer",
+"content": "<!-- wp:paragraph -->\n<p>Every June our electricity bill jumps, and every June we tell ourselves we'll &quot;look into it.&quot; This year we actually did — and the results surprised us.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Here's the short version:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:list -->\n<ul class=\"wp-block-list\"><!-- wp:list-item -->\n<li>Cooling was 70% of the bill</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Most of it ran when nobody was in the office</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Three cheap changes fixed most of it</li>\n<!-- /wp:list-item --></ul>\n<!-- /wp:list -->\n\n<!-- wp:paragraph -->\n<p>It worked.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">WHERE THE ENERGY WAS GOING</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>We borrowed a plug-in energy meter and logged usage for two weeks. The pattern was obvious once we saw it: the AC units ran at full power from 6am to 11pm, even though the office is empty after 6pm.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Other culprits we found:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:list -->\n<ul class=\"wp-block-list\"><!-- wp:list-item -->\n<li>Two old fridges in the pantry (one was completely empty)</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Monitors left on standby over the weekend</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>The server-room AC, set to 18°C &quot;just to be safe&quot;</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Printers that never go to sleep</li>\n<!-- /wp:list-item --></ul>\n<!-- /wp:list -->\n\n<!-- wp:paragraph -->\n<p>What we changed:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:list {\"ordered\":true} -->\n<ol class=\"wp-block-list\"><!-- wp:list-item -->\n<li>Put every AC unit on a timer: on at 7:30am, off at 6pm, and off entirely on Fridays and Saturdays.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Raised the thermostat from 21°C to 24°C. After the first week, nobody noticed.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Unplugged the spare fridge &amp; replaced the other with an efficient model.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Set monitors and printers to sleep after 15 minutes.</li>\n<!-- /wp:list-item --></ol>\n<!-- /wp:list -->\n\n<!-- wp:paragraph -->\n<p>Note: we checked the server room with our IT provider before touching it. Don't skip that step — some equipment really does need cooler air.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">The Results</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>July's bill was 31% lower than last July's, even though it was a hotter month. The timers cost less than 60 rials in total and paid for themselves in under three weeks.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Want to try this yourself?  The meter we used is listed at <a href=\"https://www.example.com/energy-meter\">https://www.example.com/energy-meter</a>, and the government's efficiency guide is at <a href=\"https://www.example.org/save-energy\">www.example.org/save-energy</a>.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>If you have questions, visit us or write to us:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Office 204, Al Khuwair Business Tower<br>Way 3311, Al Khuwair<br>Muscat, Sultanate of Oman</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Thanks for reading!</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>— The Operations Team</p>\n<!-- /wp:paragraph -->",
+"errors": [],
+"plain_text": "Every June our electricity bill jumps, and every June we tell ourselves we'll \"look into it.\" This year we actually did — and the results surprised us. Here's the short version: Cooling was 70% of the bill Most of it ran when nobody was in the office Three cheap changes fixed most of it It worked. WHERE THE ENERGY WAS GOING We borrowed a plug-in energy meter and logged usage for two weeks. The pattern was obvious once we saw it: the AC units ran at full power from 6am to 11pm, even though the office is empty after 6pm. Other culprits we found: Two old fridges in the pantry (one was completely empty) Monitors left on standby over the weekend The server-room AC, set to 18°C \"just to be safe\" Printers that never go to sleep What we changed: Put every AC unit on a timer: on at 7:30am, off at 6pm, and off entirely on Fridays and Saturdays. Raised the thermostat from 21°C to 24°C. After the first week, nobody noticed. Unplugged the spare fridge & replaced the other with an efficient model. Set monitors and printers to sleep after 15 minutes. Note: we checked the server room with our IT provider before touching it. Don't skip that step — some equipment really does need cooler air. The Results July's bill was 31% lower than last July's, even though it was a hotter month. The timers cost less than 60 rials in total and paid for themselves in under three weeks. Want to try this yourself? The meter we used is listed at https://www.example.com/energy-meter, and the government's efficiency guide is at www.example.org/save-energy. If you have questions, visit us or write to us: Office 204, Al Khuwair Business Tower Way 3311, Al Khuwair Muscat, Sultanate of Oman Thanks for reading! — The Operations Team",
+"counts": {
+"headings": 2,
+"paragraphs": 13,
+"lists": 3,
+"tables": 0,
+"images": 0
+},
+"images": []
+}
+},
+{
+"job": {
+"op": "post",
+"name": "05-office-energy html",
+"markdown": "# How We Cut Our Office Electricity Bill by 30% This Summer\n\nEvery June our electricity bill jumps, and every June we tell ourselves we'll \"look into it.\" This year we actually did — and the results surprised us.\n\nHere's the short version:\n\n- Cooling was 70% of the bill\n- Most of it ran when nobody was in the office\n- Three cheap changes fixed most of it\n\nIt worked.\n\n## WHERE THE ENERGY WAS GOING\n\nWe borrowed a plug-in energy meter and logged usage for two weeks. The pattern was obvious once we saw it: the AC units ran at full power from 6am to 11pm, even though the office is empty after 6pm.\n\nOther culprits we found:\n\n- Two old fridges in the pantry (one was completely empty)\n- Monitors left on standby over the weekend\n- The server-room AC, set to 18°C \"just to be safe\"\n- Printers that never go to sleep\n\nWhat we changed:\n\n1. Put every AC unit on a timer: on at 7:30am, off at 6pm, and off entirely on Fridays and Saturdays.\n2. Raised the thermostat from 21°C to 24°C. After the first week, nobody noticed.\n3. Unplugged the spare fridge & replaced the other with an efficient model.\n4. Set monitors and printers to sleep after 15 minutes.\n\nNote: we checked the server room with our IT provider before touching it. Don't skip that step — some equipment really does need cooler air.\n\n## The Results\n\nJuly's bill was 31% lower than last July's, even though it was a hotter month. The timers cost less than 60 rials in total and paid for themselves in under three weeks.\n\nWant to try this yourself?  The meter we used is listed at https://www.example.com/energy-meter, and the government's efficiency guide is at www.example.org/save-energy.\n\nIf you have questions, visit us or write to us:\n\nOffice 204, Al Khuwair Business Tower\\\nWay 3311, Al Khuwair\\\nMuscat, Sultanate of Oman\n\nThanks for reading!\n\n— The Operations Team\n",
+"format": "html"
+},
+"expected": {
+"title": "How We Cut Our Office Electricity Bill by 30% This Summer",
+"content": "<p>Every June our electricity bill jumps, and every June we tell ourselves we'll &quot;look into it.&quot; This year we actually did — and the results surprised us.</p>\n\n<p>Here's the short version:</p>\n\n<ul><li>Cooling was 70% of the bill</li>\n<li>Most of it ran when nobody was in the office</li>\n<li>Three cheap changes fixed most of it</li></ul>\n\n<p>It worked.</p>\n\n<h2>WHERE THE ENERGY WAS GOING</h2>\n\n<p>We borrowed a plug-in energy meter and logged usage for two weeks. The pattern was obvious once we saw it: the AC units ran at full power from 6am to 11pm, even though the office is empty after 6pm.</p>\n\n<p>Other culprits we found:</p>\n\n<ul><li>Two old fridges in the pantry (one was completely empty)</li>\n<li>Monitors left on standby over the weekend</li>\n<li>The server-room AC, set to 18°C &quot;just to be safe&quot;</li>\n<li>Printers that never go to sleep</li></ul>\n\n<p>What we changed:</p>\n\n<ol><li>Put every AC unit on a timer: on at 7:30am, off at 6pm, and off entirely on Fridays and Saturdays.</li>\n<li>Raised the thermostat from 21°C to 24°C. After the first week, nobody noticed.</li>\n<li>Unplugged the spare fridge &amp; replaced the other with an efficient model.</li>\n<li>Set monitors and printers to sleep after 15 minutes.</li></ol>\n\n<p>Note: we checked the server room with our IT provider before touching it. Don't skip that step — some equipment really does need cooler air.</p>\n\n<h2>The Results</h2>\n\n<p>July's bill was 31% lower than last July's, even though it was a hotter month. The timers cost less than 60 rials in total and paid for themselves in under three weeks.</p>\n\n<p>Want to try this yourself?  The meter we used is listed at <a href=\"https://www.example.com/energy-meter\">https://www.example.com/energy-meter</a>, and the government's efficiency guide is at <a href=\"https://www.example.org/save-energy\">www.example.org/save-energy</a>.</p>\n\n<p>If you have questions, visit us or write to us:</p>\n\n<p>Office 204, Al Khuwair Business Tower<br>Way 3311, Al Khuwair<br>Muscat, Sultanate of Oman</p>\n\n<p>Thanks for reading!</p>\n\n<p>— The Operations Team</p>",
+"errors": [],
+"plain_text": "Every June our electricity bill jumps, and every June we tell ourselves we'll \"look into it.\" This year we actually did — and the results surprised us. Here's the short version: Cooling was 70% of the bill Most of it ran when nobody was in the office Three cheap changes fixed most of it It worked. WHERE THE ENERGY WAS GOING We borrowed a plug-in energy meter and logged usage for two weeks. The pattern was obvious once we saw it: the AC units ran at full power from 6am to 11pm, even though the office is empty after 6pm. Other culprits we found: Two old fridges in the pantry (one was completely empty) Monitors left on standby over the weekend The server-room AC, set to 18°C \"just to be safe\" Printers that never go to sleep What we changed: Put every AC unit on a timer: on at 7:30am, off at 6pm, and off entirely on Fridays and Saturdays. Raised the thermostat from 21°C to 24°C. After the first week, nobody noticed. Unplugged the spare fridge & replaced the other with an efficient model. Set monitors and printers to sleep after 15 minutes. Note: we checked the server room with our IT provider before touching it. Don't skip that step — some equipment really does need cooler air. The Results July's bill was 31% lower than last July's, even though it was a hotter month. The timers cost less than 60 rials in total and paid for themselves in under three weeks. Want to try this yourself? The meter we used is listed at https://www.example.com/energy-meter, and the government's efficiency guide is at www.example.org/save-energy. If you have questions, visit us or write to us: Office 204, Al Khuwair Business Tower Way 3311, Al Khuwair Muscat, Sultanate of Oman Thanks for reading! — The Operations Team",
+"counts": {
+"headings": 2,
+"paragraphs": 13,
+"lists": 3,
+"tables": 0,
+"images": 0
+},
+"images": []
+}
+},
+{
+"job": {
+"op": "post",
+"name": "06-coffee-grinder blocks",
+"markdown": "# How to Choose a Home Coffee Grinder in 2026\n\nIf you've ever wondered why the coffee at your favourite café tastes better than what you make at home, the answer is usually not the beans or the machine. It's the grinder. A consistent grind is the single biggest upgrade most home brewers can make, and it doesn't have to cost a fortune.\n\nIn this guide we'll walk through the two main grinder types, what grind size you need for each brewing method, and a few models worth considering at different budgets.\n\n![A burr coffee grinder on a kitchen counter next to a bag of whole beans](https://picsum.photos/seed/grinder-hero/1200/700 \"A good burr grinder is the foundation of better coffee at home.\")\n\n## Blade vs Burr Grinders\n\nBlade grinders work like a small blender. A spinning blade chops the beans into pieces of wildly different sizes, some almost powder and some still chunky. That mix extracts unevenly, which is why blade-ground coffee often tastes bitter and sour at the same time.\n\nBurr grinders crush beans between two abrasive surfaces set a fixed distance apart. Every particle comes out close to the same size, so extraction is even and the flavour is cleaner. There are two kinds of burrs:\n\n- Conical burrs: quieter, slower, retain less heat, usually cheaper\n- Flat burrs: more uniform grind, favoured for espresso, usually pricier and louder\n\n## Grind Size by Brewing Method\n\nThe right grind depends entirely on how you brew. Use this table as a starting point and adjust by taste.\n\n| Brewing Method | Grind Size | Texture Comparison | Brew Time |\n| --- | --- | --- | --- |\n| Turkish | Extra fine | Flour | 3-4 min |\n| Espresso | Fine | Table salt | 25-30 sec |\n| AeroPress | Fine-medium | Fine sand | 1-2 min |\n| Pour over (V60) | Medium-fine | Coarse sand | 2.5-3.5 min |\n| Drip machine | Medium | Regular sand | 4-6 min |\n| French press | Coarse | Sea salt | 4 min |\n| Cold brew | Extra coarse | Peppercorns | 12-24 hours |\n\n![Five small piles of ground coffee arranged from extra fine to extra coarse](https://picsum.photos/seed/grind-sizes/1000/600 \"From left to right: extra fine, fine, medium, coarse, extra coarse.\")\n\n## Grinders Worth Considering\n\nBelow are four grinders across different price points. Prices are approximate retail in OMR and will vary by store.\n\n| Model | Type | Burr | Price (OMR) | Best For |\n| --- | --- | --- | --- | --- |\n| Hario Skerton Pro | Manual | Conical ceramic | 22 | Travel and French press |\n| Baratza Encore ESP | Electric | Conical steel | 78 | Pour over and beginner espresso |\n| Fellow Opus | Electric | Conical steel | 75 | All-rounder, drip to espresso |\n| Niche Zero | Electric | Conical steel | 260 | Serious espresso at home |\n\n## How to Get the Most From Your Grinder\n\n1. Grind right before brewing. Ground coffee loses aroma within minutes.\n2. Start at the manufacturer's recommended setting, then adjust one step at a time.\n3. Clean the burrs every few weeks with a brush or grinder cleaning tablets.\n4. Weigh your beans instead of using scoops for repeatable results.\n\n![Hot water being poured over fresh coffee grounds in a pour-over dripper](https://picsum.photos/seed/pour-over/1200/800 \"Freshly ground coffee blooming in a pour-over dripper.\")\n\n## Final Thoughts\n\nYou don't need the most expensive grinder to taste a difference. Moving from a blade grinder to even an entry-level burr grinder will change your morning cup more than any new machine or fancy bean. Pick one that matches how you brew, keep it clean, and grind fresh every time.\n",
+"format": "blocks"
+},
+"expected": {
+"title": "How to Choose a Home Coffee Grinder in 2026",
+"content": "<!-- wp:paragraph -->\n<p>If you've ever wondered why the coffee at your favourite café tastes better than what you make at home, the answer is usually not the beans or the machine. It's the grinder. A consistent grind is the single biggest upgrade most home brewers can make, and it doesn't have to cost a fortune.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>In this guide we'll walk through the two main grinder types, what grind size you need for each brewing method, and a few models worth considering at different budgets.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"linkDestination\":\"none\"} -->\n<figure class=\"wp-block-image\"><img src=\"https://picsum.photos/seed/grinder-hero/1200/700\" alt=\"A burr coffee grinder on a kitchen counter next to a bag of whole beans\"/><figcaption class=\"wp-element-caption\">A good burr grinder is the foundation of better coffee at home.</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">Blade vs Burr Grinders</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Blade grinders work like a small blender. A spinning blade chops the beans into pieces of wildly different sizes, some almost powder and some still chunky. That mix extracts unevenly, which is why blade-ground coffee often tastes bitter and sour at the same time.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Burr grinders crush beans between two abrasive surfaces set a fixed distance apart. Every particle comes out close to the same size, so extraction is even and the flavour is cleaner. There are two kinds of burrs:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:list -->\n<ul class=\"wp-block-list\"><!-- wp:list-item -->\n<li>Conical burrs: quieter, slower, retain less heat, usually cheaper</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Flat burrs: more uniform grind, favoured for espresso, usually pricier and louder</li>\n<!-- /wp:list-item --></ul>\n<!-- /wp:list -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">Grind Size by Brewing Method</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>The right grind depends entirely on how you brew. Use this table as a starting point and adjust by taste.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:table -->\n<figure class=\"wp-block-table\"><table class=\"has-fixed-layout\"><thead><tr><th>Brewing Method</th><th>Grind Size</th><th>Texture Comparison</th><th>Brew Time</th></tr></thead><tbody><tr><td>Turkish</td><td>Extra fine</td><td>Flour</td><td>3-4 min</td></tr><tr><td>Espresso</td><td>Fine</td><td>Table salt</td><td>25-30 sec</td></tr><tr><td>AeroPress</td><td>Fine-medium</td><td>Fine sand</td><td>1-2 min</td></tr><tr><td>Pour over (V60)</td><td>Medium-fine</td><td>Coarse sand</td><td>2.5-3.5 min</td></tr><tr><td>Drip machine</td><td>Medium</td><td>Regular sand</td><td>4-6 min</td></tr><tr><td>French press</td><td>Coarse</td><td>Sea salt</td><td>4 min</td></tr><tr><td>Cold brew</td><td>Extra coarse</td><td>Peppercorns</td><td>12-24 hours</td></tr></tbody></table></figure>\n<!-- /wp:table -->\n\n<!-- wp:image {\"linkDestination\":\"none\"} -->\n<figure class=\"wp-block-image\"><img src=\"https://picsum.photos/seed/grind-sizes/1000/600\" alt=\"Five small piles of ground coffee arranged from extra fine to extra coarse\"/><figcaption class=\"wp-element-caption\">From left to right: extra fine, fine, medium, coarse, extra coarse.</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">Grinders Worth Considering</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Below are four grinders across different price points. Prices are approximate retail in OMR and will vary by store.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:table -->\n<figure class=\"wp-block-table\"><table class=\"has-fixed-layout\"><thead><tr><th>Model</th><th>Type</th><th>Burr</th><th>Price (OMR)</th><th>Best For</th></tr></thead><tbody><tr><td>Hario Skerton Pro</td><td>Manual</td><td>Conical ceramic</td><td>22</td><td>Travel and French press</td></tr><tr><td>Baratza Encore ESP</td><td>Electric</td><td>Conical steel</td><td>78</td><td>Pour over and beginner espresso</td></tr><tr><td>Fellow Opus</td><td>Electric</td><td>Conical steel</td><td>75</td><td>All-rounder, drip to espresso</td></tr><tr><td>Niche Zero</td><td>Electric</td><td>Conical steel</td><td>260</td><td>Serious espresso at home</td></tr></tbody></table></figure>\n<!-- /wp:table -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">How to Get the Most From Your Grinder</h2>\n<!-- /wp:heading -->\n\n<!-- wp:list {\"ordered\":true} -->\n<ol class=\"wp-block-list\"><!-- wp:list-item -->\n<li>Grind right before brewing. Ground coffee loses aroma within minutes.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Start at the manufacturer's recommended setting, then adjust one step at a time.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Clean the burrs every few weeks with a brush or grinder cleaning tablets.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Weigh your beans instead of using scoops for repeatable results.</li>\n<!-- /wp:list-item --></ol>\n<!-- /wp:list -->\n\n<!-- wp:image {\"linkDestination\":\"none\"} -->\n<figure class=\"wp-block-image\"><img src=\"https://picsum.photos/seed/pour-over/1200/800\" alt=\"Hot water being poured over fresh coffee grounds in a pour-over dripper\"/><figcaption class=\"wp-element-caption\">Freshly ground coffee blooming in a pour-over dripper.</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">Final Thoughts</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>You don't need the most expensive grinder to taste a difference. Moving from a blade grinder to even an entry-level burr grinder will change your morning cup more than any new machine or fancy bean. Pick one that matches how you brew, keep it clean, and grind fresh every time.</p>\n<!-- /wp:paragraph -->",
+"errors": [],
+"plain_text": "If you've ever wondered why the coffee at your favourite café tastes better than what you make at home, the answer is usually not the beans or the machine. It's the grinder. A consistent grind is the single biggest upgrade most home brewers can make, and it doesn't have to cost a fortune. In this guide we'll walk through the two main grinder types, what grind size you need for each brewing method, and a few models worth considering at different budgets. https://picsum.photos/seed/grinder-hero/1200/700 A burr coffee grinder on a kitchen counter next to a bag of whole beans A good burr grinder is the foundation of better coffee at home. Blade vs Burr Grinders Blade grinders work like a small blender. A spinning blade chops the beans into pieces of wildly different sizes, some almost powder and some still chunky. That mix extracts unevenly, which is why blade-ground coffee often tastes bitter and sour at the same time. Burr grinders crush beans between two abrasive surfaces set a fixed distance apart. Every particle comes out close to the same size, so extraction is even and the flavour is cleaner. There are two kinds of burrs: Conical burrs: quieter, slower, retain less heat, usually cheaper Flat burrs: more uniform grind, favoured for espresso, usually pricier and louder Grind Size by Brewing Method The right grind depends entirely on how you brew. Use this table as a starting point and adjust by taste. Brewing Method Grind Size Texture Comparison Brew Time Turkish Extra fine Flour 3-4 min Espresso Fine Table salt 25-30 sec AeroPress Fine-medium Fine sand 1-2 min Pour over (V60) Medium-fine Coarse sand 2.5-3.5 min Drip machine Medium Regular sand 4-6 min French press Coarse Sea salt 4 min Cold brew Extra coarse Peppercorns 12-24 hours https://picsum.photos/seed/grind-sizes/1000/600 Five small piles of ground coffee arranged from extra fine to extra coarse From left to right: extra fine, fine, medium, coarse, extra coarse. Grinders Worth Considering Below are four grinders across different price points. Prices are approximate retail in OMR and will vary by store. Model Type Burr Price (OMR) Best For Hario Skerton Pro Manual Conical ceramic 22 Travel and French press Baratza Encore ESP Electric Conical steel 78 Pour over and beginner espresso Fellow Opus Electric Conical steel 75 All-rounder, drip to espresso Niche Zero Electric Conical steel 260 Serious espresso at home How to Get the Most From Your Grinder Grind right before brewing. Ground coffee loses aroma within minutes. Start at the manufacturer's recommended setting, then adjust one step at a time. Clean the burrs every few weeks with a brush or grinder cleaning tablets. Weigh your beans instead of using scoops for repeatable results. https://picsum.photos/seed/pour-over/1200/800 Hot water being poured over fresh coffee grounds in a pour-over dripper Freshly ground coffee blooming in a pour-over dripper. Final Thoughts You don't need the most expensive grinder to taste a difference. Moving from a blade grinder to even an entry-level burr grinder will change your morning cup more than any new machine or fancy bean. Pick one that matches how you brew, keep it clean, and grind fresh every time.",
+"counts": {
+"headings": 5,
+"paragraphs": 7,
+"lists": 2,
+"tables": 2,
+"images": 3
+},
+"images": [
+{
+"src": "https://picsum.photos/seed/grinder-hero/1200/700",
+"alt": "A burr coffee grinder on a kitchen counter next to a bag of whole beans",
+"caption": "A good burr grinder is the foundation of better coffee at home.",
+"line": 7
+},
+{
+"src": "https://picsum.photos/seed/grind-sizes/1000/600",
+"alt": "Five small piles of ground coffee arranged from extra fine to extra coarse",
+"caption": "From left to right: extra fine, fine, medium, coarse, extra coarse.",
+"line": 32
+},
+{
+"src": "https://picsum.photos/seed/pour-over/1200/800",
+"alt": "Hot water being poured over fresh coffee grounds in a pour-over dripper",
+"caption": "Freshly ground coffee blooming in a pour-over dripper.",
+"line": 52
+}
+]
+}
+},
+{
+"job": {
+"op": "post",
+"name": "06-coffee-grinder html",
+"markdown": "# How to Choose a Home Coffee Grinder in 2026\n\nIf you've ever wondered why the coffee at your favourite café tastes better than what you make at home, the answer is usually not the beans or the machine. It's the grinder. A consistent grind is the single biggest upgrade most home brewers can make, and it doesn't have to cost a fortune.\n\nIn this guide we'll walk through the two main grinder types, what grind size you need for each brewing method, and a few models worth considering at different budgets.\n\n![A burr coffee grinder on a kitchen counter next to a bag of whole beans](https://picsum.photos/seed/grinder-hero/1200/700 \"A good burr grinder is the foundation of better coffee at home.\")\n\n## Blade vs Burr Grinders\n\nBlade grinders work like a small blender. A spinning blade chops the beans into pieces of wildly different sizes, some almost powder and some still chunky. That mix extracts unevenly, which is why blade-ground coffee often tastes bitter and sour at the same time.\n\nBurr grinders crush beans between two abrasive surfaces set a fixed distance apart. Every particle comes out close to the same size, so extraction is even and the flavour is cleaner. There are two kinds of burrs:\n\n- Conical burrs: quieter, slower, retain less heat, usually cheaper\n- Flat burrs: more uniform grind, favoured for espresso, usually pricier and louder\n\n## Grind Size by Brewing Method\n\nThe right grind depends entirely on how you brew. Use this table as a starting point and adjust by taste.\n\n| Brewing Method | Grind Size | Texture Comparison | Brew Time |\n| --- | --- | --- | --- |\n| Turkish | Extra fine | Flour | 3-4 min |\n| Espresso | Fine | Table salt | 25-30 sec |\n| AeroPress | Fine-medium | Fine sand | 1-2 min |\n| Pour over (V60) | Medium-fine | Coarse sand | 2.5-3.5 min |\n| Drip machine | Medium | Regular sand | 4-6 min |\n| French press | Coarse | Sea salt | 4 min |\n| Cold brew | Extra coarse | Peppercorns | 12-24 hours |\n\n![Five small piles of ground coffee arranged from extra fine to extra coarse](https://picsum.photos/seed/grind-sizes/1000/600 \"From left to right: extra fine, fine, medium, coarse, extra coarse.\")\n\n## Grinders Worth Considering\n\nBelow are four grinders across different price points. Prices are approximate retail in OMR and will vary by store.\n\n| Model | Type | Burr | Price (OMR) | Best For |\n| --- | --- | --- | --- | --- |\n| Hario Skerton Pro | Manual | Conical ceramic | 22 | Travel and French press |\n| Baratza Encore ESP | Electric | Conical steel | 78 | Pour over and beginner espresso |\n| Fellow Opus | Electric | Conical steel | 75 | All-rounder, drip to espresso |\n| Niche Zero | Electric | Conical steel | 260 | Serious espresso at home |\n\n## How to Get the Most From Your Grinder\n\n1. Grind right before brewing. Ground coffee loses aroma within minutes.\n2. Start at the manufacturer's recommended setting, then adjust one step at a time.\n3. Clean the burrs every few weeks with a brush or grinder cleaning tablets.\n4. Weigh your beans instead of using scoops for repeatable results.\n\n![Hot water being poured over fresh coffee grounds in a pour-over dripper](https://picsum.photos/seed/pour-over/1200/800 \"Freshly ground coffee blooming in a pour-over dripper.\")\n\n## Final Thoughts\n\nYou don't need the most expensive grinder to taste a difference. Moving from a blade grinder to even an entry-level burr grinder will change your morning cup more than any new machine or fancy bean. Pick one that matches how you brew, keep it clean, and grind fresh every time.\n",
+"format": "html"
+},
+"expected": {
+"title": "How to Choose a Home Coffee Grinder in 2026",
+"content": "<p>If you've ever wondered why the coffee at your favourite café tastes better than what you make at home, the answer is usually not the beans or the machine. It's the grinder. A consistent grind is the single biggest upgrade most home brewers can make, and it doesn't have to cost a fortune.</p>\n\n<p>In this guide we'll walk through the two main grinder types, what grind size you need for each brewing method, and a few models worth considering at different budgets.</p>\n\n<figure class=\"wp-block-image\"><img src=\"https://picsum.photos/seed/grinder-hero/1200/700\" alt=\"A burr coffee grinder on a kitchen counter next to a bag of whole beans\"/><figcaption class=\"wp-element-caption\">A good burr grinder is the foundation of better coffee at home.</figcaption></figure>\n\n<h2>Blade vs Burr Grinders</h2>\n\n<p>Blade grinders work like a small blender. A spinning blade chops the beans into pieces of wildly different sizes, some almost powder and some still chunky. That mix extracts unevenly, which is why blade-ground coffee often tastes bitter and sour at the same time.</p>\n\n<p>Burr grinders crush beans between two abrasive surfaces set a fixed distance apart. Every particle comes out close to the same size, so extraction is even and the flavour is cleaner. There are two kinds of burrs:</p>\n\n<ul><li>Conical burrs: quieter, slower, retain less heat, usually cheaper</li>\n<li>Flat burrs: more uniform grind, favoured for espresso, usually pricier and louder</li></ul>\n\n<h2>Grind Size by Brewing Method</h2>\n\n<p>The right grind depends entirely on how you brew. Use this table as a starting point and adjust by taste.</p>\n\n<figure class=\"wp-block-table\"><table class=\"has-fixed-layout\"><thead><tr><th>Brewing Method</th><th>Grind Size</th><th>Texture Comparison</th><th>Brew Time</th></tr></thead><tbody><tr><td>Turkish</td><td>Extra fine</td><td>Flour</td><td>3-4 min</td></tr><tr><td>Espresso</td><td>Fine</td><td>Table salt</td><td>25-30 sec</td></tr><tr><td>AeroPress</td><td>Fine-medium</td><td>Fine sand</td><td>1-2 min</td></tr><tr><td>Pour over (V60)</td><td>Medium-fine</td><td>Coarse sand</td><td>2.5-3.5 min</td></tr><tr><td>Drip machine</td><td>Medium</td><td>Regular sand</td><td>4-6 min</td></tr><tr><td>French press</td><td>Coarse</td><td>Sea salt</td><td>4 min</td></tr><tr><td>Cold brew</td><td>Extra coarse</td><td>Peppercorns</td><td>12-24 hours</td></tr></tbody></table></figure>\n\n<figure class=\"wp-block-image\"><img src=\"https://picsum.photos/seed/grind-sizes/1000/600\" alt=\"Five small piles of ground coffee arranged from extra fine to extra coarse\"/><figcaption class=\"wp-element-caption\">From left to right: extra fine, fine, medium, coarse, extra coarse.</figcaption></figure>\n\n<h2>Grinders Worth Considering</h2>\n\n<p>Below are four grinders across different price points. Prices are approximate retail in OMR and will vary by store.</p>\n\n<figure class=\"wp-block-table\"><table class=\"has-fixed-layout\"><thead><tr><th>Model</th><th>Type</th><th>Burr</th><th>Price (OMR)</th><th>Best For</th></tr></thead><tbody><tr><td>Hario Skerton Pro</td><td>Manual</td><td>Conical ceramic</td><td>22</td><td>Travel and French press</td></tr><tr><td>Baratza Encore ESP</td><td>Electric</td><td>Conical steel</td><td>78</td><td>Pour over and beginner espresso</td></tr><tr><td>Fellow Opus</td><td>Electric</td><td>Conical steel</td><td>75</td><td>All-rounder, drip to espresso</td></tr><tr><td>Niche Zero</td><td>Electric</td><td>Conical steel</td><td>260</td><td>Serious espresso at home</td></tr></tbody></table></figure>\n\n<h2>How to Get the Most From Your Grinder</h2>\n\n<ol><li>Grind right before brewing. Ground coffee loses aroma within minutes.</li>\n<li>Start at the manufacturer's recommended setting, then adjust one step at a time.</li>\n<li>Clean the burrs every few weeks with a brush or grinder cleaning tablets.</li>\n<li>Weigh your beans instead of using scoops for repeatable results.</li></ol>\n\n<figure class=\"wp-block-image\"><img src=\"https://picsum.photos/seed/pour-over/1200/800\" alt=\"Hot water being poured over fresh coffee grounds in a pour-over dripper\"/><figcaption class=\"wp-element-caption\">Freshly ground coffee blooming in a pour-over dripper.</figcaption></figure>\n\n<h2>Final Thoughts</h2>\n\n<p>You don't need the most expensive grinder to taste a difference. Moving from a blade grinder to even an entry-level burr grinder will change your morning cup more than any new machine or fancy bean. Pick one that matches how you brew, keep it clean, and grind fresh every time.</p>",
+"errors": [],
+"plain_text": "If you've ever wondered why the coffee at your favourite café tastes better than what you make at home, the answer is usually not the beans or the machine. It's the grinder. A consistent grind is the single biggest upgrade most home brewers can make, and it doesn't have to cost a fortune. In this guide we'll walk through the two main grinder types, what grind size you need for each brewing method, and a few models worth considering at different budgets. https://picsum.photos/seed/grinder-hero/1200/700 A burr coffee grinder on a kitchen counter next to a bag of whole beans A good burr grinder is the foundation of better coffee at home. Blade vs Burr Grinders Blade grinders work like a small blender. A spinning blade chops the beans into pieces of wildly different sizes, some almost powder and some still chunky. That mix extracts unevenly, which is why blade-ground coffee often tastes bitter and sour at the same time. Burr grinders crush beans between two abrasive surfaces set a fixed distance apart. Every particle comes out close to the same size, so extraction is even and the flavour is cleaner. There are two kinds of burrs: Conical burrs: quieter, slower, retain less heat, usually cheaper Flat burrs: more uniform grind, favoured for espresso, usually pricier and louder Grind Size by Brewing Method The right grind depends entirely on how you brew. Use this table as a starting point and adjust by taste. Brewing Method Grind Size Texture Comparison Brew Time Turkish Extra fine Flour 3-4 min Espresso Fine Table salt 25-30 sec AeroPress Fine-medium Fine sand 1-2 min Pour over (V60) Medium-fine Coarse sand 2.5-3.5 min Drip machine Medium Regular sand 4-6 min French press Coarse Sea salt 4 min Cold brew Extra coarse Peppercorns 12-24 hours https://picsum.photos/seed/grind-sizes/1000/600 Five small piles of ground coffee arranged from extra fine to extra coarse From left to right: extra fine, fine, medium, coarse, extra coarse. Grinders Worth Considering Below are four grinders across different price points. Prices are approximate retail in OMR and will vary by store. Model Type Burr Price (OMR) Best For Hario Skerton Pro Manual Conical ceramic 22 Travel and French press Baratza Encore ESP Electric Conical steel 78 Pour over and beginner espresso Fellow Opus Electric Conical steel 75 All-rounder, drip to espresso Niche Zero Electric Conical steel 260 Serious espresso at home How to Get the Most From Your Grinder Grind right before brewing. Ground coffee loses aroma within minutes. Start at the manufacturer's recommended setting, then adjust one step at a time. Clean the burrs every few weeks with a brush or grinder cleaning tablets. Weigh your beans instead of using scoops for repeatable results. https://picsum.photos/seed/pour-over/1200/800 Hot water being poured over fresh coffee grounds in a pour-over dripper Freshly ground coffee blooming in a pour-over dripper. Final Thoughts You don't need the most expensive grinder to taste a difference. Moving from a blade grinder to even an entry-level burr grinder will change your morning cup more than any new machine or fancy bean. Pick one that matches how you brew, keep it clean, and grind fresh every time.",
+"counts": {
+"headings": 5,
+"paragraphs": 7,
+"lists": 2,
+"tables": 2,
+"images": 3
+},
+"images": [
+{
+"src": "https://picsum.photos/seed/grinder-hero/1200/700",
+"alt": "A burr coffee grinder on a kitchen counter next to a bag of whole beans",
+"caption": "A good burr grinder is the foundation of better coffee at home.",
+"line": 7
+},
+{
+"src": "https://picsum.photos/seed/grind-sizes/1000/600",
+"alt": "Five small piles of ground coffee arranged from extra fine to extra coarse",
+"caption": "From left to right: extra fine, fine, medium, coarse, extra coarse.",
+"line": 32
+},
+{
+"src": "https://picsum.photos/seed/pour-over/1200/800",
+"alt": "Hot water being poured over fresh coffee grounds in a pour-over dripper",
+"caption": "Freshly ground coffee blooming in a pour-over dripper.",
+"line": 52
+}
+]
+}
+},
+{
+"job": {
+"op": "post",
+"name": "07-why-ai-is-good blocks",
+"markdown": "# Why AI Is Good for Us: The Case for Artificial Intelligence\n\nArtificial intelligence gets a lot of headlines, and not all of them are kind. But behind the noise, AI is quietly doing useful work in hospitals, laboratories, classrooms and offices. It speeds up tasks that used to take days, catches things people miss, and opens up tools that were once only available to large organisations.\n\nThis post looks at what AI actually is, where it is already helping, and why, used well, it is a net positive.\n\n![Diagram of an artificial neural network with an input layer, a hidden layer and an output layer, connected by arrows](https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Colored_neural_network.svg/1280px-Colored_neural_network.svg.png \"Most modern AI is built on neural networks: layers of simple units that learn patterns from examples. Credit: Wikimedia Commons, CC BY-SA 3.0\")\n\n## What We Mean by AI\n\nAt its core, modern AI is software that learns from examples instead of following hand-written rules. Show a system enough labelled X-rays, sentences or photos, and it learns to recognise the patterns in them. That one idea powers everything from spam filters to translation apps to tools that help scientists design new medicines.\n\n## AI Has Improved Remarkably Fast\n\nA good illustration is the ImageNet challenge, a yearly competition where systems had to identify objects in over a million photos. In 2010 the best system got the answer wrong more than a quarter of the time. By 2015 the winning system was making fewer mistakes than the commonly cited human estimate on the same test.\n\nThe same pattern of rapid improvement has since repeated in speech recognition, translation, writing and scientific modelling.\n\n## Where AI Is Already Helping\n\nAI is most valuable when it takes on work that is repetitive, slow or too large for people to do by hand, and frees people up for the parts that need judgement.\n\n| Field | What AI Does | Why It Matters |\n| --- | --- | --- |\n| Healthcare | Flags possible problems in scans and X-rays | Helps doctors prioritise urgent cases |\n| Science | Predicts the 3D shape of proteins | Speeds up drug and disease research |\n| Accessibility | Live captions, image descriptions, text-to-speech | Opens content to people with disabilities |\n| Education | Explains topics at each student's own pace | Personal tutoring for more learners |\n| Agriculture | Spots crop disease from photos | Earlier treatment, less crop loss |\n| Business | Summarises documents and drafts routine replies | Hours saved on repetitive work |\n| Language | Translates text and speech instantly | Makes it easier to talk across languages |\n\n![3D ribbon model of a protein structure predicted by AlphaFold](https://upload.wikimedia.org/wikipedia/commons/a/a4/C12orf29_AlphaFold.png \"A protein structure predicted by AlphaFold. Working out shapes like this used to take researchers months or years. Credit: Wikimedia Commons\")\n\n## Key Milestones\n\n| Year | Milestone | Why It Mattered |\n| --- | --- | --- |\n| 1997 | IBM Deep Blue beats world chess champion Garry Kasparov | First time a computer beat a reigning world champion in a match |\n| 2012 | AlexNet wins the ImageNet challenge by a wide margin | Kicked off the deep learning era |\n| 2016 | DeepMind's AlphaGo beats Go champion Lee Sedol | Mastered a game long thought too complex for computers |\n| 2020 | AlphaFold 2 tops the CASP14 protein structure assessment | Largely solved a 50-year-old problem in biology |\n| 2022 | OpenAI releases ChatGPT | Brought conversational AI to the general public |\n| 2024 | Nobel Prize in Chemistry awarded partly for AlphaFold | Formal recognition of AI's scientific contribution |\n\n![IBM Deep Blue computer on display at the Computer History Museum](<https://upload.wikimedia.org/wikipedia/commons/e/ee/IBM_Deep_Blue_at_Computer_History_Museum_(9361685537).jpg> \"IBM's Deep Blue, which beat world chess champion Garry Kasparov in 1997, now on display at the Computer History Museum. Credit: Wikimedia Commons\")\n\n## Why It's a Net Positive\n\n1. It saves time. Tasks like summarising a long report or sorting thousands of records take minutes instead of days.\n2. It improves consistency. An AI system doesn't get tired at the end of a shift, which makes it a strong second pair of eyes.\n3. It widens access. Tutoring, translation and expert-level explanations are no longer limited to people who can pay for them.\n4. It speeds up discovery. Scientists can test ideas in software before spending months in the lab.\n5. It lets people focus on judgement. When AI handles the routine parts, humans can spend their time on decisions, creativity and care.\n\n## The Best Results Come From AI and People Working Together\n\nThe strongest use of AI is not replacing people but working alongside them. The AI produces a first draft, a flag or a prediction; a person reviews it, corrects it and makes the final call. Those corrections then help the system get better over time.\n\n![A radiologist reviewing medical scans on computer monitors](https://upload.wikimedia.org/wikipedia/commons/9/91/Radiologist_in_San_Diego_CA_2010.jpg \"AI tools can flag scans that need a closer look, but the diagnosis stays with the doctor. Credit: Wikimedia Commons\")\n\n## A Fair Word on the Limits\n\nAI is not perfect. It can be confidently wrong, it can reflect biases in the data it learned from, and it raises real questions about privacy, jobs and who is accountable when things go wrong. These are serious issues, and they are the reason human oversight matters. Being optimistic about AI doesn't mean ignoring these problems; it means building and using it carefully.\n\n## Final Thoughts\n\nAI is a tool, and like any powerful tool its value depends on how it is used. Used thoughtfully, with people staying in charge of the decisions that matter, it can make work faster, knowledge more accessible and science more ambitious. That is a future worth building.\n",
+"format": "blocks"
+},
+"expected": {
+"title": "Why AI Is Good for Us: The Case for Artificial Intelligence",
+"content": "<!-- wp:paragraph -->\n<p>Artificial intelligence gets a lot of headlines, and not all of them are kind. But behind the noise, AI is quietly doing useful work in hospitals, laboratories, classrooms and offices. It speeds up tasks that used to take days, catches things people miss, and opens up tools that were once only available to large organisations.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>This post looks at what AI actually is, where it is already helping, and why, used well, it is a net positive.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"linkDestination\":\"none\"} -->\n<figure class=\"wp-block-image\"><img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Colored_neural_network.svg/1280px-Colored_neural_network.svg.png\" alt=\"Diagram of an artificial neural network with an input layer, a hidden layer and an output layer, connected by arrows\"/><figcaption class=\"wp-element-caption\">Most modern AI is built on neural networks: layers of simple units that learn patterns from examples. Credit: Wikimedia Commons, CC BY-SA 3.0</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">What We Mean by AI</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>At its core, modern AI is software that learns from examples instead of following hand-written rules. Show a system enough labelled X-rays, sentences or photos, and it learns to recognise the patterns in them. That one idea powers everything from spam filters to translation apps to tools that help scientists design new medicines.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">AI Has Improved Remarkably Fast</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>A good illustration is the ImageNet challenge, a yearly competition where systems had to identify objects in over a million photos. In 2010 the best system got the answer wrong more than a quarter of the time. By 2015 the winning system was making fewer mistakes than the commonly cited human estimate on the same test.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>The same pattern of rapid improvement has since repeated in speech recognition, translation, writing and scientific modelling.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">Where AI Is Already Helping</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>AI is most valuable when it takes on work that is repetitive, slow or too large for people to do by hand, and frees people up for the parts that need judgement.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:table -->\n<figure class=\"wp-block-table\"><table class=\"has-fixed-layout\"><thead><tr><th>Field</th><th>What AI Does</th><th>Why It Matters</th></tr></thead><tbody><tr><td>Healthcare</td><td>Flags possible problems in scans and X-rays</td><td>Helps doctors prioritise urgent cases</td></tr><tr><td>Science</td><td>Predicts the 3D shape of proteins</td><td>Speeds up drug and disease research</td></tr><tr><td>Accessibility</td><td>Live captions, image descriptions, text-to-speech</td><td>Opens content to people with disabilities</td></tr><tr><td>Education</td><td>Explains topics at each student's own pace</td><td>Personal tutoring for more learners</td></tr><tr><td>Agriculture</td><td>Spots crop disease from photos</td><td>Earlier treatment, less crop loss</td></tr><tr><td>Business</td><td>Summarises documents and drafts routine replies</td><td>Hours saved on repetitive work</td></tr><tr><td>Language</td><td>Translates text and speech instantly</td><td>Makes it easier to talk across languages</td></tr></tbody></table></figure>\n<!-- /wp:table -->\n\n<!-- wp:image {\"linkDestination\":\"none\"} -->\n<figure class=\"wp-block-image\"><img src=\"https://upload.wikimedia.org/wikipedia/commons/a/a4/C12orf29_AlphaFold.png\" alt=\"3D ribbon model of a protein structure predicted by AlphaFold\"/><figcaption class=\"wp-element-caption\">A protein structure predicted by AlphaFold. Working out shapes like this used to take researchers months or years. Credit: Wikimedia Commons</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">Key Milestones</h2>\n<!-- /wp:heading -->\n\n<!-- wp:table -->\n<figure class=\"wp-block-table\"><table class=\"has-fixed-layout\"><thead><tr><th>Year</th><th>Milestone</th><th>Why It Mattered</th></tr></thead><tbody><tr><td>1997</td><td>IBM Deep Blue beats world chess champion Garry Kasparov</td><td>First time a computer beat a reigning world champion in a match</td></tr><tr><td>2012</td><td>AlexNet wins the ImageNet challenge by a wide margin</td><td>Kicked off the deep learning era</td></tr><tr><td>2016</td><td>DeepMind's AlphaGo beats Go champion Lee Sedol</td><td>Mastered a game long thought too complex for computers</td></tr><tr><td>2020</td><td>AlphaFold 2 tops the CASP14 protein structure assessment</td><td>Largely solved a 50-year-old problem in biology</td></tr><tr><td>2022</td><td>OpenAI releases ChatGPT</td><td>Brought conversational AI to the general public</td></tr><tr><td>2024</td><td>Nobel Prize in Chemistry awarded partly for AlphaFold</td><td>Formal recognition of AI's scientific contribution</td></tr></tbody></table></figure>\n<!-- /wp:table -->\n\n<!-- wp:image {\"linkDestination\":\"none\"} -->\n<figure class=\"wp-block-image\"><img src=\"https://upload.wikimedia.org/wikipedia/commons/e/ee/IBM_Deep_Blue_at_Computer_History_Museum_(9361685537).jpg\" alt=\"IBM Deep Blue computer on display at the Computer History Museum\"/><figcaption class=\"wp-element-caption\">IBM's Deep Blue, which beat world chess champion Garry Kasparov in 1997, now on display at the Computer History Museum. Credit: Wikimedia Commons</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">Why It's a Net Positive</h2>\n<!-- /wp:heading -->\n\n<!-- wp:list {\"ordered\":true} -->\n<ol class=\"wp-block-list\"><!-- wp:list-item -->\n<li>It saves time. Tasks like summarising a long report or sorting thousands of records take minutes instead of days.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>It improves consistency. An AI system doesn't get tired at the end of a shift, which makes it a strong second pair of eyes.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>It widens access. Tutoring, translation and expert-level explanations are no longer limited to people who can pay for them.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>It speeds up discovery. Scientists can test ideas in software before spending months in the lab.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>It lets people focus on judgement. When AI handles the routine parts, humans can spend their time on decisions, creativity and care.</li>\n<!-- /wp:list-item --></ol>\n<!-- /wp:list -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">The Best Results Come From AI and People Working Together</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>The strongest use of AI is not replacing people but working alongside them. The AI produces a first draft, a flag or a prediction; a person reviews it, corrects it and makes the final call. Those corrections then help the system get better over time.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"linkDestination\":\"none\"} -->\n<figure class=\"wp-block-image\"><img src=\"https://upload.wikimedia.org/wikipedia/commons/9/91/Radiologist_in_San_Diego_CA_2010.jpg\" alt=\"A radiologist reviewing medical scans on computer monitors\"/><figcaption class=\"wp-element-caption\">AI tools can flag scans that need a closer look, but the diagnosis stays with the doctor. Credit: Wikimedia Commons</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">A Fair Word on the Limits</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>AI is not perfect. It can be confidently wrong, it can reflect biases in the data it learned from, and it raises real questions about privacy, jobs and who is accountable when things go wrong. These are serious issues, and they are the reason human oversight matters. Being optimistic about AI doesn't mean ignoring these problems; it means building and using it carefully.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">Final Thoughts</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>AI is a tool, and like any powerful tool its value depends on how it is used. Used thoughtfully, with people staying in charge of the decisions that matter, it can make work faster, knowledge more accessible and science more ambitious. That is a future worth building.</p>\n<!-- /wp:paragraph -->",
+"errors": [],
+"plain_text": "Artificial intelligence gets a lot of headlines, and not all of them are kind. But behind the noise, AI is quietly doing useful work in hospitals, laboratories, classrooms and offices. It speeds up tasks that used to take days, catches things people miss, and opens up tools that were once only available to large organisations. This post looks at what AI actually is, where it is already helping, and why, used well, it is a net positive. https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Colored_neural_network.svg/1280px-Colored_neural_network.svg.png Diagram of an artificial neural network with an input layer, a hidden layer and an output layer, connected by arrows Most modern AI is built on neural networks: layers of simple units that learn patterns from examples. Credit: Wikimedia Commons, CC BY-SA 3.0 What We Mean by AI At its core, modern AI is software that learns from examples instead of following hand-written rules. Show a system enough labelled X-rays, sentences or photos, and it learns to recognise the patterns in them. That one idea powers everything from spam filters to translation apps to tools that help scientists design new medicines. AI Has Improved Remarkably Fast A good illustration is the ImageNet challenge, a yearly competition where systems had to identify objects in over a million photos. In 2010 the best system got the answer wrong more than a quarter of the time. By 2015 the winning system was making fewer mistakes than the commonly cited human estimate on the same test. The same pattern of rapid improvement has since repeated in speech recognition, translation, writing and scientific modelling. Where AI Is Already Helping AI is most valuable when it takes on work that is repetitive, slow or too large for people to do by hand, and frees people up for the parts that need judgement. Field What AI Does Why It Matters Healthcare Flags possible problems in scans and X-rays Helps doctors prioritise urgent cases Science Predicts the 3D shape of proteins Speeds up drug and disease research Accessibility Live captions, image descriptions, text-to-speech Opens content to people with disabilities Education Explains topics at each student's own pace Personal tutoring for more learners Agriculture Spots crop disease from photos Earlier treatment, less crop loss Business Summarises documents and drafts routine replies Hours saved on repetitive work Language Translates text and speech instantly Makes it easier to talk across languages https://upload.wikimedia.org/wikipedia/commons/a/a4/C12orf29_AlphaFold.png 3D ribbon model of a protein structure predicted by AlphaFold A protein structure predicted by AlphaFold. Working out shapes like this used to take researchers months or years. Credit: Wikimedia Commons Key Milestones Year Milestone Why It Mattered 1997 IBM Deep Blue beats world chess champion Garry Kasparov First time a computer beat a reigning world champion in a match 2012 AlexNet wins the ImageNet challenge by a wide margin Kicked off the deep learning era 2016 DeepMind's AlphaGo beats Go champion Lee Sedol Mastered a game long thought too complex for computers 2020 AlphaFold 2 tops the CASP14 protein structure assessment Largely solved a 50-year-old problem in biology 2022 OpenAI releases ChatGPT Brought conversational AI to the general public 2024 Nobel Prize in Chemistry awarded partly for AlphaFold Formal recognition of AI's scientific contribution https://upload.wikimedia.org/wikipedia/commons/e/ee/IBM_Deep_Blue_at_Computer_History_Museum_(9361685537).jpg IBM Deep Blue computer on display at the Computer History Museum IBM's Deep Blue, which beat world chess champion Garry Kasparov in 1997, now on display at the Computer History Museum. Credit: Wikimedia Commons Why It's a Net Positive It saves time. Tasks like summarising a long report or sorting thousands of records take minutes instead of days. It improves consistency. An AI system doesn't get tired at the end of a shift, which makes it a strong second pair of eyes. It widens access. Tutoring, translation and expert-level explanations are no longer limited to people who can pay for them. It speeds up discovery. Scientists can test ideas in software before spending months in the lab. It lets people focus on judgement. When AI handles the routine parts, humans can spend their time on decisions, creativity and care. The Best Results Come From AI and People Working Together The strongest use of AI is not replacing people but working alongside them. The AI produces a first draft, a flag or a prediction; a person reviews it, corrects it and makes the final call. Those corrections then help the system get better over time. https://upload.wikimedia.org/wikipedia/commons/9/91/Radiologist_in_San_Diego_CA_2010.jpg A radiologist reviewing medical scans on computer monitors AI tools can flag scans that need a closer look, but the diagnosis stays with the doctor. Credit: Wikimedia Commons A Fair Word on the Limits AI is not perfect. It can be confidently wrong, it can reflect biases in the data it learned from, and it raises real questions about privacy, jobs and who is accountable when things go wrong. These are serious issues, and they are the reason human oversight matters. Being optimistic about AI doesn't mean ignoring these problems; it means building and using it carefully. Final Thoughts AI is a tool, and like any powerful tool its value depends on how it is used. Used thoughtfully, with people staying in charge of the decisions that matter, it can make work faster, knowledge more accessible and science more ambitious. That is a future worth building.",
+"counts": {
+"headings": 8,
+"paragraphs": 9,
+"lists": 1,
+"tables": 2,
+"images": 4
+},
+"images": [
+{
+"src": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Colored_neural_network.svg/1280px-Colored_neural_network.svg.png",
+"alt": "Diagram of an artificial neural network with an input layer, a hidden layer and an output layer, connected by arrows",
+"caption": "Most modern AI is built on neural networks: layers of simple units that learn patterns from examples. Credit: Wikimedia Commons, CC BY-SA 3.0",
+"line": 7
+},
+{
+"src": "https://upload.wikimedia.org/wikipedia/commons/a/a4/C12orf29_AlphaFold.png",
+"alt": "3D ribbon model of a protein structure predicted by AlphaFold",
+"caption": "A protein structure predicted by AlphaFold. Working out shapes like this used to take researchers months or years. Credit: Wikimedia Commons",
+"line": 33
+},
+{
+"src": "https://upload.wikimedia.org/wikipedia/commons/e/ee/IBM_Deep_Blue_at_Computer_History_Museum_(9361685537).jpg",
+"alt": "IBM Deep Blue computer on display at the Computer History Museum",
+"caption": "IBM's Deep Blue, which beat world chess champion Garry Kasparov in 1997, now on display at the Computer History Museum. Credit: Wikimedia Commons",
+"line": 46
+},
+{
+"src": "https://upload.wikimedia.org/wikipedia/commons/9/91/Radiologist_in_San_Diego_CA_2010.jpg",
+"alt": "A radiologist reviewing medical scans on computer monitors",
+"caption": "AI tools can flag scans that need a closer look, but the diagnosis stays with the doctor. Credit: Wikimedia Commons",
+"line": 60
+}
+]
+}
+},
+{
+"job": {
+"op": "post",
+"name": "07-why-ai-is-good html",
+"markdown": "# Why AI Is Good for Us: The Case for Artificial Intelligence\n\nArtificial intelligence gets a lot of headlines, and not all of them are kind. But behind the noise, AI is quietly doing useful work in hospitals, laboratories, classrooms and offices. It speeds up tasks that used to take days, catches things people miss, and opens up tools that were once only available to large organisations.\n\nThis post looks at what AI actually is, where it is already helping, and why, used well, it is a net positive.\n\n![Diagram of an artificial neural network with an input layer, a hidden layer and an output layer, connected by arrows](https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Colored_neural_network.svg/1280px-Colored_neural_network.svg.png \"Most modern AI is built on neural networks: layers of simple units that learn patterns from examples. Credit: Wikimedia Commons, CC BY-SA 3.0\")\n\n## What We Mean by AI\n\nAt its core, modern AI is software that learns from examples instead of following hand-written rules. Show a system enough labelled X-rays, sentences or photos, and it learns to recognise the patterns in them. That one idea powers everything from spam filters to translation apps to tools that help scientists design new medicines.\n\n## AI Has Improved Remarkably Fast\n\nA good illustration is the ImageNet challenge, a yearly competition where systems had to identify objects in over a million photos. In 2010 the best system got the answer wrong more than a quarter of the time. By 2015 the winning system was making fewer mistakes than the commonly cited human estimate on the same test.\n\nThe same pattern of rapid improvement has since repeated in speech recognition, translation, writing and scientific modelling.\n\n## Where AI Is Already Helping\n\nAI is most valuable when it takes on work that is repetitive, slow or too large for people to do by hand, and frees people up for the parts that need judgement.\n\n| Field | What AI Does | Why It Matters |\n| --- | --- | --- |\n| Healthcare | Flags possible problems in scans and X-rays | Helps doctors prioritise urgent cases |\n| Science | Predicts the 3D shape of proteins | Speeds up drug and disease research |\n| Accessibility | Live captions, image descriptions, text-to-speech | Opens content to people with disabilities |\n| Education | Explains topics at each student's own pace | Personal tutoring for more learners |\n| Agriculture | Spots crop disease from photos | Earlier treatment, less crop loss |\n| Business | Summarises documents and drafts routine replies | Hours saved on repetitive work |\n| Language | Translates text and speech instantly | Makes it easier to talk across languages |\n\n![3D ribbon model of a protein structure predicted by AlphaFold](https://upload.wikimedia.org/wikipedia/commons/a/a4/C12orf29_AlphaFold.png \"A protein structure predicted by AlphaFold. Working out shapes like this used to take researchers months or years. Credit: Wikimedia Commons\")\n\n## Key Milestones\n\n| Year | Milestone | Why It Mattered |\n| --- | --- | --- |\n| 1997 | IBM Deep Blue beats world chess champion Garry Kasparov | First time a computer beat a reigning world champion in a match |\n| 2012 | AlexNet wins the ImageNet challenge by a wide margin | Kicked off the deep learning era |\n| 2016 | DeepMind's AlphaGo beats Go champion Lee Sedol | Mastered a game long thought too complex for computers |\n| 2020 | AlphaFold 2 tops the CASP14 protein structure assessment | Largely solved a 50-year-old problem in biology |\n| 2022 | OpenAI releases ChatGPT | Brought conversational AI to the general public |\n| 2024 | Nobel Prize in Chemistry awarded partly for AlphaFold | Formal recognition of AI's scientific contribution |\n\n![IBM Deep Blue computer on display at the Computer History Museum](<https://upload.wikimedia.org/wikipedia/commons/e/ee/IBM_Deep_Blue_at_Computer_History_Museum_(9361685537).jpg> \"IBM's Deep Blue, which beat world chess champion Garry Kasparov in 1997, now on display at the Computer History Museum. Credit: Wikimedia Commons\")\n\n## Why It's a Net Positive\n\n1. It saves time. Tasks like summarising a long report or sorting thousands of records take minutes instead of days.\n2. It improves consistency. An AI system doesn't get tired at the end of a shift, which makes it a strong second pair of eyes.\n3. It widens access. Tutoring, translation and expert-level explanations are no longer limited to people who can pay for them.\n4. It speeds up discovery. Scientists can test ideas in software before spending months in the lab.\n5. It lets people focus on judgement. When AI handles the routine parts, humans can spend their time on decisions, creativity and care.\n\n## The Best Results Come From AI and People Working Together\n\nThe strongest use of AI is not replacing people but working alongside them. The AI produces a first draft, a flag or a prediction; a person reviews it, corrects it and makes the final call. Those corrections then help the system get better over time.\n\n![A radiologist reviewing medical scans on computer monitors](https://upload.wikimedia.org/wikipedia/commons/9/91/Radiologist_in_San_Diego_CA_2010.jpg \"AI tools can flag scans that need a closer look, but the diagnosis stays with the doctor. Credit: Wikimedia Commons\")\n\n## A Fair Word on the Limits\n\nAI is not perfect. It can be confidently wrong, it can reflect biases in the data it learned from, and it raises real questions about privacy, jobs and who is accountable when things go wrong. These are serious issues, and they are the reason human oversight matters. Being optimistic about AI doesn't mean ignoring these problems; it means building and using it carefully.\n\n## Final Thoughts\n\nAI is a tool, and like any powerful tool its value depends on how it is used. Used thoughtfully, with people staying in charge of the decisions that matter, it can make work faster, knowledge more accessible and science more ambitious. That is a future worth building.\n",
+"format": "html"
+},
+"expected": {
+"title": "Why AI Is Good for Us: The Case for Artificial Intelligence",
+"content": "<p>Artificial intelligence gets a lot of headlines, and not all of them are kind. But behind the noise, AI is quietly doing useful work in hospitals, laboratories, classrooms and offices. It speeds up tasks that used to take days, catches things people miss, and opens up tools that were once only available to large organisations.</p>\n\n<p>This post looks at what AI actually is, where it is already helping, and why, used well, it is a net positive.</p>\n\n<figure class=\"wp-block-image\"><img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Colored_neural_network.svg/1280px-Colored_neural_network.svg.png\" alt=\"Diagram of an artificial neural network with an input layer, a hidden layer and an output layer, connected by arrows\"/><figcaption class=\"wp-element-caption\">Most modern AI is built on neural networks: layers of simple units that learn patterns from examples. Credit: Wikimedia Commons, CC BY-SA 3.0</figcaption></figure>\n\n<h2>What We Mean by AI</h2>\n\n<p>At its core, modern AI is software that learns from examples instead of following hand-written rules. Show a system enough labelled X-rays, sentences or photos, and it learns to recognise the patterns in them. That one idea powers everything from spam filters to translation apps to tools that help scientists design new medicines.</p>\n\n<h2>AI Has Improved Remarkably Fast</h2>\n\n<p>A good illustration is the ImageNet challenge, a yearly competition where systems had to identify objects in over a million photos. In 2010 the best system got the answer wrong more than a quarter of the time. By 2015 the winning system was making fewer mistakes than the commonly cited human estimate on the same test.</p>\n\n<p>The same pattern of rapid improvement has since repeated in speech recognition, translation, writing and scientific modelling.</p>\n\n<h2>Where AI Is Already Helping</h2>\n\n<p>AI is most valuable when it takes on work that is repetitive, slow or too large for people to do by hand, and frees people up for the parts that need judgement.</p>\n\n<figure class=\"wp-block-table\"><table class=\"has-fixed-layout\"><thead><tr><th>Field</th><th>What AI Does</th><th>Why It Matters</th></tr></thead><tbody><tr><td>Healthcare</td><td>Flags possible problems in scans and X-rays</td><td>Helps doctors prioritise urgent cases</td></tr><tr><td>Science</td><td>Predicts the 3D shape of proteins</td><td>Speeds up drug and disease research</td></tr><tr><td>Accessibility</td><td>Live captions, image descriptions, text-to-speech</td><td>Opens content to people with disabilities</td></tr><tr><td>Education</td><td>Explains topics at each student's own pace</td><td>Personal tutoring for more learners</td></tr><tr><td>Agriculture</td><td>Spots crop disease from photos</td><td>Earlier treatment, less crop loss</td></tr><tr><td>Business</td><td>Summarises documents and drafts routine replies</td><td>Hours saved on repetitive work</td></tr><tr><td>Language</td><td>Translates text and speech instantly</td><td>Makes it easier to talk across languages</td></tr></tbody></table></figure>\n\n<figure class=\"wp-block-image\"><img src=\"https://upload.wikimedia.org/wikipedia/commons/a/a4/C12orf29_AlphaFold.png\" alt=\"3D ribbon model of a protein structure predicted by AlphaFold\"/><figcaption class=\"wp-element-caption\">A protein structure predicted by AlphaFold. Working out shapes like this used to take researchers months or years. Credit: Wikimedia Commons</figcaption></figure>\n\n<h2>Key Milestones</h2>\n\n<figure class=\"wp-block-table\"><table class=\"has-fixed-layout\"><thead><tr><th>Year</th><th>Milestone</th><th>Why It Mattered</th></tr></thead><tbody><tr><td>1997</td><td>IBM Deep Blue beats world chess champion Garry Kasparov</td><td>First time a computer beat a reigning world champion in a match</td></tr><tr><td>2012</td><td>AlexNet wins the ImageNet challenge by a wide margin</td><td>Kicked off the deep learning era</td></tr><tr><td>2016</td><td>DeepMind's AlphaGo beats Go champion Lee Sedol</td><td>Mastered a game long thought too complex for computers</td></tr><tr><td>2020</td><td>AlphaFold 2 tops the CASP14 protein structure assessment</td><td>Largely solved a 50-year-old problem in biology</td></tr><tr><td>2022</td><td>OpenAI releases ChatGPT</td><td>Brought conversational AI to the general public</td></tr><tr><td>2024</td><td>Nobel Prize in Chemistry awarded partly for AlphaFold</td><td>Formal recognition of AI's scientific contribution</td></tr></tbody></table></figure>\n\n<figure class=\"wp-block-image\"><img src=\"https://upload.wikimedia.org/wikipedia/commons/e/ee/IBM_Deep_Blue_at_Computer_History_Museum_(9361685537).jpg\" alt=\"IBM Deep Blue computer on display at the Computer History Museum\"/><figcaption class=\"wp-element-caption\">IBM's Deep Blue, which beat world chess champion Garry Kasparov in 1997, now on display at the Computer History Museum. Credit: Wikimedia Commons</figcaption></figure>\n\n<h2>Why It's a Net Positive</h2>\n\n<ol><li>It saves time. Tasks like summarising a long report or sorting thousands of records take minutes instead of days.</li>\n<li>It improves consistency. An AI system doesn't get tired at the end of a shift, which makes it a strong second pair of eyes.</li>\n<li>It widens access. Tutoring, translation and expert-level explanations are no longer limited to people who can pay for them.</li>\n<li>It speeds up discovery. Scientists can test ideas in software before spending months in the lab.</li>\n<li>It lets people focus on judgement. When AI handles the routine parts, humans can spend their time on decisions, creativity and care.</li></ol>\n\n<h2>The Best Results Come From AI and People Working Together</h2>\n\n<p>The strongest use of AI is not replacing people but working alongside them. The AI produces a first draft, a flag or a prediction; a person reviews it, corrects it and makes the final call. Those corrections then help the system get better over time.</p>\n\n<figure class=\"wp-block-image\"><img src=\"https://upload.wikimedia.org/wikipedia/commons/9/91/Radiologist_in_San_Diego_CA_2010.jpg\" alt=\"A radiologist reviewing medical scans on computer monitors\"/><figcaption class=\"wp-element-caption\">AI tools can flag scans that need a closer look, but the diagnosis stays with the doctor. Credit: Wikimedia Commons</figcaption></figure>\n\n<h2>A Fair Word on the Limits</h2>\n\n<p>AI is not perfect. It can be confidently wrong, it can reflect biases in the data it learned from, and it raises real questions about privacy, jobs and who is accountable when things go wrong. These are serious issues, and they are the reason human oversight matters. Being optimistic about AI doesn't mean ignoring these problems; it means building and using it carefully.</p>\n\n<h2>Final Thoughts</h2>\n\n<p>AI is a tool, and like any powerful tool its value depends on how it is used. Used thoughtfully, with people staying in charge of the decisions that matter, it can make work faster, knowledge more accessible and science more ambitious. That is a future worth building.</p>",
+"errors": [],
+"plain_text": "Artificial intelligence gets a lot of headlines, and not all of them are kind. But behind the noise, AI is quietly doing useful work in hospitals, laboratories, classrooms and offices. It speeds up tasks that used to take days, catches things people miss, and opens up tools that were once only available to large organisations. This post looks at what AI actually is, where it is already helping, and why, used well, it is a net positive. https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Colored_neural_network.svg/1280px-Colored_neural_network.svg.png Diagram of an artificial neural network with an input layer, a hidden layer and an output layer, connected by arrows Most modern AI is built on neural networks: layers of simple units that learn patterns from examples. Credit: Wikimedia Commons, CC BY-SA 3.0 What We Mean by AI At its core, modern AI is software that learns from examples instead of following hand-written rules. Show a system enough labelled X-rays, sentences or photos, and it learns to recognise the patterns in them. That one idea powers everything from spam filters to translation apps to tools that help scientists design new medicines. AI Has Improved Remarkably Fast A good illustration is the ImageNet challenge, a yearly competition where systems had to identify objects in over a million photos. In 2010 the best system got the answer wrong more than a quarter of the time. By 2015 the winning system was making fewer mistakes than the commonly cited human estimate on the same test. The same pattern of rapid improvement has since repeated in speech recognition, translation, writing and scientific modelling. Where AI Is Already Helping AI is most valuable when it takes on work that is repetitive, slow or too large for people to do by hand, and frees people up for the parts that need judgement. Field What AI Does Why It Matters Healthcare Flags possible problems in scans and X-rays Helps doctors prioritise urgent cases Science Predicts the 3D shape of proteins Speeds up drug and disease research Accessibility Live captions, image descriptions, text-to-speech Opens content to people with disabilities Education Explains topics at each student's own pace Personal tutoring for more learners Agriculture Spots crop disease from photos Earlier treatment, less crop loss Business Summarises documents and drafts routine replies Hours saved on repetitive work Language Translates text and speech instantly Makes it easier to talk across languages https://upload.wikimedia.org/wikipedia/commons/a/a4/C12orf29_AlphaFold.png 3D ribbon model of a protein structure predicted by AlphaFold A protein structure predicted by AlphaFold. Working out shapes like this used to take researchers months or years. Credit: Wikimedia Commons Key Milestones Year Milestone Why It Mattered 1997 IBM Deep Blue beats world chess champion Garry Kasparov First time a computer beat a reigning world champion in a match 2012 AlexNet wins the ImageNet challenge by a wide margin Kicked off the deep learning era 2016 DeepMind's AlphaGo beats Go champion Lee Sedol Mastered a game long thought too complex for computers 2020 AlphaFold 2 tops the CASP14 protein structure assessment Largely solved a 50-year-old problem in biology 2022 OpenAI releases ChatGPT Brought conversational AI to the general public 2024 Nobel Prize in Chemistry awarded partly for AlphaFold Formal recognition of AI's scientific contribution https://upload.wikimedia.org/wikipedia/commons/e/ee/IBM_Deep_Blue_at_Computer_History_Museum_(9361685537).jpg IBM Deep Blue computer on display at the Computer History Museum IBM's Deep Blue, which beat world chess champion Garry Kasparov in 1997, now on display at the Computer History Museum. Credit: Wikimedia Commons Why It's a Net Positive It saves time. Tasks like summarising a long report or sorting thousands of records take minutes instead of days. It improves consistency. An AI system doesn't get tired at the end of a shift, which makes it a strong second pair of eyes. It widens access. Tutoring, translation and expert-level explanations are no longer limited to people who can pay for them. It speeds up discovery. Scientists can test ideas in software before spending months in the lab. It lets people focus on judgement. When AI handles the routine parts, humans can spend their time on decisions, creativity and care. The Best Results Come From AI and People Working Together The strongest use of AI is not replacing people but working alongside them. The AI produces a first draft, a flag or a prediction; a person reviews it, corrects it and makes the final call. Those corrections then help the system get better over time. https://upload.wikimedia.org/wikipedia/commons/9/91/Radiologist_in_San_Diego_CA_2010.jpg A radiologist reviewing medical scans on computer monitors AI tools can flag scans that need a closer look, but the diagnosis stays with the doctor. Credit: Wikimedia Commons A Fair Word on the Limits AI is not perfect. It can be confidently wrong, it can reflect biases in the data it learned from, and it raises real questions about privacy, jobs and who is accountable when things go wrong. These are serious issues, and they are the reason human oversight matters. Being optimistic about AI doesn't mean ignoring these problems; it means building and using it carefully. Final Thoughts AI is a tool, and like any powerful tool its value depends on how it is used. Used thoughtfully, with people staying in charge of the decisions that matter, it can make work faster, knowledge more accessible and science more ambitious. That is a future worth building.",
+"counts": {
+"headings": 8,
+"paragraphs": 9,
+"lists": 1,
+"tables": 2,
+"images": 4
+},
+"images": [
+{
+"src": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Colored_neural_network.svg/1280px-Colored_neural_network.svg.png",
+"alt": "Diagram of an artificial neural network with an input layer, a hidden layer and an output layer, connected by arrows",
+"caption": "Most modern AI is built on neural networks: layers of simple units that learn patterns from examples. Credit: Wikimedia Commons, CC BY-SA 3.0",
+"line": 7
+},
+{
+"src": "https://upload.wikimedia.org/wikipedia/commons/a/a4/C12orf29_AlphaFold.png",
+"alt": "3D ribbon model of a protein structure predicted by AlphaFold",
+"caption": "A protein structure predicted by AlphaFold. Working out shapes like this used to take researchers months or years. Credit: Wikimedia Commons",
+"line": 33
+},
+{
+"src": "https://upload.wikimedia.org/wikipedia/commons/e/ee/IBM_Deep_Blue_at_Computer_History_Museum_(9361685537).jpg",
+"alt": "IBM Deep Blue computer on display at the Computer History Museum",
+"caption": "IBM's Deep Blue, which beat world chess champion Garry Kasparov in 1997, now on display at the Computer History Museum. Credit: Wikimedia Commons",
+"line": 46
+},
+{
+"src": "https://upload.wikimedia.org/wikipedia/commons/9/91/Radiologist_in_San_Diego_CA_2010.jpg",
+"alt": "A radiologist reviewing medical scans on computer monitors",
+"caption": "AI tools can flag scans that need a closer look, but the diagnosis stays with the doctor. Credit: Wikimedia Commons",
+"line": 60
+}
+]
+}
+}
+]
