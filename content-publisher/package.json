@@ -1,0 +1,19 @@
+{
+  "name": "content-publisher-editor",
+  "private": true,
+  "description": "Review editor for Content Publisher. Source in src/editor/, built into build/ (generated: don't edit by hand).",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test tests/editor/*.test.js"
+  },
+  "dependencies": {
+    "diff": "8.0.4"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12"
+  }
+}
