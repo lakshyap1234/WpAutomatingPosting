@@ -111,7 +111,7 @@ jobs:
 
       - name: Build the zip
         run: |
-          bin/build.sh zips connector
+          bash bin/build.sh zips connector   # bash: works whatever the file mode in git
           mkdir -p ci-plugin
           unzip -q dist/content-publisher-connector-*.zip -d ci-plugin
 

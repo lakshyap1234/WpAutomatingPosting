@@ -57,6 +57,22 @@ final class JsonLd {
 	public static function register(): void {
 		add_action( 'rest_api_init', array( self::class, 'register_field' ) );
 		add_action( 'wp_head', array( self::class, 'print_head' ), 20 );
+		foreach ( self::POST_TYPES as $type ) {
+			add_action( "rest_after_insert_{$type}", array( self::class, 'remove_on_null' ), 10, 2 );
+		}
+	}
+
+	/**
+	 * "cpub_jsonld": null removes it. WordPress skips a field's update_callback for
+	 * a null value (it checks isset()), so it is done here, once the post is saved.
+	 *
+	 * @param \WP_Post $post
+	 */
+	public static function remove_on_null( $post, \WP_REST_Request $request ): void {
+		$params = $request->get_params();
+		if ( array_key_exists( self::FIELD, $params ) && null === $params[ self::FIELD ] ) {
+			delete_post_meta( (int) $post->ID, self::META_KEY );
+		}
 	}
 
 	public static function register_field(): void {
