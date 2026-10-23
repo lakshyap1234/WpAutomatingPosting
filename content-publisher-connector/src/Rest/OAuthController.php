@@ -140,7 +140,31 @@ final class OAuthController {
 				'connected_since'   => mysql_to_rfc3339( $grant->activated_at ),
 				'user'              => $user ? array( 'id' => $user->ID, 'name' => $user->display_name, 'role' => (string) ( array_values( (array) $user->roles )[0] ?? '' ), 'separate_account' => PublisherUser::is_dedicated( $user->ID ) ) : null,
 				'can_publish'       => Grants::can_publish( $grant ),
+				'features'          => self::features( $grant ),
+				// Everything this Connector could grant: a scope here but not in "scopes"
+				// needs a reconnect; one missing here needs a newer Connector.
+				'scopes_supported'  => Scopes::all(),
 			)
+		);
+	}
+
+	/**
+	 * What this connection can use on this site (API.md, "Features"). Each is true
+	 * only when this Connector has it, the scope was granted, and the person posts
+	 * appear under can do it: a site Author can't write pages, even with pages:write.
+	 * Called during the token request, so user_can() answers with Auth\Sandbox's limits.
+	 *
+	 * @return array{pages: bool, preview: bool, proposals: bool, jsonld: bool}
+	 */
+	public static function features( object $grant ): array {
+		$scopes = Grants::scopes( $grant );
+		$has    = fn( string ...$any ) => (bool) array_intersect( $any, $scopes );
+		$pages  = $has( Scopes::PAGES_WRITE ) && user_can( (int) $grant->user_id, 'edit_pages' );
+		return array(
+			'pages'     => $pages,
+			'preview'   => $has( Scopes::POSTS_WRITE ) || $pages,
+			'proposals' => $has( Scopes::PROPOSALS_WRITE ),
+			'jsonld'    => $has( Scopes::POSTS_WRITE, Scopes::PROPOSALS_WRITE ) || $pages,
 		);
 	}
 }
