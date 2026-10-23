@@ -16,7 +16,7 @@ final class Agency {
 	private static ?array $config = null;
 
 	/**
-	 * @return array{client_id:string, name:string, url:string, logo:string, redirect_uris:string[]}
+	 * @return array{client_id:string, name:string, url:string, logo:string, redirect_uris:string[], update_url:string}
 	 */
 	public static function config(): array {
 		if ( null === self::$config ) {
@@ -33,6 +33,7 @@ final class Agency {
 				'url'           => (string) ( $config['url'] ?? '' ),
 				'logo'          => (string) ( $config['logo'] ?? '' ),
 				'redirect_uris' => array_values( array_filter( (array) ( $config['redirect_uris'] ?? array() ), array( self::class, 'acceptable_redirect' ) ) ),
+				'update_url'    => str_starts_with( (string) ( $config['update_url'] ?? '' ), 'https://' ) ? (string) $config['update_url'] : '',
 			);
 		}
 		return self::$config;

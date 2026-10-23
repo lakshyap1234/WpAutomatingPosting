@@ -5,7 +5,7 @@ Requires PHP: 8.2
 Stable tag: 0.5.0
 License: Proprietary
 
-Install on a client site to let the agency's Content Publisher create posts (drafts, or published when you allow it) and upload images there, after the site's administrator approves (OAuth 2).
+Lets your agency create posts, pages and images here, and suggest changes, with only the access your administrator approves (OAuth 2).
 
 == Description ==
 

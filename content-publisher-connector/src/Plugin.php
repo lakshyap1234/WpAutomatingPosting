@@ -47,6 +47,7 @@ final class Plugin {
 		Rest\Preview::register();
 		Rest\ProposalsController::register();
 		JsonLd::register();
+		Updates::register();
 		PublisherUser::register();
 
 		add_action( 'rest_api_init', array( new AuthorizationProbe(), 'register_routes' ) );

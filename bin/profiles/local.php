@@ -12,6 +12,8 @@ return array(
 	'name'          => 'Agency (local)',
 	'url'           => 'https://agency.test',
 	'logo'          => '',
+	// The manifest installed Connectors check for new versions (DISTRIBUTION.md); '' for none.
+	'update_url'    => '',
 	'redirect_uris' => array(
 		'https://agency.test/wp-admin/admin.php?page=cpub-publisher&cpub_oauth=callback',
 		'http://127.0.0.1/callback',

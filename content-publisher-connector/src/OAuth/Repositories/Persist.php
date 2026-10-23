@@ -24,6 +24,7 @@ final class Persist {
 		if ( str_contains( (string) $wpdb->last_error, 'Duplicate' ) ) {
 			throw UniqueTokenIdentifierConstraintViolationException::create();
 		}
-		throw new \RuntimeException( 'Could not store the token: ' . $wpdb->last_error );
+		// Not output: the OAuth library turns it into a JSON error response.
+		throw new \RuntimeException( 'Could not store the token: ' . $wpdb->last_error ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 	}
 }

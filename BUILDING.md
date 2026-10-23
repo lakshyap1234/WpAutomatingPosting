@@ -41,6 +41,8 @@ The Connector trusts exactly one OAuth client (the agency), and only lets it ret
 
 Only `local` may have a loopback (`http://127.0.0.1`) return address; the build refuses one anywhere else. Never install a `local` build on a live site. The Visiby callback path must match the route visiby-backend's cms-connections module serves: change both together.
 
+A profile's `update_url` turns on the self-hosted update channel for its zips: `bin/build.sh <profile>` then also writes `<zip name>.update.json` next to the zip. See DISTRIBUTION.md for publishing it, and for the licence and PHP version.
+
 ## How the prefixing works
 
 The Composer packages (league/oauth2-server, lcobucci/jwt, defuse/php-encryption, nyholm/psr7 and their dependencies in the Connector; league/commonmark and its dependencies in the Publisher) are copied into `vendor-prefixed/` with their namespaces prefixed (`CPub\Connector\Vendor\…`, `CPub\Publisher\Vendor\…`). Another plugin on the same site can then load its own copy of the same library without a clash.

@@ -6,6 +6,10 @@
  * @package CPub\Connector
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 return array (
   'client_id' => 'visiby',
   'name' => 'Visiby',
@@ -16,4 +20,5 @@ return array (
     0 => 'https://api.visiby.net/cms-connections/wordpress/callback',
     1 => 'https://stag-api.visiby.net/cms-connections/wordpress/callback',
   ),
+  'update_url' => '',
 );

@@ -85,3 +85,54 @@ jobs:
       - name: Logs on failure
         if: failure()
         run: $WP_ENV logs tests --watch=false || true
+
+  # WordPress's Plugin Check on the Connector zip as it ships (DISTRIBUTION.md).
+  # Errors fail the job; warnings are listed but don't. Not checked: the bundled
+  # third-party libraries (vendor-prefixed/), and plugin_updater, which flags the
+  # self-hosted update channel and only matters for a WordPress.org listing.
+  plugin-check:
+    name: Plugin Check (Connector)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      WP_ENV: npx --yes @wordpress/env@11.16.0
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+          coverage: none
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 20
+
+      - name: Build the zip
+        run: |
+          bin/build.sh zips connector
+          mkdir -p ci-plugin
+          unzip -q dist/content-publisher-connector-*.zip -d ci-plugin
+
+      - name: Start WordPress with the zip and Plugin Check
+        run: |
+          cat > .wp-env.override.json <<'JSON'
+          { "plugins": [ "./ci-plugin/content-publisher-connector", "https://downloads.wordpress.org/plugin/plugin-check.latest-stable.zip" ] }
+          JSON
+          $WP_ENV start
+
+      - name: Plugin Check
+        run: |
+          set -o pipefail
+          status=0
+          $WP_ENV run cli wp plugin check content-publisher-connector \
+            --exclude-directories=vendor-prefixed --exclude-checks=plugin_updater \
+            --format=table 2>&1 | tee plugin-check.log || status=$?
+          # Failed: an ERROR in the results, or the check itself didn't run.
+          if [ "$status" -ne 0 ] || grep -qE '(^|[^A-Z_])ERROR([^A-Z_]|$)' plugin-check.log; then
+            msg="$(sed 's/\x1b\[[0-9;]*m//g' plugin-check.log | tail -c 30000)"
+            msg="${msg//'%'/'%25'}"; msg="${msg//$'\r'/'%0D'}"; msg="${msg//$'\n'/'%0A'}"
+            echo "::error title=plugin-check::$msg"
+            exit 1
+          fi

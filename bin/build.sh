@@ -187,8 +187,13 @@ zips() {
     local unpacked; unpacked="$(mktemp -d)"
     (cd "$unpacked" && unzip -q "$zip_path")
     find "$unpacked" -name '*.php' -print0 | xargs -0 -n1 -P4 php -l >/dev/null
-    rm -rf "$unpacked"
     say "    $zip_path ($(du -h "$zip_path" | cut -f1))"
+    # With an update channel (update_url in its config), the manifest to publish with it.
+    if [[ "$t" == connector ]]; then
+      local manifest; manifest="$(php "$ROOT/bin/update-manifest.php" "$zip_path" "$unpacked/$slug")" || die "couldn't write the update manifest"
+      [[ -z "$manifest" ]] || say "    $manifest"
+    fi
+    rm -rf "$unpacked"
   done
 }
 

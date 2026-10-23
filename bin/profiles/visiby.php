@@ -12,6 +12,8 @@ return array(
 	'name'          => 'Visiby',
 	'url'           => 'https://visiby.net',
 	'logo'          => '',
+	// The manifest installed Connectors check for new versions (DISTRIBUTION.md); '' for none.
+	'update_url'    => '',
 	'redirect_uris' => array(
 		'https://api.visiby.net/cms-connections/wordpress/callback',
 		'https://stag-api.visiby.net/cms-connections/wordpress/callback',

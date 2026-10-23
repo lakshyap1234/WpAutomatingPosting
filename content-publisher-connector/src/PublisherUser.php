@@ -99,7 +99,8 @@ final class PublisherUser {
 			)
 		);
 		if ( is_wp_error( $id ) ) {
-			throw new \RuntimeException( 'Could not create the Agency Publisher user: ' . $id->get_error_message() );
+			// Not output here: AuthorizePage shows it with esc_html().
+			throw new \RuntimeException( 'Could not create the Agency Publisher user: ' . $id->get_error_message() ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 		}
 		update_user_meta( $id, self::META, 1 );
 		update_option( self::OPTION, $id, false );

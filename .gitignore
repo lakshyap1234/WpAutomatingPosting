@@ -81,3 +81,7 @@ ehthumbs.db
 
 # Local test library path (TESTING.md: running without wp-env)
 /.wp-tests.env
+
+# CI only (Plugin Check job)
+.wp-env.override.json
+/ci-plugin/

@@ -59,7 +59,7 @@ final class StatusPage {
 			<p>Lets <?php echo esc_html( $agency ); ?> create <strong>draft</strong> posts and upload images on this site, after an administrator approves. It can't publish, change anything else, or log in here.</p>
 			<?php $waiting = Proposals::count_pending(); ?>
 			<?php if ( $waiting ) : ?>
-				<div class="notice notice-info inline" id="cpub-proposals-waiting"><p><a href="<?php echo esc_url( ProposalsPage::url() ); ?>"><?php echo esc_html( sprintf( _n( '%1$d suggested change from %2$s is waiting', '%1$d suggested changes from %2$s are waiting', $waiting ), $waiting, $agency ) ); ?></a> under Posts &rarr; Proposed changes.</p></div>
+				<div class="notice notice-info inline" id="cpub-proposals-waiting"><p><a href="<?php echo esc_url( ProposalsPage::url() ); ?>"><?php /* translators: 1: number of suggestions, 2: the agency's name */ echo esc_html( sprintf( _n( '%1$d suggested change from %2$s is waiting', '%1$d suggested changes from %2$s are waiting', $waiting, 'content-publisher-connector' ), $waiting, $agency ) ); ?></a> under Posts &rarr; Proposed changes.</p></div>
 			<?php endif; ?>
 
 			<h2>Connection</h2>

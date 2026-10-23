@@ -8,11 +8,13 @@
  * Author:            Agency
  * License:           Proprietary
  * Text Domain:       content-publisher-connector
+ * Update URI:        cpub-connector
  *
  * @package CPub\Connector
  */
 
 // Keep this file parseable by old PHP: the requirements check runs first.
+// Update URI: updates come from the agency's own channel, never from WordPress.org (src/Updates.php).
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
