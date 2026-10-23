@@ -46,16 +46,41 @@ jobs:
           node-version: 20
 
       - name: Start wp-env
+        id: wpenv
         run: $WP_ENV start                     # an empty WP_ENV_CORE is ignored
 
+      # Each suite runs even when an earlier one failed, and keeps its output in
+      # phpunit-<suite>.log for the annotations below.
       - name: Connector suite (OAuth, token permissions, REST)
-        run: $WP_ENV run tests-cli --env-cwd=cpub-repo vendor/bin/phpunit -c content-publisher-connector/phpunit.xml.dist
+        if: ${{ !cancelled() && steps.wpenv.outcome == 'success' }}
+        run: |
+          set -o pipefail
+          $WP_ENV run tests-cli --env-cwd=cpub-repo vendor/bin/phpunit -c content-publisher-connector/phpunit.xml.dist 2>&1 | tee phpunit-connector.log
 
       - name: Golden files (samples/*.txt to expected blocks)
-        run: $WP_ENV run tests-cli --env-cwd=cpub-repo vendor/bin/phpunit -c content-publisher/phpunit.xml.dist --filter GoldenSamplesTest
+        if: ${{ !cancelled() && steps.wpenv.outcome == 'success' }}
+        run: |
+          set -o pipefail
+          $WP_ENV run tests-cli --env-cwd=cpub-repo vendor/bin/phpunit -c content-publisher/phpunit.xml.dist --filter GoldenSamplesTest 2>&1 | tee phpunit-golden.log
 
       - name: Publisher suite
-        run: $WP_ENV run tests-cli --env-cwd=cpub-repo vendor/bin/phpunit -c content-publisher/phpunit.xml.dist
+        if: ${{ !cancelled() && steps.wpenv.outcome == 'success' }}
+        run: |
+          set -o pipefail
+          $WP_ENV run tests-cli --env-cwd=cpub-repo vendor/bin/phpunit -c content-publisher/phpunit.xml.dist 2>&1 | tee phpunit-publisher.log
+
+      # The end of each failed suite's output as an annotation, so it shows on the
+      # run's summary page (and in the API) without opening the full log.
+      - name: Failures as annotations
+        if: failure()
+        run: |
+          for log in phpunit-*.log; do
+            [ -f "$log" ] || continue
+            grep -qE '^(OK \(|OK, but)' "$log" && continue
+            msg="$(tail -n 150 "$log" | sed 's/\x1b\[[0-9;]*m//g' | tail -c 30000)"
+            msg="${msg//'%'/'%25'}"; msg="${msg//$'\r'/'%0D'}"; msg="${msg//$'\n'/'%0A'}"
+            echo "::error title=${log%.log}::$msg"
+          done
 
       - name: Logs on failure
         if: failure()
