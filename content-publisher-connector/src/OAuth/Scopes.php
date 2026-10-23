@@ -15,6 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class Scopes {
 
 	public const POSTS_WRITE  = 'posts:write';
+	public const PAGES_WRITE  = 'pages:write';
 	public const MEDIA_WRITE  = 'media:write';
 	public const TERMS_READ   = 'terms:read';
 	public const TERMS_WRITE  = 'terms:write';
@@ -23,6 +24,7 @@ final class Scopes {
 	/** scope => plain-language description for the consent screen. */
 	public const LABELS = array(
 		self::POSTS_WRITE  => 'Create posts, and edit the posts it created (publishing only if you allow it below)',
+		self::PAGES_WRITE  => 'Create pages, and edit the pages it created (publishing only if you allow it below)',
 		self::MEDIA_WRITE  => 'Upload images to the Media Library',
 		self::TERMS_READ   => 'Read the list of categories and tags',
 		self::TERMS_WRITE  => 'Add new tags (not change or delete existing ones)',
@@ -41,6 +43,12 @@ final class Scopes {
 		self::POSTS_WRITE  => array(
 			array( array( 'GET' ), '#^/wp/v2/posts(?:/\d+)?$#' ),
 			array( array( 'POST', 'PUT', 'PATCH' ), '#^/wp/v2/posts(?:/\d+)?$#' ),
+			array( array( 'GET' ), '#^/cpub-connector/v1/preview/\d+$#' ), // checked per post type: Rest\Preview
+		),
+		self::PAGES_WRITE  => array(
+			array( array( 'GET' ), '#^/wp/v2/pages(?:/\d+)?$#' ),
+			array( array( 'POST', 'PUT', 'PATCH' ), '#^/wp/v2/pages(?:/\d+)?$#' ),
+			array( array( 'GET' ), '#^/cpub-connector/v1/preview/\d+$#' ),
 		),
 		self::MEDIA_WRITE  => array(
 			array( array( 'GET' ), '#^/wp/v2/media(?:/\d+)?$#' ),

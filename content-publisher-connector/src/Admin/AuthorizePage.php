@@ -195,6 +195,7 @@ final class AuthorizePage {
 				<li data-scope="<?php echo esc_attr( $scope->getIdentifier() ); ?>"><?php echo esc_html( Scopes::LABELS[ $scope->getIdentifier() ] ?? $scope->getIdentifier() ); ?></li>
 			<?php endforeach; ?>
 		</ul>
+		<p>It can also make preview links to its own unpublished posts, so its team can see them in your site's design. Each link works for one post, for 30 minutes, without logging in; search engines are told not to index it.</p>
 		<p>It will <strong>not</strong> be able to touch posts or images it didn't create, change or delete anything else, change settings, or log in to this dashboard. You can cut off access at any time under Settings &rarr; Content Publisher.</p>
 
 		<?php if ( $current ) : ?>
@@ -209,7 +210,10 @@ final class AuthorizePage {
 
 		<form method="post" style="margin-top:24px">
 			<?php wp_nonce_field( self::NONCE ); ?>
-			<?php $people = PublisherUser::eligible_users(); ?>
+			<?php
+			$people = PublisherUser::eligible_users();
+			$pages  = in_array( Scopes::PAGES_WRITE, array_map( fn( $s ) => $s->getIdentifier(), $this->auth_request->getScopes() ), true );
+			?>
 			<p><label for="cpub-post-as"><strong>Posts appear under</strong></label><br>
 				<select name="post_as" id="cpub-post-as" style="min-width:320px">
 					<?php foreach ( $people as $person ) : ?>
@@ -218,7 +222,7 @@ final class AuthorizePage {
 					<option value="agency"><?php echo esc_html( $user ? 'A separate account: ' . $user->user_login : 'A separate account, agency-publisher (created now, cannot log in)' ); ?></option>
 				</select>
 			</p>
-			<p class="description" style="margin-top:-8px">Their name is shown as the author. Only Authors and Editors can be chosen<?php echo $people ? '' : ' (this site has none yet: add one under Users to have posts appear under a real person)'; ?>. The agency only ever gets the few permissions listed above, whoever you choose, and only for its own posts.</p>
+			<p class="description" style="margin-top:-8px">Their name is shown as the author. Only Authors and Editors can be chosen<?php echo $people ? '' : ' (this site has none yet: add one under Users to have posts appear under a real person)'; ?>. The agency only ever gets the few permissions listed above, whoever you choose, and only for its own posts.<?php echo $pages ? ' Pages need an Editor or the separate account: WordPress doesn\'t let Authors write pages.' : ''; ?></p>
 			<p><label><input type="checkbox" name="can_publish" value="1" id="cpub-can-publish"> <strong>Let <?php echo esc_html( $agency ); ?> publish directly</strong></label><br>
 				<span class="description">It can then publish and schedule the posts it creates, and correct or unpublish them later. Without this, everything arrives as a draft for your editors to publish. You can change this later under Settings &rarr; Content Publisher.</span></p>
 			<button type="submit" name="approve" value="1" class="button button-primary button-hero" id="cpub-approve">Approve</button>

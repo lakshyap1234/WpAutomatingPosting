@@ -1,6 +1,6 @@
 <?php
 /**
- * Duplicate protection for the agency's uploads and new drafts.
+ * Duplicate protection for the agency's uploads and new drafts (posts and pages).
  *
  * The agency sends a one-time key with each new post or image
  * (X-CPub-Idempotency-Key). The key is saved with what it created. If the same
@@ -26,6 +26,7 @@ final class Idempotency {
 	/** route => post type */
 	private const ROUTES = array(
 		'/wp/v2/posts' => 'post',
+		'/wp/v2/pages' => 'page',
 		'/wp/v2/media' => 'attachment',
 	);
 
@@ -34,9 +35,11 @@ final class Idempotency {
 		// The key goes in with the insert itself (meta_input), so a failure later in the
 		// request (terms, featured image) can't leave a keyless post that a retry would duplicate.
 		add_filter( 'rest_pre_insert_post', array( self::class, 'attach' ), 10, 2 );
+		add_filter( 'rest_pre_insert_page', array( self::class, 'attach' ), 10, 2 );
 		add_filter( 'rest_pre_insert_attachment', array( self::class, 'attach' ), 10, 2 );
 		// Fallback in case another plugin's filter rebuilt the prepared object.
 		add_action( 'rest_after_insert_post', array( self::class, 'remember' ), 10, 3 );
+		add_action( 'rest_after_insert_page', array( self::class, 'remember' ), 10, 3 );
 		add_action( 'rest_after_insert_attachment', array( self::class, 'remember' ), 10, 3 );
 	}
 

@@ -44,6 +44,7 @@ final class Plugin {
 		RouteGate::register();
 		Rest\Ownership::register();
 		Rest\Idempotency::register();
+		Rest\Preview::register();
 		PublisherUser::register();
 
 		add_action( 'rest_api_init', array( new AuthorizationProbe(), 'register_routes' ) );

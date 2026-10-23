@@ -18,6 +18,8 @@
 namespace CPub\Connector\Auth;
 
 use CPub\Connector\OAuth\Grants;
+use CPub\Connector\OAuth\Scopes;
+use CPub\Connector\PublisherUser;
 use CPub\Connector\Rest\Ownership;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -36,6 +38,16 @@ final class Sandbox {
 	/** Only when the site allowed the agency to publish directly. */
 	private const PUBLISHING = array( 'publish_posts' );
 
+	/**
+	 * Only with the pages:write scope. WordPress lets Editors, not Authors, write
+	 * pages; the dedicated Agency Publisher account (an Author) is given these
+	 * for token requests only. A site's own Author keeps the rights they have.
+	 */
+	private const PAGES = array( 'edit_pages', 'edit_published_pages' );
+
+	/** Pages, when the site also allowed publishing. */
+	private const PAGE_PUBLISHING = array( 'publish_pages' );
+
 	/** Post-level checks WordPress makes per post: all limited to what the agency created. */
 	private const PER_POST = array( 'edit_post', 'delete_post', 'publish_post', 'read_post', 'edit_page', 'delete_page', 'read_page' );
 
@@ -47,6 +59,7 @@ final class Sandbox {
 		add_filter( 'user_has_cap', array( self::class, 'limit' ), PHP_INT_MAX, 4 );
 		add_filter( 'map_meta_cap', array( self::class, 'ours_only' ), PHP_INT_MAX, 4 );
 		add_filter( 'rest_post_query', array( self::class, 'own_listings' ), PHP_INT_MAX, 2 );
+		add_filter( 'rest_page_query', array( self::class, 'own_listings' ), PHP_INT_MAX, 2 );
 		add_filter( 'rest_attachment_query', array( self::class, 'own_listings' ), PHP_INT_MAX, 2 );
 	}
 
@@ -92,9 +105,14 @@ final class Sandbox {
 		if ( Grants::can_publish( $grant ) ) {
 			$allowed = array_merge( $allowed, self::PUBLISHING );
 		}
-		$out = array();
-		foreach ( $allowed as $cap ) {
-			if ( ! empty( $allcaps[ $cap ] ) ) {
+		$pages = array();
+		if ( self::has_pages( $grant ) ) {
+			$pages = Grants::can_publish( $grant ) ? array_merge( self::PAGES, self::PAGE_PUBLISHING ) : self::PAGES;
+		}
+		$given = PublisherUser::is_dedicated( (int) $user->ID ) ? $pages : array();
+		$out   = array();
+		foreach ( array_merge( $allowed, $pages ) as $cap ) {
+			if ( ! empty( $allcaps[ $cap ] ) || in_array( $cap, $given, true ) ) {
 				$out[ $cap ] = true;
 			}
 		}
@@ -117,7 +135,8 @@ final class Sandbox {
 		if ( ! $post ) {
 			return $caps;
 		}
-		if ( ! in_array( $post->post_type, array( 'post', 'attachment' ), true ) ) {
+		$types = self::has_pages( BearerAuth::grant() ) ? array( 'post', 'page', 'attachment' ) : array( 'post', 'attachment' );
+		if ( ! in_array( $post->post_type, $types, true ) ) {
 			return array( 'do_not_allow' );
 		}
 		if ( Ownership::is_ours( $post->ID ) ) {
@@ -127,5 +146,9 @@ final class Sandbox {
 			return $caps;
 		}
 		return array( 'do_not_allow' );
+	}
+
+	private static function has_pages( ?object $grant ): bool {
+		return $grant && in_array( Scopes::PAGES_WRITE, Grants::scopes( $grant ), true );
 	}
 }

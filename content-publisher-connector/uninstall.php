@@ -22,5 +22,6 @@ require_once __DIR__ . '/src/Autoloader.php';
 \CPub\Connector\Installer::drop_tables();
 \CPub\Connector\OAuth\Keys::delete();
 delete_option( \CPub\Connector\PublisherUser::OPTION );
+\CPub\Connector\Rest\Preview::delete_secret();
 delete_transient( 'cpub_connector_auth_probe' );
 wp_clear_scheduled_hook( \CPub\Connector\Installer::DAILY_HOOK );

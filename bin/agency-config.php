@@ -46,6 +46,9 @@ $logo = (string) ( $config['logo'] ?? '' );
 if ( '' !== $logo && ! preg_match( '~^(https://[^\s"\'<>]+|[A-Za-z0-9._-]+\.(png|jpe?g|gif|svg|webp))$~i', $logo ) ) {
 	fail( "AGENCY_LOGO (logo) must be an image file name in content-publisher-connector/assets/ or an https:// address, got: $logo" );
 }
+if ( '' !== $logo && ! str_starts_with( $logo, 'https://' ) && ! is_file( dirname( __DIR__ ) . '/content-publisher-connector/assets/' . $logo ) ) {
+	fail( "The logo $logo is not in content-publisher-connector/assets/ (the consent screen would show no logo)" );
+}
 $redirects = array_values( (array) ( $config['redirect_uris'] ?? array() ) );
 if ( ! $redirects ) {
 	fail( 'redirect_uris must not be empty' );

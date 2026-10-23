@@ -44,7 +44,7 @@ composer test:golden      # only the golden files
 
 ## What a token may do on a client's site
 
-`content-publisher-connector/tests/TokenPermissionsTest.php` has one test per rule. Each test also checks that nothing changed on the site.
+`content-publisher-connector/tests/TokenPermissionsTest.php` has one test per rule. Each test also checks that nothing changed on the site. `PagesTest.php` does the same for pages (the `pages:write` scope).
 
 | Rule | Test |
 | --- | --- |

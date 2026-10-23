@@ -1,6 +1,6 @@
 <?php
 /**
- * Marks every post and image the agency creates, so a connection can be
+ * Marks every post, page and image the agency creates, so a connection can be
  * limited to its own work even when it posts as one of the site's users.
  *
  * The mark is signed with a secret kept on this site and bound to the post's
@@ -31,6 +31,7 @@ final class Ownership {
 
 	public static function register(): void {
 		add_filter( 'rest_pre_insert_post', array( self::class, 'mark' ), 5, 2 );
+		add_filter( 'rest_pre_insert_page', array( self::class, 'mark' ), 5, 2 );
 		add_filter( 'rest_pre_insert_attachment', array( self::class, 'mark' ), 5, 2 );
 		add_action( 'wp_insert_post', array( self::class, 'sign_post' ), 1, 3 );
 		add_action( 'add_attachment', array( self::class, 'sign' ), 1 );

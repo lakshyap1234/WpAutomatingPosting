@@ -33,6 +33,8 @@ final class RouteGate {
 	public const WRITABLE_FIELDS = array(
 		// No 'slug': WordPress 7.1 core warns when a draft is created with one (reads ->id for ->ID).
 		'posts' => array( 'title', 'content', 'excerpt', 'status', 'categories', 'tags', 'featured_media', 'date', 'date_gmt' ),
+		// No template or menu_order: they change how the site shows the page (or its menus).
+		'pages' => array( 'title', 'content', 'excerpt', 'status', 'parent', 'featured_media', 'date', 'date_gmt' ),
 		'media' => array( 'title', 'caption', 'alt_text', 'description', 'post', 'force' ),
 		'tags'  => array( 'name' ),
 	);
@@ -44,6 +46,7 @@ final class RouteGate {
 		add_filter( 'rest_pre_dispatch', array( self::class, 'check_route' ), 5, 3 );
 		add_filter( 'rest_request_after_callbacks', array( self::class, 'log_request' ), 999, 3 );
 		add_filter( 'rest_pre_insert_post', array( self::class, 'drafts_only' ), 10, 2 );
+		add_filter( 'rest_pre_insert_page', array( self::class, 'drafts_only' ), 10, 2 );
 		add_filter( 'rest_prepare_user', array( self::class, 'name_only' ), PHP_INT_MAX, 3 );
 		add_filter( 'wp_handle_upload_prefilter', array( self::class, 'images_only' ) );
 		add_filter( 'wp_handle_sideload_prefilter', array( self::class, 'images_only' ) );
@@ -67,7 +70,7 @@ final class RouteGate {
 			return $result;
 		}
 
-		$kind  = str_starts_with( $route, '/wp/v2/media' ) ? 'media' : ( str_starts_with( $route, '/wp/v2/tags' ) ? 'tags' : 'posts' );
+		$kind  = preg_match( '#^/wp/v2/(media|tags|pages)\b#', $route, $k ) ? $k[1] : 'posts';
 		$extra = array_diff( self::sent_fields( $request ), self::WRITABLE_FIELDS[ $kind ], self::CONTROL_PARAMS );
 		if ( $extra ) {
 			$fields = implode( ', ', $extra );
@@ -94,6 +97,17 @@ final class RouteGate {
 			return true;
 		}
 		return Grants::can_publish( $grant ) && in_array( $status, self::LIVE_STATUSES, true ) && Ownership::is_ours( $post_id );
+	}
+
+	/**
+	 * Pages a token may put its page under: the agency's own, or one anyone can
+	 * see. The parent itself is never changed. Others' drafts and private pages
+	 * are refused like pages that don't exist.
+	 */
+	private static function may_be_parent( int $page_id ): bool {
+		$page = get_post( $page_id );
+		return $page && 'page' === $page->post_type
+			&& ( Ownership::is_ours( $page_id ) || 'publish' === $page->post_status );
 	}
 
 	private static function refuse( object $grant, \WP_REST_Request $request, string $code, string $message, string $log ): \WP_Error {
@@ -206,6 +220,10 @@ final class RouteGate {
 		}
 		if ( ! empty( $prepared->ID ) && ! self::may_change( $grant, (int) $prepared->ID ) ) {
 			return new \WP_Error( 'cpub_post_locked', 'This post is no longer a draft on the site, so it can only be changed by the site\'s own editors.', array( 'status' => 403 ) );
+		}
+		$parent = (int) $request->get_param( 'parent' );
+		if ( $parent > 0 && ! self::may_be_parent( $parent ) ) {
+			return new \WP_Error( 'cpub_parent_not_allowed', 'A page can only be placed under one of the site\'s published pages, or under a page this connection created.', array( 'status' => 403 ) );
 		}
 		$allowed = Grants::can_publish( $grant ) ? array_merge( self::EDITABLE_STATUSES, self::LIVE_STATUSES ) : self::EDITABLE_STATUSES;
 		if ( isset( $prepared->post_status ) && ! in_array( $prepared->post_status, $allowed, true ) ) {
