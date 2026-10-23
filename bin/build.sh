@@ -6,21 +6,26 @@
 #                                lib/action-scheduler/ and build/ (content-publisher)
 #   bin/build.sh check           deps, then fail if that changed anything committed
 #   bin/build.sh zips [plugin]   deps, then the zips (plugin = publisher | connector)
-#   bin/build.sh config          write content-publisher-connector/config/agency.php
+#   bin/build.sh config [profile]  write content-publisher-connector/config/agency.php
+#   bin/build.sh <profile>       deps, then the connector zip built for that profile
 #
 # Needs: php 8.2+, composer 2, git, rsync, zip, curl or wget (to fetch Strauss once),
 # and node 18+ for the review editor (skipped with a warning when node is missing:
 # build/ is committed).
 #
-# The Connector trusts exactly one agency, written into config/agency.php:
+# The Connector trusts exactly one agency, written into config/agency.php. Either a
+# build profile, bin/profiles/<profile>.php:
+#   visiby                              Visiby's backend (production and staging)
+#   local                               the dev stack's agency.test, plus a test tool on the
+#                                       approving admin's own computer (http://127.0.0.1/callback).
+#                                       The only profile with a loopback address. Never for live sites.
+# or an agency running the Content Publisher plugin:
 #   AGENCY_URL=https://agency.example   the agency site (https)
 #   AGENCY_NAME="Agency Name"           shown on the consent screen (default "Agency")
 #   AGENCY_LOGO=logo.png                optional, a file in content-publisher-connector/assets/
-#   DEMO=1                              also trust a test tool on the approving admin's own
-#                                       computer (http://127.0.0.1/callback). Never for live sites.
-# "config" writes the committed file. "zips" uses the committed file, unless AGENCY_URL
-# is set: then that zip gets its own config (the committed file is left alone).
-#   SUFFIX=-something                   appended to zip names
+# "config" writes the committed file. "zips" uses the committed file, unless PROFILE or
+# AGENCY_URL is set: then that zip gets its own config (the committed file is left alone).
+#   SUFFIX=-something                   appended to zip names (default -<profile> with a profile)
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -136,10 +141,17 @@ deps() {
   done
 }
 
+is_profile() { [[ "$1" =~ ^[a-z0-9-]+$ && -f "$ROOT/bin/profiles/$1.php" ]]; }
+
+# Written to a temporary file first, so a refused setting leaves the old file as it was.
 write_config() {
-  : "${AGENCY_URL:?Set AGENCY_URL to the agency site address, for example AGENCY_URL=https://agency.example}"
-  AGENCY_URL="${AGENCY_URL%/}" AGENCY_NAME="${AGENCY_NAME:-Agency}" AGENCY_LOGO="${AGENCY_LOGO:-}" DEMO="${DEMO:-0}" \
-    php "$ROOT/bin/agency-config.php" > "$1"
+  if [[ -z "${PROFILE:-}" ]]; then
+    : "${AGENCY_URL:?Set a profile (bin/build.sh config visiby) or AGENCY_URL to the agency site address, for example AGENCY_URL=https://agency.example}"
+  fi
+  local url="${AGENCY_URL:-}"
+  PROFILE="${PROFILE:-}" AGENCY_URL="${url%/}" AGENCY_NAME="${AGENCY_NAME:-Agency}" AGENCY_LOGO="${AGENCY_LOGO:-}" \
+    php "$ROOT/bin/agency-config.php" > "$1.part" || { rm -f "$1.part"; die "agency config refused (above)"; }
+  mv "$1.part" "$1"
 }
 
 zips() {
@@ -159,14 +171,15 @@ zips() {
       --exclude '.DS_Store' --exclude '.phpunit.result.cache' \
       "$src/" "$stage/$slug/"
     if [[ "$t" == connector ]]; then
-      if [[ -n "${AGENCY_URL:-}" ]]; then
+      if [[ -n "${PROFILE:-}" || -n "${AGENCY_URL:-}" ]]; then
         write_config "$stage/$slug/config/agency.php"
       fi
-      [[ -f "$stage/$slug/config/agency.php" ]] || die "content-publisher-connector/config/agency.php is missing: run AGENCY_URL=https://… bin/build.sh config"
+      [[ -f "$stage/$slug/config/agency.php" ]] || die "content-publisher-connector/config/agency.php is missing: run bin/build.sh config visiby (or AGENCY_URL=https://… bin/build.sh config)"
     fi
-    local version zip_path
+    local version zip_path suffix="${SUFFIX:-}"
+    [[ -z "$suffix" && -n "${PROFILE:-}" && "$t" == connector ]] && suffix="-$PROFILE"
     version="$(sed -n 's/^ \* Version: *//p' "$src/$slug.php" | tr -d '[:space:]')"
-    zip_path="$DIST/$slug-$version${SUFFIX:-}.zip"
+    zip_path="$DIST/$slug-$version$suffix.zip"
     rm -f "$zip_path"
     (cd "$stage" && zip -qrX "$zip_path" "$slug")
     rm -rf "$stage"
@@ -204,7 +217,13 @@ case "$cmd" in
       die "the rebuilt dependencies differ from what is committed (above)"
     fi
     say "OK: the rebuilt dependencies are identical to what is committed" ;;
-  config) write_config "$ROOT/content-publisher-connector/config/agency.php"; say "wrote content-publisher-connector/config/agency.php" ;;
+  config)
+    PROFILE="${1:-${PROFILE:-}}"
+    [[ -z "$PROFILE" ]] || is_profile "$PROFILE" || die "unknown profile $PROFILE (see bin/profiles/)"
+    write_config "$ROOT/content-publisher-connector/config/agency.php"
+    say "wrote content-publisher-connector/config/agency.php${PROFILE:+ ($PROFILE profile)}" ;;
   lock-hash) lock_hash $(targets "$@") ;;
-  *) die "unknown command $cmd (deps | check | zips | config | lock-hash)" ;;
+  *)
+    is_profile "$cmd" || die "unknown command $cmd (deps | check | zips | config | lock-hash | a profile in bin/profiles/)"
+    PROFILE="$cmd"; deps connector; zips connector ;;
 esac

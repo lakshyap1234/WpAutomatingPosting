@@ -8,7 +8,7 @@ Both plugins ship third-party code that is **generated and committed**: a fresh 
 | `content-publisher-connector/vendor-prefixed/` | `content-publisher-connector/composer.json` + `composer.lock` | Composer, then Strauss |
 | `content-publisher/lib/action-scheduler/` | Action Scheduler, a pinned tag and commit | `bin/build.sh` (git) |
 | `content-publisher/build/` | `content-publisher/src/editor/` (see `content-publisher/README.md`) | esbuild (npm) |
-| `content-publisher-connector/config/agency.php` | `AGENCY_URL`, `AGENCY_NAME`, `AGENCY_LOGO`, `DEMO` | `bin/build.sh config` |
+| `content-publisher-connector/config/agency.php` | a profile in `bin/profiles/` (committed: `visiby`), or `AGENCY_URL`, `AGENCY_NAME`, `AGENCY_LOGO` | `bin/build.sh config` |
 
 Don't edit any of these by hand: the next build overwrites them.
 
@@ -21,11 +21,25 @@ bin/build.sh              # regenerate everything above (except agency.php), the
 bin/build.sh deps         # only regenerate (both plugins; or: deps publisher | deps connector)
 bin/build.sh check        # regenerate, then fail if anything differs from what is committed
 bin/build.sh zips connector   # one plugin's zip
-AGENCY_URL=https://agency.example AGENCY_NAME="Visiby" bin/build.sh config   # rewrite agency.php
-AGENCY_URL=http://… DEMO=1 SUFFIX=-local bin/build.sh zips connector      # a zip for another agency, committed agency.php untouched
+bin/build.sh visiby           # the connector zip for Visiby: dist/content-publisher-connector-<version>-visiby.zip
+bin/build.sh local            # the connector zip for the dev stack (agency.test + loopback test tool)
+bin/build.sh config visiby    # rewrite the committed agency.php from a profile
+AGENCY_URL=https://agency.example AGENCY_NAME="Acme" bin/build.sh config        # or for an agency running the Content Publisher plugin
+AGENCY_URL=https://agency.example SUFFIX=-acme bin/build.sh zips connector    # a zip for another agency, committed agency.php untouched
 ```
 
 The first run downloads Strauss and Action Scheduler into `.build-tools/` (gitignored), each checked against a pinned checksum or commit.
+
+## Build profiles
+
+The Connector trusts exactly one OAuth client (the agency), and only lets it return to the addresses in `config/agency.php`. A profile in `bin/profiles/<name>.php` is that config for a known client:
+
+| Profile | client_id | Return addresses |
+| --- | --- | --- |
+| `visiby` | `visiby` | `https://api.visiby.net/cms-connections/wordpress/callback`, `https://stag-api.visiby.net/cms-connections/wordpress/callback` |
+| `local` | `cpub-publisher` | `https://agency.test/…` (the dev stack, `dev/README.md`) and `http://127.0.0.1/callback` |
+
+Only `local` may have a loopback (`http://127.0.0.1`) return address; the build refuses one anywhere else. Never install a `local` build on a live site. The Visiby callback path must match the route visiby-backend's cms-connections module serves: change both together.
 
 ## How the prefixing works
 
