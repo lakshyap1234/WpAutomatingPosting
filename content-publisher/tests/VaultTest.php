@@ -34,20 +34,19 @@ class VaultTest extends WP_UnitTestCase {
 
 	public function test_credentials_are_never_stored_in_plain_text(): void {
 		global $wpdb;
-		Credentials::save( 5, 'cpub_at_PLAINACCESS', 'PLAINREFRESH', 3600 );
+		Credentials::save( 5, 'wpcom_PLAINACCESS' );
 		$dump = wp_json_encode( $wpdb->get_results( 'SELECT * FROM ' . Installer::table( 'credentials' ) ) );
 		$this->assertStringNotContainsString( 'PLAINACCESS', $dump );
-		$this->assertStringNotContainsString( 'PLAINREFRESH', $dump );
-		$this->assertSame( 'PLAINREFRESH', Credentials::load( 5 )['refresh'] );
+		$this->assertSame( 'wpcom_PLAINACCESS', Credentials::load( 5 )['access'] );
 	}
 
 	public function test_credentials_swapped_between_sites_are_refused(): void {
 		global $wpdb;
-		Credentials::save( 5, 'a5', 'r5', 3600 );
-		Credentials::save( 6, 'a6', 'r6', 3600 );
-		$t = Installer::table( 'credentials' );
-		$r5 = $wpdb->get_var( "SELECT refresh_token FROM $t WHERE site_id = 5" );
-		$wpdb->update( $t, array( 'refresh_token' => $r5 ), array( 'site_id' => 6 ) );
+		Credentials::save( 5, 'a5' );
+		Credentials::save( 6, 'a6' );
+		$t  = Installer::table( 'credentials' );
+		$a5 = $wpdb->get_var( "SELECT access_token FROM $t WHERE site_id = 5" );
+		$wpdb->update( $t, array( 'access_token' => $a5 ), array( 'site_id' => 6 ) );
 		$this->expectException( RuntimeException::class );
 		Credentials::load( 6 );
 	}

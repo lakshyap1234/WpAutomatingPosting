@@ -32,7 +32,7 @@ final class Checks {
 			self::action_scheduler(),
 			self::cron(),
 			self::https(),
-			self::return_address(),
+			self::wpcom_app(),
 			self::unicode(),
 			self::ai(),
 		);
@@ -84,17 +84,28 @@ final class Checks {
 		if ( function_exists( 'wp_is_using_https' ) && wp_is_using_https() ) {
 			return self::result( 'https', 'HTTPS', self::OK, 'The site uses HTTPS, which OAuth requires.' );
 		}
-		return self::result( 'https', 'HTTPS', self::ERROR, 'The site address is not https://. Client sites will refuse to send the connection approval back to a non-HTTPS address.' );
+		return self::result( 'https', 'HTTPS', self::ERROR, 'The site address is not https://. WordPress.com sends connection approvals back to this site\'s address, so it must use HTTPS.' );
 	}
 
-	/** What client Connectors must be built to trust. */
-	public static function return_address(): array {
-		$uri      = \CPub\Publisher\Connections\ConnectFlow::redirect_uri();
-		$expected = untrailingslashit( site_url() ) . '/wp-admin/admin.php?page=cpub-publisher&cpub_oauth=callback';
-		if ( $uri !== $expected ) {
-			return self::result( 'return_address', 'Connector return address', self::WARN, "This site's admin address is unusual ($uri). Client Connectors must be built to trust exactly that address; the standard build expects $expected." );
+	/** The agency's WordPress.com app, through which client sites are reached (Connections\Wpcom). */
+	public static function wpcom_app(): array {
+		$uri   = \CPub\Publisher\Connections\ConnectFlow::redirect_uri();
+		$label = 'WordPress.com app';
+		if ( ! \CPub\Publisher\Connections\Wpcom::configured() ) {
+			return self::result(
+				'wpcom_app',
+				$label,
+				self::ERROR,
+				sprintf(
+					'Client sites can\'t be connected yet. Create an app at %1$s with the redirect URL %2$s, then add its details to wp-config.php: define( \'%3$s\', \'…\' ); and define( \'%4$s\', \'…\' );',
+					\CPub\Publisher\Connections\Wpcom::REGISTER_URL,
+					$uri,
+					\CPub\Publisher\Connections\Wpcom::CLIENT_ID,
+					\CPub\Publisher\Connections\Wpcom::CLIENT_SECRET
+				)
+			);
 		}
-		return self::result( 'return_address', 'Connector return address', self::OK, 'Build client Connectors with AGENCY_URL=' . untrailingslashit( site_url() ) . ' (return address: ' . $uri . ').' );
+		return self::result( 'wpcom_app', $label, self::OK, sprintf( 'App %1$s is set. Its redirect URL on WordPress.com must be exactly %2$s.', \CPub\Publisher\Connections\Wpcom::client_id(), $uri ) );
 	}
 
 	/**

@@ -5,22 +5,23 @@ Requires PHP: 8.2
 Stable tag: 0.6.0
 License: Proprietary
 
-Agency-side plugin. Staff upload a client's post (.txt or .docx); it is structured automatically, reviewed here, and sent as a draft to the client's site through the Content Publisher Connector.
+Agency-side plugin. Staff upload a client's post (.txt or .docx); it is structured automatically, reviewed here, and sent to the client's site through Jetpack and WordPress.com.
 
 == Description ==
 
-Status: Phase 6. Staff upload posts (.txt, .md or Word .docx, with their image files) under Content Publisher > Add posts. Each post is processed in the background, one at a time per client site: read, structured by the AI (it only assigns lines to the title, headings, paragraphs, lists, tables and images; it never writes text) and checked to render back to exactly the original text. Reviewers open it from Content Publisher > Posts, correct it in the editor with a live preview, choose its tags (and a publish date), and approve or reject it. An approved post goes to its client site in the background: as a draft for the site's editors, or, when the site allows it, published or scheduled straight away. Posts appear on the client site under the Author or Editor the site chose when it approved the connection. A post the agency published can be corrected (reopen, change, approve again: the live post is updated) or unpublished.
+Status: Phase 6. Staff upload posts (.txt, .md or Word .docx, with their image files) under Content Publisher > Add posts. Each post is processed in the background, one at a time per client site: read, structured by the AI (it only assigns lines to the title, headings, paragraphs, lists, tables and images; it never writes text) and checked to render back to exactly the original text. Reviewers open it from Content Publisher > Posts, correct it in the editor with a live preview, choose its tags (and a publish date), and approve or reject it. An approved post goes to its client site in the background: as a draft for the site's editors, or, when the person who approved the connection can publish there, published or scheduled straight away. Posts appear on the client site under that person. A post the agency published can be corrected (reopen, change, approve again: the live post is updated) or unpublished.
 
-Client sites need the Content Publisher Connector 0.4.0 or later (sending refuses older ones, which can't protect against duplicate drafts). Publishing directly, posting under a client user and adding tags need 0.5.0, built for this site (the Status page shows the exact AGENCY_URL to build with).
+Client sites need Jetpack, connected to WordPress.com (WordPress.com-hosted sites work too). Connecting a site sends someone who can post on it to WordPress.com's approval screen; the connection then works as that person, with their rights on the site. Ask clients to approve with a dedicated Author or Editor account, not an administrator: the Client sites screen warns when an administrator approved.
 
 = Setup =
 
 1. Upload the zip under Plugins > Add New > Upload Plugin and activate it.
 2. Open Content Publisher > Status. If "Encryption key" shows a problem, copy the generated line into wp-config.php, then reload the page.
-3. Content Publisher > Settings: choose the AI (Google Gemini or Anthropic Claude) and paste its API key. Use a paid key before real client content goes through: free tiers may let the provider use submitted text.
+3. Create the agency's app on WordPress.com (developer.wordpress.com/apps), with the redirect URL the Status page shows, and add its two lines to wp-config.php: `define( 'CPUB_WPCOM_CLIENT_ID', '…' );` and `define( 'CPUB_WPCOM_CLIENT_SECRET', '…' );`. The Status page's "WordPress.com app" check confirms it.
+4. Content Publisher > Settings: choose the AI (Google Gemini or Anthropic Claude) and paste its API key. Use a paid key before real client content goes through: free tiers may let the provider use submitted text.
 
-4. Client sites > Settings (per site): send posts as drafts or published (published only works once the client site allows it on its Connector), the default category, whether a post's "Category:" line may override it, and whether the first image becomes the featured image (off by default: many themes already show the featured image above the post).
-5. For reliable background processing and sending, have the server call wp-cron.php every minute (a real cron job). Without it, posts are processed while someone has wp-admin open.
+5. Client sites > Settings (per site): send posts as drafts or published (published only works when the person who approved the connection can publish there), the default category, whether a post's "Category:" line may override it, and whether the first image becomes the featured image (off by default: many themes already show the featured image above the post).
+6. For reliable background processing and sending, have the server call wp-cron.php every minute (a real cron job). Without it, posts are processed while someone has wp-admin open.
 
 = Requirements =
 
@@ -35,20 +36,26 @@ Client sites need the Content Publisher Connector 0.4.0 or later (sending refuse
 
 = Sending, retries and failures =
 
-* Temporary problems (the client site down or slow, a lost reply) are retried after 1, 5 and 15 minutes. Every step can be repeated safely: each image and the draft carry a one-time key, so a retry never makes a second copy.
-* Problems someone has to fix (an image that can't be downloaded, the Connector refusing, the site disconnected) stop the send at once with the reason. Fix it, then "Send again" (Posts list or editor), or reopen the post, change it and approve it again.
+* Temporary problems (the client site down or slow, a lost reply) are retried after 1, 5 and 15 minutes. Every step can be repeated safely: each new image and draft carries a one-time key, and a retry after a lost reply finds what the first attempt made instead of making a second copy.
+* Problems someone has to fix (an image that can't be downloaded, the client site refusing, the site disconnected) stop the send at once with the reason. Fix it, then "Send again" (Posts list or editor), or reopen the post, change it and approve it again.
 * Web images are downloaded only from public addresses; addresses on the agency's own network are never fetched.
 * Sending never goes further than what was approved: a post approved as a draft goes as a draft even if the site's settings change before it is sent.
-* Live posts: when the site allows direct publishing, a published post can be reopened, corrected and approved again (the live post is updated), or unpublished (it becomes a draft there). A correction never puts back a post the client took down, and a post the client scheduled keeps its date. Published posts are checked daily for 90 days, so the editor knows if the client took one down.
-* Tags: the reviewer picks them in the editor, from the client site's tags or new ones. New tags are added to the site when the connection allows it (Connector 0.5.0); otherwise they are listed for the site to create.
+* Live posts: when the person who approved the connection can publish, a published post can be reopened, corrected and approved again (the live post is updated), or unpublished (it becomes a draft there). A correction never puts back a post the client took down, and a post the client scheduled keeps its date. Published posts are checked daily for 90 days, so the editor knows if the client took one down.
+* Tags: the reviewer picks them in the editor, from the client site's tags or new ones. New tags are added to the site.
 * Files: our copies of a post's source file and images are kept for 30 days after it goes live, then deleted. After that a post can still be corrected; its images are the ones already on the client site.
 * If the client deletes a draft, the post shows it and can be sent again. Without direct publishing, a post the client already published is never overwritten from here.
 
 = Deleting the plugin =
 
-Deactivating keeps all data. Deleting the plugin revokes its access on every connected client site, then removes its tables, settings (including the encrypted AI key), queued jobs and stored files.
+Deactivating keeps all data. Deleting the plugin deletes its access tokens for every client site (the people who approved can also remove the app under WordPress.com > Security > Connected applications), then removes its tables, settings (including the encrypted AI key), queued jobs and stored files.
 
 == Changelog ==
+
+= Unreleased =
+* Client sites connect through Jetpack and WordPress.com, instead of the Content Publisher Connector. Set up the agency's WordPress.com app first (Setup, step 3). Sites connected through the Connector are marked disconnected on upgrade: install Jetpack on them, connect it, then Reconnect.
+* Posts are sent as the person who approved, with their rights on the site; publishing directly works when they can publish. The Client sites screen shows their role, and warns when an administrator approved.
+* Duplicate protection is done here now: each new draft and image carries a one-time key that a retry looks for.
+* Disconnect deletes our token. WordPress.com has no way for an app to revoke its own, so the client can also remove it under Connected applications.
 
 = 0.6.0 =
 * Publishing directly: per site, "Send as: draft or published". Works when the client site allows it (Connector 0.5.0); posts can be scheduled with a publish date. The approve button says what will happen, and asks before anything goes live.

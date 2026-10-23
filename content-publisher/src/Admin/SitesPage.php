@@ -3,7 +3,7 @@
  * Content Publisher > Client sites: connect, check, disconnect, remove.
  *
  * The OAuth callback also lands on this page (…&cpub_oauth=callback), because
- * its address is what client Connectors are built to trust.
+ * WordPress.com sends approvals back to it (ConnectFlow::redirect_uri).
  *
  * @package CPub\Publisher
  */
@@ -15,6 +15,7 @@ use CPub\Publisher\Connections\ConnectFlow;
 use CPub\Publisher\Connections\Connections;
 use CPub\Publisher\Connections\HealthCheck;
 use CPub\Publisher\Connections\Sites;
+use CPub\Publisher\Connections\Wpcom;
 use CPub\Publisher\Crypto\Key;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -61,6 +62,11 @@ final class SitesPage {
 		check_admin_referer( $action );
 
 		if ( 'cpub_connect' === $action ) {
+			if ( ! Wpcom::configured() ) {
+				Notices::add( 'error', 'Add the WordPress.com app to wp-config.php first (Content Publisher > Status shows how).' );
+				self::redirect( self::url() );
+				return;
+			}
 			if ( Key::OK !== Key::state() ) {
 				Notices::add( 'error', 'Set the encryption key first (Content Publisher > Status).' );
 				self::redirect( self::url() );
@@ -72,7 +78,7 @@ final class SitesPage {
 				self::redirect( self::url() );
 				return;
 			}
-			// The approval screen on the client's own site (host checked in Discovery).
+			// WordPress.com's approval screen (Wpcom::AUTHORIZE).
 			self::redirect( $to, false );
 			return;
 		}
@@ -92,7 +98,7 @@ final class SitesPage {
 				break;
 			case 'cpub_site_disconnect':
 				$r = Connections::disconnect( $site );
-				Notices::add( is_wp_error( $r ) ? 'warning' : 'success', is_wp_error( $r ) ? $r->get_error_message() : "Disconnected from $label. Its access has been revoked." );
+				Notices::add( is_wp_error( $r ) ? 'warning' : 'success', is_wp_error( $r ) ? $r->get_error_message() : "Disconnected from $label: our access token is deleted. The person who approved can also remove it from WordPress.com (" . Wpcom::APPS_URL . ').' );
 				break;
 			case 'cpub_site_remove':
 				$r = Connections::remove( $site );
@@ -140,6 +146,9 @@ final class SitesPage {
 			<?php Notices::render(); ?>
 
 			<?php if ( $manage ) : ?>
+				<?php if ( ! Wpcom::configured() ) : ?>
+					<div class="notice notice-error inline" id="cpub-no-app"><p>Add the agency's WordPress.com app before connecting sites: <a href="<?php echo esc_url( admin_url( 'admin.php?page=' . Menu::SLUG . '-status' ) ); ?>">Content Publisher &rarr; Status</a> shows how.</p></div>
+				<?php endif; ?>
 				<?php if ( Key::OK !== Key::state() ) : ?>
 					<div class="notice notice-error inline"><p>Set the encryption key before connecting sites: <a href="<?php echo esc_url( admin_url( 'admin.php?page=' . Menu::SLUG . '-status' ) ); ?>">Content Publisher &rarr; Status</a>.</p></div>
 				<?php endif; ?>
@@ -148,8 +157,8 @@ final class SitesPage {
 					<input type="hidden" name="action" value="cpub_connect">
 					<?php wp_nonce_field( 'cpub_connect' ); ?>
 					<input type="text" inputmode="url" autocomplete="url" spellcheck="false" name="site_url" id="cpub-site-url" class="regular-text" placeholder="client-site.com" required>
-					<button type="submit" class="button button-primary" id="cpub-connect"<?php disabled( Key::OK !== Key::state() ); ?>>Connect</button>
-					<p class="description">The client site needs the Content Publisher Connector installed. You'll be sent to that site, where one of its administrators logs in and approves.</p>
+					<button type="submit" class="button button-primary" id="cpub-connect"<?php disabled( Key::OK !== Key::state() || ! Wpcom::configured() ); ?>>Connect</button>
+					<p class="description">The client site needs Jetpack, connected to WordPress.com. You'll be sent to WordPress.com, where someone who can post on that site logs in and approves. Posts are sent as that person, with their rights on the site: ideally one of its Authors or Editors, not an administrator.</p>
 				</form>
 			<?php endif; ?>
 
@@ -176,14 +185,17 @@ final class SitesPage {
 							<?php if ( $site->last_error ) : ?><br><span class="description cpub-site-error"><?php echo esc_html( $site->last_error ); ?></span><?php endif; ?></td>
 						<td><?php echo esc_html( Sites::CONNECTED === $site->status ? self::when( $site->connected_at ) : '—' ); ?></td>
 						<td><?php echo esc_html( self::when( $site->last_check_at ) ); ?></td>
-						<td><?php echo esc_html( $site->remote_user ?: '—' ); ?></td>
+						<td><?php echo esc_html( $site->remote_user ?: '—' ); ?><?php echo '' !== (string) $site->remote_role ? ' <span class="description">(' . esc_html( ucfirst( (string) $site->remote_role ) ) . ')</span>' : ''; ?>
+							<?php if ( Sites::CONNECTED === $site->status && 'administrator' === $site->remote_role ) : ?>
+								<br><span class="cpub-admin-warning" style="color:#b26200">&#9888; An administrator approved: our access has all of their rights on this site. Ask for a separate Author or Editor account, then disconnect and reconnect with it.</span>
+							<?php endif; ?></td>
 						<?php if ( $manage ) : ?>
 						<td>
 							<?php
 							if ( Sites::CONNECTED === $site->status ) {
 								printf( '<a class="button" href="%s" data-action="cpub_site_settings">Settings</a> ', esc_url( SiteSettingsPage::url( (int) $site->id ) ) );
 								self::form( 'cpub_site_check', (int) $site->id, 'Check now' );
-								self::form( 'cpub_site_disconnect', (int) $site->id, 'Disconnect', 'button button-link-delete', 'Disconnect ' . ( $site->name ?: $site->url ) . '? Its access will be revoked; you\'ll need its administrator to approve again to reconnect.' );
+								self::form( 'cpub_site_disconnect', (int) $site->id, 'Disconnect', 'button button-link-delete', 'Disconnect ' . ( $site->name ?: $site->url ) . '? Our access token is deleted; someone who can post there will need to approve again to reconnect.' );
 							} else {
 								printf(
 									'<form method="post" action="%s" style="display:inline"><input type="hidden" name="action" value="cpub_connect"><input type="hidden" name="site_url" value="%s">%s<button type="submit" class="button" data-action="cpub_reconnect">%s</button></form> ',

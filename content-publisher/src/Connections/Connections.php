@@ -16,35 +16,44 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class Connections {
 
 	/**
-	 * Revokes our access on the client's site, then forgets the tokens here.
-	 * The tokens are forgotten even if the site can't be reached.
+	 * Forgets our token for the site. WordPress.com has no way for an app to
+	 * revoke its own token, so the connection stays listed there (under the
+	 * approver's Connected applications) until they remove it; with our copy
+	 * deleted, nobody can use it.
 	 *
-	 * @return true|\WP_Error WP_Error only to report that the site wasn't told
+	 * @return true|\WP_Error
 	 */
 	public static function disconnect( object $site ) {
-		$result = ConnectorClient::with_lock( (int) $site->id, fn() => self::disconnect_locked( $site ) );
-		return $result;
+		return SiteClient::with_lock(
+			(int) $site->id,
+			function () use ( $site ) {
+				Credentials::delete( (int) $site->id );
+				Sites::update( (int) $site->id, array( 'status' => Sites::DISCONNECTED, 'last_error' => null ) );
+				Events::log( 'disconnected', 'Disconnected from our side: our access token was deleted.', (int) $site->id );
+				return true;
+			}
+		);
 	}
 
-	private static function disconnect_locked( object $site ) {
-		$warning = null;
-		try {
-			$creds = Credentials::load( (int) $site->id );
-		} catch ( \RuntimeException $e ) {
-			$creds   = null;
-			$warning = new \WP_Error( 'cpub_revoke_failed', 'Disconnected here, but the stored access couldn\'t be read (the encryption key may have changed), so the client\'s site wasn\'t told. Ask its administrator to click Disconnect under Settings > Content Publisher.' );
-		}
-		$endpoint = Sites::endpoints( $site )['revocation_endpoint'] ?? '';
-		if ( $creds && $endpoint ) {
-			$result = Http::post_form( $endpoint, array( 'client_id' => Credentials::CLIENT_ID, 'token' => $creds['refresh'], 'token_type_hint' => 'refresh_token' ) );
-			if ( is_wp_error( $result ) || 200 !== $result['status'] ) {
-				$warning = new \WP_Error( 'cpub_revoke_failed', 'Disconnected here, but the client\'s site couldn\'t be told (' . Http::describe( $result ) . '). Our copy of the access is deleted, so we can\'t use it; the site will still list the connection until its administrator clicks Disconnect under Settings > Content Publisher.' );
+	/**
+	 * Upgrading from the Content Publisher Connector: those connections can't be
+	 * used through WordPress.com. Their tokens are deleted and each site asks to
+	 * be reconnected (through Jetpack).
+	 */
+	public static function retire_connector_sites(): int {
+		$n = 0;
+		foreach ( Sites::all() as $site ) {
+			if ( (int) ( $site->wpcom_site_id ?? 0 ) > 0 ) {
+				continue;
+			}
+			Credentials::delete( (int) $site->id );
+			if ( Sites::DISCONNECTED !== $site->status ) {
+				Sites::update( (int) $site->id, array( 'status' => Sites::DISCONNECTED, 'last_error' => 'Connections now go through Jetpack and WordPress.com. Install Jetpack on this site, connect it, then click Reconnect.' ) );
+				Events::log( 'disconnected', 'Retired the Connector connection: reconnect through Jetpack.', (int) $site->id );
+				++$n;
 			}
 		}
-		Credentials::delete( (int) $site->id );
-		Sites::update( (int) $site->id, array( 'status' => Sites::DISCONNECTED, 'last_error' => $warning ? $warning->get_error_message() : null ) );
-		Events::log( 'disconnected', 'Disconnected from our side.' . ( $warning ? ' The site could not be notified.' : '' ), (int) $site->id );
-		return $warning ?? true;
+		return $n;
 	}
 
 	/** @return true|\WP_Error */
@@ -52,7 +61,7 @@ final class Connections {
 		if ( Sites::CONNECTED === $site->status ) {
 			return new \WP_Error( 'cpub_connected', 'Disconnect the site before removing it.' );
 		}
-		$done = ConnectorClient::with_lock(
+		$done = SiteClient::with_lock(
 			(int) $site->id,
 			function () use ( $site ) {
 				Credentials::delete( (int) $site->id );

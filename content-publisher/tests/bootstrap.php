@@ -16,7 +16,7 @@ cpub_tests_boot(
 	}
 );
 
-require __DIR__ . '/FakeConnector.php';
+require __DIR__ . '/FakeWpcom.php';
 require __DIR__ . '/ConnectionsTestCase.php';
 require __DIR__ . '/PipelineTestCase.php';
 require __DIR__ . '/JobsTestCase.php';

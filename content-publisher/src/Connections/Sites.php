@@ -60,6 +60,14 @@ final class Sites {
 		return $row ?: null;
 	}
 
+	/** The site with this WordPress.com site ID, if one is in the list. */
+	public static function find_by_wpcom_id( int $wpcom_site_id ): ?object {
+		global $wpdb;
+		$table = Installer::table( 'sites' );
+		$row   = $wpcom_site_id > 0 ? $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table} WHERE wpcom_site_id = %d", $wpcom_site_id ) ) : null; // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		return $row ?: null;
+	}
+
 	/** @return object[] */
 	public static function all( ?string $status = null ): array {
 		global $wpdb;
@@ -71,7 +79,7 @@ final class Sites {
 	}
 
 	/** Column limits: strings from client sites are cut to fit, or the whole write would fail. */
-	private const LIMITS = array( 'name' => 190, 'remote_user' => 190, 'connector_version' => 20, 'url' => 190, 'status' => 20 );
+	private const LIMITS = array( 'name' => 190, 'remote_user' => 190, 'remote_role' => 20, 'url' => 190, 'status' => 20 );
 
 	private static function fit( array $fields ): array {
 		foreach ( self::LIMITS as $col => $max ) {
@@ -97,9 +105,6 @@ final class Sites {
 
 	public static function update( int $id, array $fields ): void {
 		global $wpdb;
-		if ( isset( $fields['endpoints'] ) && is_array( $fields['endpoints'] ) ) {
-			$fields['endpoints'] = wp_json_encode( $fields['endpoints'] );
-		}
 		$fields['updated_at'] = gmdate( 'Y-m-d H:i:s' );
 		$wpdb->update( Installer::table( 'sites' ), self::fit( $fields ), array( 'id' => $id ) );
 	}
@@ -107,11 +112,5 @@ final class Sites {
 	public static function delete( int $id ): void {
 		global $wpdb;
 		$wpdb->delete( Installer::table( 'sites' ), array( 'id' => $id ) );
-	}
-
-	/** @return array{authorization_endpoint?:string, token_endpoint?:string, revocation_endpoint?:string} */
-	public static function endpoints( object $site ): array {
-		$e = json_decode( (string) $site->endpoints, true );
-		return is_array( $e ) ? $e : array();
 	}
 }

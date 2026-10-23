@@ -1,22 +1,23 @@
 <?php
 /**
- * Sending an approved post to its client site through the Connector: as a
- * draft, or published or scheduled when the site allows it (Connector 0.5.0+).
- * Runs on Action Scheduler, one post at a time per client site.
+ * Sending an approved post to its client site through WordPress.com (Jetpack):
+ * as a draft, or published or scheduled when the person who approved the
+ * connection can publish there. Runs on Action Scheduler, one post at a time
+ * per client site.
  *
- * Every step can be repeated safely: images already uploaded are remembered
- * in the job, and each image and the draft carry a one-time key the Connector
- * (0.4.0+) uses to hand back what it already made when a reply was lost.
+ * Every step can be repeated safely. Images already uploaded are remembered in
+ * the job. Each new image and draft carries a one-time key (in the image's
+ * description; as the draft's slug until it is finished), and a retry after a
+ * lost reply looks for it before making another (find_image, find_post).
  *
  * @package CPub\Publisher
  */
 
 namespace CPub\Publisher\Jobs;
 
-use CPub\Publisher\Connections\ConnectorClient;
-use CPub\Publisher\Connections\Credentials;
 use CPub\Publisher\Connections\HealthCheck;
 use CPub\Publisher\Connections\Http;
+use CPub\Publisher\Connections\SiteClient;
 use CPub\Publisher\Connections\Sites;
 use CPub\Publisher\Connections\SiteSettings;
 use CPub\Publisher\Pipeline\MarkdownToPost;
@@ -30,7 +31,6 @@ final class Sender {
 
 	public const HOOK          = 'cpub_send_job';
 	public const GROUP         = 'cpub';
-	public const MIN_CONNECTOR = '0.4.0';
 
 	/** Waits (seconds) before retrying a temporary problem; then the send fails. */
 	public const RETRY_DELAYS = array( 60, 300, 900 );
@@ -90,7 +90,7 @@ final class Sender {
 			if ( ! $site ) {
 				throw new SendException( 'The client site was removed.' );
 			}
-			self::check_connector( $site );
+			self::check_connection( $site );
 			$media = self::upload_images( $job, $site );
 			$post  = self::create_post( Jobs::get( $job->id ), $site, $media );
 			self::done( Jobs::get( $job->id ), $site, $post, $media );
@@ -102,18 +102,9 @@ final class Sender {
 		}
 	}
 
-	/** Connectors before 0.4.0 can't protect against duplicates; refuse rather than risk two drafts. */
-	private static function check_connector( object $site ): void {
+	private static function check_connection( object $site ): void {
 		if ( Sites::CONNECTED !== $site->status ) {
 			throw new SendException( sprintf( '%s is not connected. Reconnect it under Client sites, then retry.', $site->name ?: $site->url ) );
-		}
-		if ( version_compare( (string) $site->connector_version, self::MIN_CONNECTOR, '>=' ) ) {
-			return;
-		}
-		HealthCheck::check( $site ); // it may have been updated since we last looked
-		$fresh = Sites::get( (int) $site->id );
-		if ( ! $fresh || version_compare( (string) $fresh->connector_version, self::MIN_CONNECTOR, '<' ) ) {
-			throw new SendException( sprintf( '%1$s runs Content Publisher Connector %2$s. Sending needs %3$s or later: install the new Connector zip on that site, then retry.', $site->name ?: $site->url, $fresh && '' !== $fresh->connector_version ? $fresh->connector_version : '(unknown version)', self::MIN_CONNECTOR ) );
 		}
 	}
 
@@ -175,31 +166,40 @@ final class Sender {
 				throw new SendException( sprintf( 'Image %s isn\'t a JPEG, PNG, GIF or WebP image.', rawurldecode( $src ) ) );
 			}
 			$name = self::file_name( $name, $type['ext'] );
-			$r    = ConnectorClient::request(
-				$site,
-				'POST',
-				'/wp/v2/media',
-				array(
-					'body'    => $bytes,
-					'timeout' => self::UPLOAD_TIMEOUT,
-					'query'   => array_filter( array( 'alt_text' => (string) $img['alt'], 'caption' => (string) $img['caption'] ), 'strlen' ),
-					'headers' => array(
-						'Content-Type'           => $type['mime'],
-						'Content-Disposition'    => 'attachment; filename="' . $name . '"',
-						'X-CPub-Idempotency-Key' => self::key( $job, 'image|' . $hash ),
-					),
-				)
-			);
-			self::expect( $r, array( 200, 201 ), sprintf( 'Uploading image %s', $name ) );
-			$d             = (array) $r['data'];
-			$large         = $d['media_details']['sizes']['large']['source_url'] ?? null;
-			$media[ $src ] = array(
-				'id'       => (int) ( $d['id'] ?? 0 ),
-				'src'      => esc_url_raw( (string) ( $large ?? $d['source_url'] ?? '' ) ),
-				'sizeSlug' => $large ? 'large' : 'full',
-				'hash'     => $hash,
-				'alt'      => (string) $img['alt'],
-				'caption'  => (string) $img['caption'],
+			$key  = self::key( $job, 'image|' . $hash );
+			// An earlier attempt may have uploaded it and lost the reply: then it is on the site already.
+			$found = in_array( $key, (array) ( Jobs::get( $job->id )->data['uploading'] ?? array() ), true ) ? self::find_image( $site, $key ) : null;
+			if ( ! $found ) {
+				self::note_attempt( $job->id, 'uploading', $key );
+				$r = SiteClient::request(
+					$site,
+					'POST',
+					'/rest/v1.1/media/new',
+					array(
+						'timeout'   => self::UPLOAD_TIMEOUT,
+						'multipart' => array(
+							array( 'name' => 'media[]', 'filename' => $name, 'type' => $type['mime'], 'value' => $bytes ),
+							array( 'name' => 'attrs[0][alt]', 'value' => (string) $img['alt'] ),
+							array( 'name' => 'attrs[0][caption]', 'value' => (string) $img['caption'] ),
+							// What lets a retry find this image if the reply is lost (find_image).
+							array( 'name' => 'attrs[0][description]', 'value' => self::image_mark( $key ) ),
+						),
+					)
+				);
+				self::expect( $r, array( 200 ), sprintf( 'Uploading image %s', $name ) );
+				$item  = $r['data']['media'][0] ?? null;
+				$found = is_array( $item ) ? self::from_v1( $item ) : null;
+				if ( ! $found ) {
+					$errors = array_merge( (array) ( $r['data']['errors'] ?? array() ), (array) ( $r['data']['media_errors'] ?? array() ) );
+					$first  = reset( $errors );
+					$why    = is_array( $first ) ? (string) ( $first['message'] ?? $first['error'] ?? '' ) : (string) $first;
+					throw new SendException( sprintf( 'The client site didn\'t take image %s%s', $name, '' !== $why ? ': ' . wp_strip_all_tags( $why ) : '.' ) );
+				}
+			}
+			$media[ $src ] = $found + array(
+				'hash'    => $hash,
+				'alt'     => (string) $img['alt'],
+				'caption' => (string) $img['caption'],
 			);
 			if ( $media[ $src ]['id'] <= 0 || '' === $media[ $src ]['src'] ) {
 				throw new SendException( sprintf( 'The client site accepted image %s but didn\'t say where it is.', $name ) );
@@ -212,6 +212,45 @@ final class Sender {
 			Events::log( 'image_sent', sprintf( 'Uploaded image %s to the client\'s Media Library.', $name ), (int) $site->id, $job->id );
 		}
 		return $media;
+	}
+
+	/** An uploaded image as Sender keeps it, from WordPress.com's v1.1 media object. */
+	private static function from_v1( array $m ): array {
+		$large = $m['thumbnails']['large'] ?? null;
+		return array(
+			'id'       => (int) ( $m['ID'] ?? 0 ),
+			'src'      => esc_url_raw( (string) ( $large ?? $m['URL'] ?? '' ) ),
+			'sizeSlug' => $large ? 'large' : 'full',
+		);
+	}
+
+	/** The words in an image's description that identify the upload, for find_image(). */
+	private static function image_mark( string $key ): string {
+		return 'Sent by Content Publisher (' . $key . ').';
+	}
+
+	/**
+	 * The image an earlier attempt uploaded with this key, if the site has it
+	 * (its reply was lost). Null: upload it.
+	 */
+	private static function find_image( object $site, string $key ): ?array {
+		$r = SiteClient::request( $site, 'GET', '/wp/v2/media', array( 'query' => array( 'search' => $key, 'context' => 'edit', '_fields' => 'id,source_url,media_details,description' ) ) );
+		self::expect( $r, array( 200 ), 'Looking for an image an earlier attempt uploaded' );
+		foreach ( (array) $r['data'] as $m ) {
+			$text = is_array( $m ) ? (string) ( $m['description']['raw'] ?? $m['description']['rendered'] ?? '' ) : '';
+			if ( str_contains( $text, $key ) && (int) ( $m['id'] ?? 0 ) > 0 ) {
+				$large = $m['media_details']['sizes']['large']['source_url'] ?? null;
+				return array( 'id' => (int) $m['id'], 'src' => esc_url_raw( (string) ( $large ?? $m['source_url'] ?? '' ) ), 'sizeSlug' => $large ? 'large' : 'full' );
+			}
+		}
+		return null;
+	}
+
+	/** Record, before a request that creates something, that it is being tried with $key. */
+	private static function note_attempt( int $job_id, string $list, string $key ): void {
+		$data          = Jobs::get( $job_id )->data;
+		$data[ $list ] = array_values( array_unique( array_merge( (array) ( $data[ $list ] ?? array() ), array( $key ) ) ) );
+		Jobs::update( $job_id, array( 'data' => $data ) );
 	}
 
 	/**
@@ -361,7 +400,7 @@ final class Sender {
 			$note = ! empty( $job->data['taken_down'] ) ? sprintf( '%s took this post down on %s; approving publishes it again.', $name, wp_date( get_option( 'date_format' ), (int) strtotime( (string) $job->data['taken_down'] ) ) ) : '';
 			return array( 'status' => 'publish', 'date_gmt' => null, 'label' => sprintf( 'Publish on %s now', $name ), 'note' => $note, 'keep_live' => false );
 		}
-		$note = 'publish' === $settings['send_as'] ? sprintf( '%s hasn\'t allowed direct publishing, so this goes as a draft for its editors.', $name ) : '';
+		$note = 'publish' === $settings['send_as'] ? sprintf( 'The person who approved the connection to %s can\'t publish there, so this goes as a draft for its editors.', $name ) : '';
 		if ( $job->remote_post_id && ! $live ) {
 			return array( 'status' => 'draft', 'date_gmt' => null, 'label' => sprintf( 'Update the draft on %s', $name ), 'note' => $note ?: 'Changes made to it on the site are replaced.', 'keep_live' => false );
 		}
@@ -392,7 +431,40 @@ final class Sender {
 		);
 	}
 
-	/** Create the post (or get back the one a lost reply already created), attach its images. */
+	/**
+	 * The post an earlier send made, if it is still on the site: the one recorded
+	 * after it was created, or (when a reply was lost before we learned its ID) the
+	 * one whose slug is this send's key. If the client binned or deleted it, a new
+	 * one is sent, with a new key.
+	 *
+	 * @return array{0: ?array, 1: string} the post as WordPress returns it (null: make one), and the key for a new one
+	 */
+	private static function find_post( object $job, object $site ): array {
+		$key = self::post_key( $job );
+		$d   = null;
+		if ( $job->remote_post_id ) {
+			$r = SiteClient::request( $site, 'GET', '/wp/v2/posts/' . (int) $job->remote_post_id, array( 'query' => array( 'context' => 'edit' ) ) );
+			if ( ! is_wp_error( $r ) && in_array( $r['status'], array( 404, 410 ), true ) ) {
+				$d = array( 'status' => 'trash' ); // deleted for good: the same as binned
+			} else {
+				self::expect( $r, array( 200 ), 'Reading the post an earlier send made' );
+				$d = (array) $r['data'];
+			}
+		} elseif ( in_array( $key, (array) ( $job->data['creating'] ?? array() ), true ) ) {
+			$r = SiteClient::request( $site, 'GET', '/wp/v2/posts', array( 'query' => array( 'slug' => $key, 'status' => 'draft,pending,publish,future,private', 'context' => 'edit' ) ) );
+			self::expect( $r, array( 200 ), 'Looking for the draft an earlier attempt made' );
+			$d = is_array( $r['data'][0] ?? null ) ? $r['data'][0] : null;
+		}
+		if ( $d && 'trash' === ( $d['status'] ?? '' ) ) {
+			$data                    = Jobs::get( $job->id )->data;
+			$data['send_generation'] = (int) ( $data['send_generation'] ?? 0 ) + 1;
+			Jobs::update( $job->id, array( 'data' => $data, 'remote_post_id' => null ) );
+			return array( null, self::post_key( Jobs::get( $job->id ) ) );
+		}
+		return array( $d, $key );
+	}
+
+	/** Create the post (or find the one an earlier attempt made), give it what was approved, attach its images. */
 	private static function create_post( object $job, object $site, array $media ): array {
 		$post = MarkdownToPost::convert( (string) $job->markdown, array( 'format' => 'blocks', 'media' => $media ) );
 		if ( $post['errors'] ) {
@@ -420,20 +492,19 @@ final class Sender {
 		if ( ! $body['categories'] ) {
 			unset( $body['categories'] ); // the site's own default applies
 		}
-		$r = ConnectorClient::request( $site, 'POST', '/wp/v2/posts', array( 'json' => $body, 'headers' => array( 'X-CPub-Idempotency-Key' => self::post_key( $job ) ) ) );
-		self::expect( $r, array( 200, 201 ), 'Creating the draft' );
-		$d        = (array) $r['data'];
-		$existing = '1' === (string) ( $r['headers']['x-cpub-existing'] ?? '' );
-		if ( $existing && 'trash' === ( $d['status'] ?? '' ) ) {
-			// The client binned the draft an earlier attempt made: send a new one.
-			$data                    = Jobs::get( $job->id )->data;
-			$data['send_generation'] = (int) ( $data['send_generation'] ?? 0 ) + 1;
-			Jobs::update( $job->id, array( 'data' => $data ) );
-			$job = Jobs::get( $job->id );
-			$r   = ConnectorClient::request( $site, 'POST', '/wp/v2/posts', array( 'json' => $body, 'headers' => array( 'X-CPub-Idempotency-Key' => self::post_key( $job ) ) ) );
+		[ $d, $key ] = self::find_post( $job, $site );
+		$existing    = null !== $d;
+		if ( ! $existing ) {
+			self::note_attempt( $job->id, 'creating', $key );
+			// Made as a draft whose slug is the key, so a retry after a lost reply finds it
+			// (find_post). The update below gives it what was approved, and its real slug.
+			$r = SiteClient::request( $site, 'POST', '/wp/v2/posts', array( 'json' => array_merge( $body, array( 'status' => 'draft', 'slug' => $key ) ) ) );
 			self::expect( $r, array( 200, 201 ), 'Creating the draft' );
-			$d        = (array) $r['data'];
-			$existing = '1' === (string) ( $r['headers']['x-cpub-existing'] ?? '' );
+			$d = (array) $r['data'];
+			if ( ! is_int( $d['id'] ?? null ) || $d['id'] <= 0 ) {
+				throw new SendException( 'The client site said it created the draft but didn\'t say which post it is.', true );
+			}
+			Jobs::update( $job->id, array( 'remote_post_id' => (int) $d['id'] ) ); // from now on, a retry updates this post
 		}
 		$now_live = in_array( $d['status'] ?? '', self::LIVE, true );
 		if ( $existing && $now_live && ! empty( $site->can_publish ) ) {
@@ -446,18 +517,18 @@ final class Sender {
 		} elseif ( $existing && ! in_array( $d['status'] ?? '', array( 'draft', 'pending', 'auto-draft' ), true ) ) {
 			throw new SendException( sprintf( 'An earlier version of this post was already sent and the client has %s it (post %d), so it can\'t be replaced from here. Make the changes on the client site.', 'publish' === ( $d['status'] ?? '' ) ? 'published' : 'moved on with', (int) ( $d['id'] ?? 0 ) ) );
 		}
-		if ( $existing ) {
-			// An earlier attempt made it; make sure it says what was approved.
-			$u = ConnectorClient::request( $site, 'POST', '/wp/v2/posts/' . (int) $d['id'], array( 'json' => $body ) );
-			self::expect( $u, array( 200 ), 'Updating the draft an earlier attempt created' );
-			$d = (array) $u['data'];
+		if ( str_starts_with( (string) ( $d['slug'] ?? '' ), $key ) ) {
+			$body['slug'] = ''; // the key made way for an address from the title (set when it is published)
 		}
+		$u = SiteClient::request( $site, 'POST', '/wp/v2/posts/' . (int) $d['id'], array( 'json' => $body ) );
+		self::expect( $u, array( 200 ), $existing ? 'Updating the draft an earlier send created' : 'Finishing the draft' );
+		$d = (array) $u['data'];
 		if ( ! is_int( $d['id'] ?? null ) || $d['id'] <= 0 ) {
 			throw new SendException( 'The client site said it created the draft but didn\'t say which post it is.', true );
 		}
 		$attach_failed = array();
 		foreach ( $media as $m ) {
-			$a = ConnectorClient::request( $site, 'POST', '/wp/v2/media/' . (int) $m['id'], array( 'json' => array( 'post' => (int) $d['id'] ) ) );
+			$a = SiteClient::request( $site, 'POST', '/wp/v2/media/' . (int) $m['id'], array( 'json' => array( 'post' => (int) $d['id'] ) ) );
 			if ( is_wp_error( $a ) || 200 !== $a['status'] ) {
 				$attach_failed[] = (int) $m['id'];
 			}
@@ -529,14 +600,14 @@ final class Sender {
 		return self::metadata( $job )['tags'];
 	}
 
-	/** Whether this connection may add tags to the site (Connector 0.5.0+, approved with terms:write). */
+	/** Whether we may add tags to the site: anyone who can write posts there can (WordPress's own rule). */
 	public static function can_create_tags( object $site ): bool {
-		return in_array( 'terms:write', Credentials::scopes( (int) $site->id ), true );
+		return Sites::CONNECTED === $site->status;
 	}
 
 	/** A new tag on the client site; its id, or null if the site refused. */
 	private static function create_tag( object $site, string $name ): ?int {
-		$r = ConnectorClient::request( $site, 'POST', '/wp/v2/tags', array( 'json' => array( 'name' => $name ) ) );
+		$r = SiteClient::request( $site, 'POST', '/wp/v2/tags', array( 'json' => array( 'name' => $name ) ) );
 		if ( ! is_wp_error( $r ) && in_array( $r['status'], array( 200, 201 ), true ) && isset( $r['data']['id'] ) ) {
 			return (int) $r['data']['id'];
 		}
@@ -571,7 +642,7 @@ final class Sender {
 	private static function tags( object $site, array $wanted ): array {
 		$out = array();
 		foreach ( array_unique( array_map( 'mb_strtolower', $wanted ) ) as $want ) {
-			$r = ConnectorClient::request( $site, 'GET', '/wp/v2/tags', array( 'query' => array( 'search' => $want, 'per_page' => 100, '_fields' => 'id,name' ) ) );
+			$r = SiteClient::request( $site, 'GET', '/wp/v2/tags', array( 'query' => array( 'search' => $want, 'per_page' => 100, '_fields' => 'id,name' ) ) );
 			self::expect( $r, array( 200 ), 'Reading the client\'s tags' );
 			foreach ( (array) $r['data'] as $t ) {
 				$name = is_array( $t ) ? mb_strtolower( html_entity_decode( (string) ( $t['name'] ?? '' ), ENT_QUOTES, 'UTF-8' ) ) : '';
@@ -594,7 +665,7 @@ final class Sender {
 		}
 		$status    = $r['status'];
 		$transient = $status >= 500 || in_array( $status, array( 408, 425, 429 ), true );
-		$hint      = 403 === $status ? ' The client site\'s Connector refused it.' : ( 401 === $status ? ' The client site no longer accepts our access; check its Connector status page.' : '' );
+		$hint      = 403 === $status ? ' The client site refused it: the person who approved may not be allowed to do this there, or Jetpack can\'t reach the site.' : ( 401 === $status ? ' WordPress.com doesn\'t accept our access for this site; check it under Client sites.' : '' );
 		throw new SendException( $doing . ' failed: ' . Http::describe( $r ) . '.' . $hint, $transient );
 	}
 
@@ -725,7 +796,7 @@ final class Sender {
 	 * it back (Sender::target).
 	 */
 	private static function check_published( object $job, object $site ): string {
-		$r = ConnectorClient::request( $site, 'GET', '/wp/v2/posts/' . (int) $job->remote_post_id, array( 'query' => array( 'context' => 'edit', '_fields' => 'id,status,link' ) ) );
+		$r = SiteClient::request( $site, 'GET', '/wp/v2/posts/' . (int) $job->remote_post_id, array( 'query' => array( 'context' => 'edit', '_fields' => 'id,status,link' ) ) );
 		if ( is_wp_error( $r ) ) {
 			return 'error';
 		}
@@ -819,19 +890,19 @@ final class Sender {
 
 	/**
 	 * Take a post the agency published off the client site (back to draft
-	 * there). Only when the site allows direct publishing.
+	 * there). Only when the person who approved the connection can publish there.
 	 *
 	 * @return true|\WP_Error
 	 */
 	public static function unpublish( object $job ) {
 		$site = Sites::get( (int) $job->site_id );
 		if ( ! $site || empty( $site->can_publish ) ) {
-			return new \WP_Error( 'cpub_not_allowed', 'The client site hasn\'t allowed direct publishing, so only its own editors can unpublish the post.', array( 'status' => 403 ) );
+			return new \WP_Error( 'cpub_not_allowed', 'The person who approved the connection can\'t publish on the client site, so only its own editors can unpublish the post.', array( 'status' => 403 ) );
 		}
 		if ( ! $job->remote_post_id || ! in_array( $job->status, array( Jobs::PUBLISHED, Jobs::SENT ), true ) || ! in_array( (string) $job->remote_post_status, self::LIVE, true ) ) {
 			return new \WP_Error( 'cpub_conflict', 'Only a published or scheduled post can be unpublished.', array( 'status' => 409 ) );
 		}
-		$r = ConnectorClient::request( $site, 'POST', '/wp/v2/posts/' . (int) $job->remote_post_id, array( 'json' => array( 'status' => 'draft' ) ) );
+		$r = SiteClient::request( $site, 'POST', '/wp/v2/posts/' . (int) $job->remote_post_id, array( 'json' => array( 'status' => 'draft' ) ) );
 		if ( is_wp_error( $r ) || 200 !== $r['status'] ) {
 			return new \WP_Error( 'cpub_unpublish', 'Couldn\'t unpublish it: ' . Http::describe( $r ) . '.', array( 'status' => 502 ) );
 		}
@@ -854,7 +925,7 @@ final class Sender {
 		if ( Jobs::PUBLISHED === $job->status ) {
 			return self::check_published( $job, $site );
 		}
-		$r = ConnectorClient::request( $site, 'GET', '/wp/v2/posts/' . (int) $job->remote_post_id, array( 'query' => array( 'context' => 'edit', '_fields' => 'id,status,link' ) ) );
+		$r = SiteClient::request( $site, 'GET', '/wp/v2/posts/' . (int) $job->remote_post_id, array( 'query' => array( 'context' => 'edit', '_fields' => 'id,status,link' ) ) );
 		if ( is_wp_error( $r ) ) {
 			return 'error';
 		}

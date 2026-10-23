@@ -93,7 +93,7 @@ final class SiteSettingsPage {
 					<td>
 						<label><input type="radio" name="send_as" value="draft" <?php checked( $s['send_as'], 'draft' ); ?>> A draft, for the site's own editors to publish</label><br>
 						<label><input type="radio" name="send_as" value="publish" <?php checked( $s['send_as'], 'publish' ); ?> id="cpub-send-as-publish"> Published straight away (or scheduled, if the post has a publish date)</label>
-						<p class="description" id="cpub-can-publish" data-allowed="<?php echo empty( $site->can_publish ) ? '0' : '1'; ?>"><?php echo empty( $site->can_publish ) ? 'The site hasn\'t allowed direct publishing (its administrator can allow it under Settings > Content Publisher on their site), so posts go as drafts until it does.' : 'The site allows direct publishing.'; ?></p>
+						<p class="description" id="cpub-can-publish" data-allowed="<?php echo empty( $site->can_publish ) ? '0' : '1'; ?>"><?php echo empty( $site->can_publish ) ? 'The person who approved the connection can\'t publish on this site, so posts go as drafts. To publish directly, reconnect approving as someone who can (an Author or Editor there).' : 'The person who approved the connection can publish on this site.'; ?></p>
 					</td>
 				</tr>
 				<tr>

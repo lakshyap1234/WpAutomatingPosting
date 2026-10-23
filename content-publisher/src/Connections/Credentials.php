@@ -1,6 +1,7 @@
 <?php
 /**
- * A client site's OAuth tokens (the credentials table), always encrypted.
+ * The access token for a client site (from WordPress.com), encrypted with
+ * CPUB_PUBLISHER_KEY. It doesn't expire, so there is no refresh token.
  *
  * @package CPub\Publisher
  */
@@ -16,20 +17,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 final class Credentials {
 
-	public const CLIENT_ID = 'cpub-publisher';
-
-	public static function save( int $site_id, string $access, string $refresh, int $expires_in, string $scopes = '' ): bool {
+	public static function save( int $site_id, string $access, string $scopes = '' ): bool {
 		global $wpdb;
 		$table = Installer::table( 'credentials' );
 		$now   = gmdate( 'Y-m-d H:i:s' );
 		$data  = array(
-			'site_id'           => $site_id,
-			'client_id'         => self::CLIENT_ID,
-			'access_token'      => Vault::encrypt( $access, "site:{$site_id}:access" ),
-			'refresh_token'     => Vault::encrypt( $refresh, "site:{$site_id}:refresh" ),
-			'access_expires_at' => gmdate( 'Y-m-d H:i:s', time() + max( 0, $expires_in ) ),
-			'scopes'            => $scopes,
-			'updated_at'        => $now,
+			'site_id'      => $site_id,
+			'client_id'    => mb_substr( Wpcom::client_id(), 0, 100 ),
+			'access_token' => Vault::encrypt( $access, "site:{$site_id}:access" ),
+			'scopes'       => mb_substr( $scopes, 0, 255 ),
+			'updated_at'   => $now,
 		);
 		$exists = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$table} WHERE site_id = %d", $site_id ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		if ( $exists ) {
@@ -39,40 +36,20 @@ final class Credentials {
 	}
 
 	/**
-	 * @return array{access:string, refresh:string, expires_at:int, scopes:string}|null
-	 * @throws \RuntimeException if the stored values can't be decrypted
+	 * @return array{access:string, scopes:string}|null
+	 * @throws \RuntimeException if the stored value can't be decrypted
 	 */
 	public static function load( int $site_id ): ?array {
 		global $wpdb;
 		$table = Installer::table( 'credentials' );
 		$row   = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table} WHERE site_id = %d", $site_id ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-		if ( ! $row || ! $row->refresh_token ) {
+		if ( ! $row || ! $row->access_token ) {
 			return null;
 		}
 		return array(
-			'access'     => Vault::decrypt( (string) $row->access_token, "site:{$site_id}:access" ),
-			'refresh'    => Vault::decrypt( (string) $row->refresh_token, "site:{$site_id}:refresh" ),
-			'expires_at' => (int) strtotime( $row->access_expires_at . ' UTC' ),
-			'scopes'     => (string) $row->scopes,
+			'access' => Vault::decrypt( (string) $row->access_token, "site:{$site_id}:access" ),
+			'scopes' => (string) $row->scopes,
 		);
-	}
-
-	/** The permissions the connection was granted (no decryption needed). */
-	public static function scopes( int $site_id ): array {
-		global $wpdb;
-		$table = Installer::table( 'credentials' );
-		$value = (string) $wpdb->get_var( $wpdb->prepare( "SELECT scopes FROM {$table} WHERE site_id = %d", $site_id ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-		return array_values( array_filter( explode( ' ', $value ) ) );
-	}
-
-	/**
-	 * Record the permissions as the Connector reports them. Its token replies
-	 * don't list them, so the connection check is where we learn them.
-	 */
-	public static function set_scopes( int $site_id, array $scopes ): void {
-		global $wpdb;
-		$scopes = array_values( array_filter( $scopes, fn( $s ) => is_string( $s ) && preg_match( '/^[a-z]+:[a-z]+$/', $s ) ) );
-		$wpdb->update( Installer::table( 'credentials' ), array( 'scopes' => implode( ' ', $scopes ) ), array( 'site_id' => $site_id ) );
 	}
 
 	public static function delete( int $site_id ): void {

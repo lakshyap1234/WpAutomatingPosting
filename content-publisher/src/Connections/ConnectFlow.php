@@ -1,12 +1,13 @@
 <?php
 /**
- * Connecting a client site: the OAuth 2 authorization code flow with PKCE,
- * from our side (we are the client).
+ * Connecting a client site, through WordPress.com (Wpcom).
  *
- * start():    discover the Connector, remember a one-off state + PKCE verifier
- *             for this staff member, and return the client's approval URL.
- * callback(): the client's admin approved (or denied); check the state, and
- *             exchange the code for tokens server to server.
+ * start(): look the site up on WordPress.com (it must run Jetpack, connected),
+ * then send the staff member's browser to WordPress.com's approval screen for
+ * that one site, where someone who can post on it logs in and approves.
+ * callback(): check the response belongs to the approval we started, exchange
+ * the code for the site's token (with the app's secret), and check the token is
+ * for that same site.
  *
  * @package CPub\Publisher
  */
@@ -23,7 +24,7 @@ final class ConnectFlow {
 
 	public const STATE_TTL = 30 * MINUTE_IN_SECONDS;
 
-	/** Must match what the client's Connector was built with (AGENCY_URL + this path). */
+	/** Register exactly this as the WordPress.com app's redirect URL. */
 	public static function redirect_uri(): string {
 		return admin_url( 'admin.php?page=cpub-publisher&cpub_oauth=callback' );
 	}
@@ -38,6 +39,9 @@ final class ConnectFlow {
 
 	/** @return string|\WP_Error the URL to send the staff member's browser to */
 	public static function start( string $url, int $user_id ) {
+		if ( ! Wpcom::configured() ) {
+			return new \WP_Error( 'cpub_no_app', 'Add the agency\'s WordPress.com app to wp-config.php first: Content Publisher > Status shows how.' );
+		}
 		$url = Sites::normalize_url( $url );
 		if ( ! $url ) {
 			return new \WP_Error( 'cpub_bad_url', 'Enter the client site\'s address, starting with https://.' );
@@ -45,44 +49,43 @@ final class ConnectFlow {
 		if ( untrailingslashit( Sites::normalize_url( home_url() ) ?? '' ) === $url ) {
 			return new \WP_Error( 'cpub_self', 'That is this site. Enter the client\'s site address.' );
 		}
-		$meta = Discovery::discover( $url );
-		if ( is_wp_error( $meta ) ) {
-			return $meta;
+		$found = Wpcom::lookup( $url );
+		if ( is_wp_error( $found ) ) {
+			return $found;
 		}
 
-		$site = Sites::find_by_url( $url );
-		$id   = $site ? (int) $site->id : Sites::create( $url, $meta['site_name'] ?: (string) wp_parse_url( $url, PHP_URL_HOST ) );
-		$update = array(
-			'endpoints'         => array_intersect_key( $meta, array_flip( array( 'issuer', 'authorization_endpoint', 'token_endpoint', 'revocation_endpoint' ) ) ),
-			'connector_version' => $meta['connector_version'],
-		);
-		if ( $meta['site_name'] ) {
-			$update['name'] = $meta['site_name'];
+		$site  = Sites::find_by_url( $url );
+		$other = Sites::find_by_wpcom_id( $found['id'] );
+		if ( $other && ( ! $site || (int) $other->id !== (int) $site->id ) ) {
+			return new \WP_Error( 'cpub_duplicate', sprintf( 'That is the same site as %s, already in the list. Use that one.', $other->name ?: $other->url ) );
+		}
+		$id     = $site ? (int) $site->id : Sites::create( $url, $found['name'] ?: (string) wp_parse_url( $url, PHP_URL_HOST ) );
+		$update = array( 'wpcom_site_id' => $found['id'] );
+		if ( $found['name'] ) {
+			$update['name'] = $found['name'];
 		}
 		if ( ! $site || Sites::CONNECTED !== $site->status ) {
 			$update['status'] = Sites::PENDING;
 		}
 		Sites::update( $id, $update );
 
-		$verifier = self::b64url( random_bytes( 48 ) );
-		$state    = self::b64url( random_bytes( 24 ) );
-		set_transient( self::state_key( $state ), array( 'site_id' => $id, 'verifier' => $verifier, 'user_id' => $user_id, 'issuer' => $meta['issuer'] ), self::STATE_TTL );
-		Events::log( 'connect_started', 'Sent to the site\'s approval screen.', $id );
+		$state = self::b64url( random_bytes( 24 ) );
+		set_transient( self::state_key( $state ), array( 'site_id' => $id, 'user_id' => $user_id, 'wpcom_site_id' => $found['id'] ), self::STATE_TTL );
+		Events::log( 'connect_started', 'Sent to WordPress.com\'s approval screen.', $id );
 
 		return add_query_arg(
 			array_map(
 				'rawurlencode',
 				array(
-					'response_type'         => 'code',
-					'client_id'             => Credentials::CLIENT_ID,
-					'redirect_uri'          => self::redirect_uri(),
-					'scope'                 => implode( ' ', array_merge( Discovery::REQUIRED_SCOPES, array_intersect( Discovery::OPTIONAL_SCOPES, $meta['scopes_supported'] ?? array() ) ) ),
-					'state'                 => $state,
-					'code_challenge'        => self::b64url( hash( 'sha256', $verifier, true ) ),
-					'code_challenge_method' => 'S256',
+					'client_id'     => Wpcom::client_id(),
+					'redirect_uri'  => self::redirect_uri(),
+					'response_type' => 'code',
+					// Only this site: the token can't reach the approver's other sites.
+					'blog'          => (string) $found['id'],
+					'state'         => $state,
 				)
 			),
-			$meta['authorization_endpoint']
+			Wpcom::AUTHORIZE
 		);
 	}
 
@@ -105,16 +108,9 @@ final class ConnectFlow {
 			return new \WP_Error( 'cpub_state', 'That client site was removed while waiting for approval.' );
 		}
 
-		// RFC 9207: the response must come from the site we sent the staff member to.
-		// Otherwise a malicious site could relay us another site's code (mix-up attack).
-		if ( ! hash_equals( (string) $saved['issuer'], (string) ( $query['iss'] ?? '' ) ) ) {
-			Events::log( 'connect_failed', 'Approval response came from an unexpected site (' . sanitize_text_field( (string) ( $query['iss'] ?? 'unnamed' ) ) . '). Ignored.', (int) $site->id );
-			return new \WP_Error( 'cpub_issuer', 'This approval response didn\'t come from the site you were connecting (' . $site->url . '), so it was ignored. Start the connection again.' );
-		}
-
 		if ( isset( $query['error'] ) ) {
 			$denied = 'access_denied' === $query['error'];
-			$msg    = $denied ? 'The site\'s administrator denied access.' : 'The site refused the request: ' . sanitize_text_field( $query['error'] . ( isset( $query['hint'] ) ? ' (' . $query['hint'] . ')' : '' ) );
+			$msg    = $denied ? 'Access was denied on WordPress.com.' : 'WordPress.com refused the request: ' . sanitize_text_field( $query['error'] . ( isset( $query['error_description'] ) ? ' (' . $query['error_description'] . ')' : '' ) );
 			if ( Sites::CONNECTED !== $site->status ) {
 				Sites::update( (int) $site->id, array( 'status' => Sites::DISCONNECTED, 'last_error' => $msg ) );
 			}
@@ -126,26 +122,33 @@ final class ConnectFlow {
 			return new \WP_Error( 'cpub_state', 'The approval response had no code. Start the connection again.' );
 		}
 
-		$endpoints = Sites::endpoints( $site );
-		$result    = Http::post_form(
-			$endpoints['token_endpoint'] ?? '',
+		$result = Http::post_form(
+			Wpcom::TOKEN,
 			array(
-				'grant_type'    => 'authorization_code',
-				'client_id'     => Credentials::CLIENT_ID,
+				'client_id'     => Wpcom::client_id(),
+				'client_secret' => Wpcom::client_secret(),
 				'redirect_uri'  => self::redirect_uri(),
 				'code'          => $code,
-				'code_verifier' => $saved['verifier'],
+				'grant_type'    => 'authorization_code',
 			)
 		);
-		$tokens = is_wp_error( $result ) ? null : $result['data'];
-		if ( is_wp_error( $result ) || 200 !== $result['status'] || empty( $tokens['access_token'] ) || empty( $tokens['refresh_token'] ) ) {
-			$msg = 'Approved, but getting the access tokens failed: ' . Http::describe( $result );
+		$token = is_wp_error( $result ) ? null : $result['data'];
+		if ( is_wp_error( $result ) || 200 !== $result['status'] || empty( $token['access_token'] ) ) {
+			$msg = 'Approved, but getting the access token from WordPress.com failed: ' . Http::describe( $result );
 			Sites::update( (int) $site->id, array( 'last_error' => $msg ) );
 			Events::log( 'connect_failed', $msg, (int) $site->id );
 			return new \WP_Error( 'cpub_exchange', $msg );
 		}
+		// The approval screen lets the person pick another of their sites: only the one we asked for counts.
+		if ( (int) ( $token['blog_id'] ?? 0 ) !== (int) $saved['wpcom_site_id'] ) {
+			$picked = sanitize_text_field( (string) ( $token['blog_url'] ?? 'another site' ) );
+			$msg    = sprintf( 'Access was approved for %1$s, not for %2$s, so it wasn\'t kept. Start again and choose %2$s on WordPress.com\'s approval screen.', $picked, $site->url );
+			Sites::update( (int) $site->id, array( 'last_error' => $msg ) );
+			Events::log( 'connect_failed', $msg, (int) $site->id );
+			return new \WP_Error( 'cpub_wrong_site', $msg );
+		}
 
-		Credentials::save( (int) $site->id, (string) $tokens['access_token'], (string) $tokens['refresh_token'], (int) ( $tokens['expires_in'] ?? 3600 ), (string) ( $tokens['scope'] ?? implode( ' ', Discovery::REQUIRED_SCOPES ) ) );
+		Credentials::save( (int) $site->id, (string) $token['access_token'], (string) ( $token['scope'] ?? '' ) );
 		Sites::update(
 			(int) $site->id,
 			array(
@@ -154,8 +157,8 @@ final class ConnectFlow {
 				'last_error'   => null,
 			)
 		);
-		Events::log( 'connected', 'Connected. The site\'s administrator approved access.', (int) $site->id );
-		HealthCheck::check( Sites::get( (int) $site->id ) ); // fills in the posting user and permissions
+		Events::log( 'connected', 'Connected through WordPress.com.', (int) $site->id );
+		HealthCheck::check( Sites::get( (int) $site->id ) ); // who approved, and what they may do there
 		return Sites::get( (int) $site->id );
 	}
 }

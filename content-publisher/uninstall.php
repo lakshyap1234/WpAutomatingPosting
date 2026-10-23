@@ -22,10 +22,9 @@ if ( ! defined( 'CPUB_PUBLISHER_VERSION' ) ) {
 require_once __DIR__ . '/src/Autoloader.php';
 \CPub\Publisher\Autoloader::register();
 
-// Tell each client site to revoke our access before our copy is destroyed, so
-// no client is left with a live connection nobody holds. Best effort, short timeouts.
+// Forget every client site's token (WordPress.com has no way for an app to revoke
+// its own; with our copies gone, nobody can use them). The tables go next anyway.
 if ( defined( 'CPUB_PUBLISHER_KEY' ) && function_exists( 'sodium_crypto_aead_xchacha20poly1305_ietf_encrypt' ) ) {
-	add_filter( 'http_request_timeout', static fn() => 5 );
 	foreach ( \CPub\Publisher\Connections\Sites::all( \CPub\Publisher\Connections\Sites::CONNECTED ) as $cpub_site ) {
 		\CPub\Publisher\Connections\Connections::disconnect( $cpub_site );
 	}

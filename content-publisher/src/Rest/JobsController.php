@@ -131,7 +131,7 @@ final class JobsController {
 		if ( '' !== trim( (string) $r['search'] ) ) {
 			$query['search'] = mb_substr( trim( (string) $r['search'] ), 0, 100 );
 		}
-		$res = \CPub\Publisher\Connections\ConnectorClient::request( $site, 'GET', '/wp/v2/tags', array( 'query' => $query ) );
+		$res = \CPub\Publisher\Connections\SiteClient::request( $site, 'GET', '/wp/v2/tags', array( 'query' => $query ) );
 		if ( is_wp_error( $res ) || 200 !== $res['status'] || ! is_array( $res['data'] ) ) {
 			return new \WP_Error( 'cpub_tags', 'Couldn\'t read the client site\'s tags: ' . \CPub\Publisher\Connections\Http::describe( $res ) . '.', array( 'status' => 502 ) );
 		}

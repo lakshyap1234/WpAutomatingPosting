@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class Installer {
 
 	/** Bump when the table definitions change; dbDelta applies the difference. */
-	public const SCHEMA_VERSION = 4;
+	public const SCHEMA_VERSION = 5;
 	public const SCHEMA_OPTION  = 'cpub_publisher_schema_version';
 
 	public const TABLES = array( 'sites', 'credentials', 'jobs', 'assets', 'events' );
@@ -42,6 +42,9 @@ final class Installer {
 				Capabilities::grant();
 				if ( $current > 0 && $current < 4 ) {
 					Jobs\Sender::mark_legacy_deleted_files(); // 0.6.0: see there
+				}
+				if ( $current > 0 && $current < 5 ) {
+					Connections\Connections::retire_connector_sites(); // connections now go through Jetpack
 				}
 			}
 			wp_cache_delete( self::SCHEMA_OPTION, 'options' );
@@ -97,16 +100,17 @@ final class Installer {
 		$events      = self::table( 'events' );
 
 		return array(
-			// One row per client site connected through its Connector.
+			// One row per client site, connected through Jetpack and WordPress.com.
+			// remote_user, remote_role, can_publish: the person who approved, and their rights there.
 			"CREATE TABLE {$sites} (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   name varchar(190) NOT NULL DEFAULT '',
   url varchar(190) NOT NULL,
   status varchar(20) NOT NULL DEFAULT 'pending',
-  connector_version varchar(20) NOT NULL DEFAULT '',
+  wpcom_site_id bigint(20) unsigned NOT NULL DEFAULT 0,
   settings longtext NULL,
-  endpoints longtext NULL,
   remote_user varchar(190) NOT NULL DEFAULT '',
+  remote_role varchar(20) NOT NULL DEFAULT '',
   can_publish tinyint(1) NOT NULL DEFAULT 0,
   connected_at datetime NULL,
   last_check_at datetime NULL,
@@ -115,18 +119,16 @@ final class Installer {
   updated_at datetime NOT NULL,
   PRIMARY KEY  (id),
   UNIQUE KEY url (url),
-  KEY status (status)
+  KEY status (status),
+  KEY wpcom_site_id (wpcom_site_id)
 ) {$collate};",
-			// OAuth tokens for a site, encrypted with CPUB_PUBLISHER_KEY. Never stored in plain text.
+			// The WordPress.com token for a site, encrypted with CPUB_PUBLISHER_KEY. Never stored in plain text.
 			"CREATE TABLE {$credentials} (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   site_id bigint(20) unsigned NOT NULL,
   client_id varchar(100) NOT NULL DEFAULT '',
   access_token text NULL,
-  refresh_token text NULL,
-  access_expires_at datetime NULL,
   scopes varchar(255) NOT NULL DEFAULT '',
-  remote_user_id bigint(20) unsigned NULL,
   created_at datetime NOT NULL,
   updated_at datetime NOT NULL,
   PRIMARY KEY  (id),

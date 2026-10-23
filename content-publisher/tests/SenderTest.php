@@ -103,7 +103,7 @@ class SenderTest extends SenderTestCase {
 
 	public function test_a_lost_image_reply_is_not_uploaded_twice() {
 		$job                                          = $this->approved();
-		$this->client->lose_reply['POST /wp/v2/media'] = true;
+		$this->client->lose_reply['POST /rest/v1.1/media/new'] = true;
 		Sender::send( $job->id );
 		$this->assertSame( Jobs::APPROVED, Jobs::get( $job->id )->status );
 		Sender::send( $job->id );
@@ -114,14 +114,14 @@ class SenderTest extends SenderTestCase {
 	public function test_temporary_problems_are_retried_then_fail_and_can_be_sent_again() {
 		$job = $this->approved();
 		foreach ( Sender::RETRY_DELAYS as $i => $delay ) {
-			$this->client->fail_next['POST /wp/v2/media'] = 503;
+			$this->client->fail_next['POST /rest/v1.1/media/new'] = 503;
 			as_unschedule_all_actions( Sender::HOOK, array( $job->id ), Sender::GROUP );
 			Sender::send( $job->id );
 			$now = Jobs::get( $job->id );
 			$this->assertSame( Jobs::APPROVED, $now->status, "try {$i}" );
 			$this->assertEqualsWithDelta( time() + $delay, $this->scheduled( $job->id ), 5 );
 		}
-		$this->client->fail_next['POST /wp/v2/media'] = 503;
+		$this->client->fail_next['POST /rest/v1.1/media/new'] = 503;
 		Sender::send( $job->id );
 		$job = Jobs::get( $job->id );
 		$this->assertSame( Jobs::SEND_FAILED, $job->status );
@@ -141,25 +141,43 @@ class SenderTest extends SenderTestCase {
 		Sender::send( $job->id );
 		$job = Jobs::get( $job->id );
 		$this->assertSame( Jobs::SEND_FAILED, $job->status );
-		$this->assertStringContainsString( 'Connector refused it', $job->last_error );
+		$this->assertStringContainsString( 'The client site refused it', $job->last_error );
 		$this->assertNull( $this->scheduled( $job->id ) );
 	}
 
-	public function test_old_connectors_are_refused_until_updated() {
-		$this->client->version = '0.3.0';
-		Sites::update( (int) $this->site->id, array( 'connector_version' => '0.3.0' ) );
+	public function test_a_finished_draft_loses_its_key_slug() {
 		$job = $this->approved();
 		Sender::send( $job->id );
-		$job = Jobs::get( $job->id );
-		$this->assertSame( Jobs::SEND_FAILED, $job->status );
-		$this->assertStringContainsString( 'runs Content Publisher Connector 0.3.0. Sending needs 0.4.0', $job->last_error );
-		$this->assertSame( array(), $this->client->media, 'nothing sent' );
+		$job  = Jobs::get( $job->id );
+		$post = $this->client->posts[ (int) $job->remote_post_id ];
+		$this->assertSame( Jobs::SENT, $job->status );
+		$this->assertSame( '', $post['slug'], 'its address comes from the title once it is published' );
+		$this->assertSame( 'draft', $post['status'] );
+		$this->assertContains( 'POST /wp/v2/posts', $this->client->calls );
+		$this->assertContains( 'POST /wp/v2/posts/' . $job->remote_post_id, $this->client->calls );
+	}
 
-		$this->client->version = '0.4.0'; // the client installed the update
-		Sender::retry( $job );
+	public function test_images_carry_their_key_and_metadata() {
+		$job = $this->approved();
+		Sender::send( $job->id );
+		$cup = array_values( array_filter( $this->client->media, fn( $m ) => 'cup-file.png' === $m['filename'] ) )[0];
+		$this->assertSame( 'A cup', $cup['alt_text'] );
+		$this->assertSame( 'Morning cup', $cup['caption'] );
+		$this->assertSame( 'image/png', $cup['type'] );
+		$this->assertStringContainsString( 'Sent by Content Publisher (cpub' . $job->id . '-', $cup['description']['raw'] );
+	}
+
+	public function test_a_lost_reply_to_the_final_update_is_recovered() {
+		$job = $this->approved();
+		// The draft is made, then the update that finishes it loses its reply.
+		$this->client->lose_reply['POST /wp/v2/posts/'] = true;
+		Sender::send( $job->id );
+		$this->assertSame( Jobs::APPROVED, Jobs::get( $job->id )->status );
+		$this->assertCount( 1, $this->client->posts );
+		as_unschedule_all_actions( Sender::HOOK, array( $job->id ), Sender::GROUP );
 		Sender::send( $job->id );
 		$this->assertSame( Jobs::SENT, Jobs::get( $job->id )->status );
-		$this->assertSame( '0.4.0', Sites::get( (int) $this->site->id )->connector_version );
+		$this->assertCount( 1, $this->client->posts, 'the recorded draft was updated, not a second one made' );
 	}
 
 	public function test_image_download_problems() {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Phase 6: publishing directly when the client site allows it, scheduling,
+ * Phase 6: publishing directly when the person who approved can publish, scheduling,
  * correcting and unpublishing live posts, tags chosen in the editor (created
  * when missing), and keeping files for a while after a post goes live.
  */
@@ -16,7 +16,7 @@ use CPub\Publisher\Jobs\Sender;
 
 class Phase6SendingTest extends SenderTestCase {
 
-	/** The client site allows direct publishing, and this site sends posts published. */
+	/** The person who approved can publish there, and this site sends posts published. */
 	private function publishing( bool $site_allows = true, string $send_as = 'publish' ): void {
 		$this->client->can_publish = $site_allows;
 		HealthCheck::check( Sites::get( (int) $this->site->id ) );
@@ -24,23 +24,11 @@ class Phase6SendingTest extends SenderTestCase {
 		$this->site = Sites::get( (int) $this->site->id );
 	}
 
-	/** The connection was approved with the right to add tags. */
-	private function tags_allowed(): void {
-		$this->client->granted[] = 'terms:write';
-		HealthCheck::check( Sites::get( (int) $this->site->id ) );
-	}
-
-	public function test_the_connection_check_learns_the_granted_permissions() {
-		// The Connector's token reply doesn't list them; the connection check does.
-		$this->assertFalse( Sender::can_create_tags( $this->site ) );
-		$this->client->granted[] = 'terms:write';
-		HealthCheck::check( $this->site );
+	public function test_any_connection_may_add_tags() {
+		// WordPress lets anyone who can write posts add tags; nothing to grant.
 		$this->assertTrue( Sender::can_create_tags( $this->site ) );
-		$this->assertContains( 'terms:write', \CPub\Publisher\Connections\Credentials::scopes( (int) $this->site->id ) );
-		$this->client->granted = array( 'posts:write', 'media:write', 'terms:read', 'account:read', '<bad>' );
-		HealthCheck::check( $this->site );
-		$this->assertFalse( Sender::can_create_tags( $this->site ) );
-		$this->assertNotContains( '<bad>', \CPub\Publisher\Connections\Credentials::scopes( (int) $this->site->id ) );
+		Sites::update( (int) $this->site->id, array( 'status' => Sites::DISCONNECTED ) );
+		$this->assertFalse( Sender::can_create_tags( Sites::get( (int) $this->site->id ) ) );
 	}
 
 	private function reopen_and_approve( int $id, string $markdown, array $opts = array() ): void {
@@ -67,7 +55,7 @@ class Phase6SendingTest extends SenderTestCase {
 		$job    = $this->approved();
 		$target = Sender::target( $job, $this->site );
 		$this->assertSame( 'draft', $target['status'] );
-		$this->assertStringContainsString( 'hasn\'t allowed direct publishing', $target['note'] );
+		$this->assertStringContainsString( 'can\'t publish there', $target['note'] );
 		Sender::send( $job->id );
 		$job = Jobs::get( $job->id );
 		$this->assertSame( Jobs::SENT, $job->status, (string) $job->last_error );
@@ -174,7 +162,6 @@ class Phase6SendingTest extends SenderTestCase {
 	}
 
 	public function test_tags_chosen_in_the_editor_are_used_and_missing_ones_created() {
-		$this->tags_allowed();
 		$job  = $this->approved( '', array( array( 'line' => 3, 'kind' => 'metadata', 'text' => 'Tags: from-the-file' ) ) );
 		$data = $job->data;
 		$data['tags'] = array( 'Coffee', 'Pour-over' ); // the reviewer's choice replaces the Tags: line
@@ -191,8 +178,9 @@ class Phase6SendingTest extends SenderTestCase {
 		$this->assertEmpty( array_filter( $this->client->tags, fn( $t ) => 'from-the-file' === $t['name'] ) );
 	}
 
-	public function test_without_permission_to_add_tags_missing_ones_are_listed() {
-		$job  = $this->approved();
+	public function test_when_the_site_refuses_new_tags_missing_ones_are_listed() {
+		$this->client->tags_writable = false;
+		$job                         = $this->approved();
 		$data = $job->data;
 		$data['tags'] = array( 'coffee', 'Brand New' );
 		Jobs::update( $job->id, array( 'data' => $data ) );
@@ -200,11 +188,10 @@ class Phase6SendingTest extends SenderTestCase {
 		$job = Jobs::get( $job->id );
 		$this->assertSame( array( 20 ), $this->client->posts[ $job->remote_post_id ]['tags'] );
 		$this->assertSame( array( 'Brand New' ), $job->data['sent']['tags_missing'] );
-		$this->assertNotContains( 'POST /wp/v2/tags', $this->client->calls );
+		$this->assertSame( Jobs::SENT, $job->status, 'the post still went' );
 	}
 
 	public function test_a_tag_made_meanwhile_is_reused() {
-		$this->tags_allowed();
 		$job  = $this->approved();
 		$data = $job->data;
 		$data['tags'] = array( 'Latte' );

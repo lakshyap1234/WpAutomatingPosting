@@ -27,8 +27,8 @@ class HealthAndDisconnectTest extends ConnectionsTestCase {
 	}
 
 	public function test_check_detects_a_disconnect_on_the_client_side(): void {
-		$site                       = $this->connect();
-		$this->client->grant_active = false;
+		$site = $this->connect();
+		$this->client->revoke(); // on WordPress.com, or Jetpack disconnected
 		HealthCheck::run_all();                                 // queues the check
 		HealthCheck::check_site( (int) $site->id );             // what the queued action runs
 		$this->assertSame( Sites::DISCONNECTED, Sites::get( (int) $site->id )->status );
@@ -41,22 +41,75 @@ class HealthAndDisconnectTest extends ConnectionsTestCase {
 		$this->assertCount( 1, as_get_scheduled_actions( array( 'hook' => HealthCheck::HOOK, 'status' => 'pending' ), 'ids' ) );
 	}
 
-	public function test_disconnect_revokes_on_the_site_and_forgets_tokens(): void {
-		$site    = $this->connect();
-		$refresh = Credentials::load( (int) $site->id )['refresh'];
+	public function test_disconnect_forgets_the_token(): void {
+		$site  = $this->connect();
+		$calls = count( $this->client->calls );
 		$this->assertTrue( Connections::disconnect( $site ) );
-		$this->assertSame( $refresh, $this->client->last['body']['token'] );
-		$this->assertFalse( $this->client->grant_active );
+		$this->assertCount( $calls, $this->client->calls, 'WordPress.com has nothing to call: the token is just forgotten' );
 		$this->assertNull( Credentials::load( (int) $site->id ) );
 		$this->assertSame( Sites::DISCONNECTED, Sites::get( (int) $site->id )->status );
 	}
 
-	public function test_disconnect_still_forgets_tokens_if_the_site_is_down(): void {
+	public function test_disconnect_works_offline(): void {
 		$site                  = $this->connect();
 		$this->client->offline = true;
-		$r                     = Connections::disconnect( $site );
-		$this->assertSame( 'cpub_revoke_failed', $r->get_error_code() );
+		$this->assertTrue( Connections::disconnect( $site ) );
 		$this->assertNull( Credentials::load( (int) $site->id ) );
+	}
+
+	public function test_check_records_what_the_approver_may_do(): void {
+		$site = $this->connect();
+		$this->assertSame( 0, (int) $site->can_publish );
+		$this->client->can_publish = true; // e.g. made an Author on the site
+		HealthCheck::check( $site );
+		$site = Sites::get( (int) $site->id );
+		$this->assertSame( 1, (int) $site->can_publish );
+		$this->assertSame( 'author', $site->remote_role );
+		$this->client->admin = true;
+		HealthCheck::check( $site );
+		$this->assertSame( 'administrator', Sites::get( (int) $site->id )->remote_role );
+	}
+
+	public function test_check_flags_an_approver_who_cannot_upload(): void {
+		$site                     = $this->connect();
+		$this->client->can_upload = false;
+		$this->assertFalse( HealthCheck::check( $site ) );
+		$site = Sites::get( (int) $site->id );
+		$this->assertSame( Sites::CONNECTED, $site->status );
+		$this->assertStringContainsString( 'can\'t write posts or upload images', $site->last_error );
+	}
+
+	public function test_page_warns_when_an_administrator_approved(): void {
+		$this->client->admin = true;
+		$this->connect();
+		ob_start();
+		( new SitesPage() )->render();
+		$html = ob_get_clean();
+		$this->assertStringContainsString( 'cpub-admin-warning', $html );
+		$this->assertStringContainsString( '(Administrator)', $html );
+	}
+
+	public function test_page_does_not_warn_for_an_author(): void {
+		$this->client->can_publish = true;
+		$this->connect();
+		ob_start();
+		( new SitesPage() )->render();
+		$html = ob_get_clean();
+		$this->assertStringNotContainsString( 'cpub-admin-warning', $html );
+		$this->assertStringContainsString( '(Author)', $html );
+	}
+
+	public function test_upgrading_retires_connector_connections(): void {
+		$old = Sites::create( 'https://old-connector.test', 'Old' );
+		Sites::update( $old, array( 'status' => Sites::CONNECTED ) );
+		Credentials::save( $old, 'cpub_at_from_the_connector' );
+		$new = $this->connect();
+		$this->assertSame( 1, Connections::retire_connector_sites() );
+		$old = Sites::get( $old );
+		$this->assertSame( Sites::DISCONNECTED, $old->status );
+		$this->assertStringContainsString( 'Jetpack', $old->last_error );
+		$this->assertNull( Credentials::load( (int) $old->id ) );
+		$this->assertSame( Sites::CONNECTED, Sites::get( (int) $new->id )->status, 'Jetpack sites are left alone' );
 	}
 
 	public function test_remove_only_when_disconnected(): void {
@@ -112,6 +165,7 @@ class HealthAndDisconnectTest extends ConnectionsTestCase {
 		$this->assertStringContainsString( 'data-status="connected"', $html );
 		$this->assertStringContainsString( 'data-action="cpub_site_disconnect"', $html );
 		$this->assertStringContainsString( 'id="cpub-connect"', $html );
+		$this->assertStringNotContainsString( 'id="cpub-no-app"', $html );
 
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'editor' ) ) );
 		\CPub\Publisher\Capabilities::grant();

@@ -13,7 +13,7 @@ class StatusTest extends WP_UnitTestCase {
 
 	public function test_all_checks_run(): void {
 		$this->assertSame(
-			array( 'encryption_key', 'tables', 'libraries', 'action_scheduler', 'cron', 'https', 'return_address', 'unicode', 'ai' ),
+			array( 'encryption_key', 'tables', 'libraries', 'action_scheduler', 'cron', 'https', 'wpcom_app', 'unicode', 'ai' ),
 			array_keys( $this->statuses() )
 		);
 	}
@@ -41,6 +41,19 @@ class StatusTest extends WP_UnitTestCase {
 		$this->assertSame( Checks::OK, $this->statuses()['encryption_key'] );
 		$this->assertSame( Checks::ERROR, Checks::encryption_key( \CPub\Publisher\Crypto\Key::MISSING )['status'] );
 		$this->assertSame( Checks::ERROR, Checks::encryption_key( \CPub\Publisher\Crypto\Key::INVALID )['status'] );
+	}
+
+	public function test_wordpress_com_app_check(): void {
+		$missing = Checks::wpcom_app();
+		$this->assertSame( Checks::ERROR, $missing['status'] );
+		$this->assertStringContainsString( \CPub\Publisher\Connections\ConnectFlow::redirect_uri(), $missing['detail'], 'says which redirect URL to register' );
+		$this->assertStringContainsString( 'CPUB_WPCOM_CLIENT_SECRET', $missing['detail'] );
+
+		add_filter( 'cpub_publisher_wpcom_app', fn() => array( 'client_id' => '999', 'client_secret' => 's' ) );
+		$set = Checks::wpcom_app();
+		$this->assertSame( Checks::OK, $set['status'] );
+		$this->assertStringContainsString( 'App 999 is set', $set['detail'] );
+		$this->assertStringNotContainsString( '"s"', $set['detail'], 'the secret is never shown' );
 	}
 
 	public function test_https_follows_site_address(): void {

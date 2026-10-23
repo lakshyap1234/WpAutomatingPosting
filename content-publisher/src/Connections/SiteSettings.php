@@ -7,7 +7,8 @@
  *   featured_image    whether the post's first image becomes its featured image
  *   send_as           'draft' (for the site's editors to publish) or 'publish'
  *                     (published or scheduled straight away; only works if the
- *                     site allowed it on its Connector, see Sites.can_publish)
+ *                     person who approved the connection can publish there,
+ *                     see Sites.can_publish)
  *
  * @package CPub\Publisher
  */
@@ -70,14 +71,14 @@ final class SiteSettings {
 	}
 
 	/**
-	 * The client site's categories, read live through the Connector (terms:read).
+	 * The client site's categories, read live through WordPress.com.
 	 *
 	 * @return array<int, array{id:int, name:string, parent:int}>|\WP_Error
 	 */
 	public static function categories( object $site ) {
 		$out = array();
 		for ( $page = 1; $page <= 5; $page++ ) {
-			$r = ConnectorClient::request( $site, 'GET', '/wp/v2/categories', array( 'query' => array( 'per_page' => 100, 'page' => $page, '_fields' => 'id,name,parent', 'orderby' => 'name', 'order' => 'asc' ) ) );
+			$r = SiteClient::request( $site, 'GET', '/wp/v2/categories', array( 'query' => array( 'per_page' => 100, 'page' => $page, '_fields' => 'id,name,parent', 'orderby' => 'name', 'order' => 'asc' ) ) );
 			if ( is_wp_error( $r ) ) {
 				return $r;
 			}

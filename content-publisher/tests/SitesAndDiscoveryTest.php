@@ -1,7 +1,7 @@
 <?php
 
-use CPub\Publisher\Connections\Discovery;
 use CPub\Publisher\Connections\Sites;
+use CPub\Publisher\Connections\Wpcom;
 
 class SitesAndDiscoveryTest extends ConnectionsTestCase {
 
@@ -25,43 +25,47 @@ class SitesAndDiscoveryTest extends ConnectionsTestCase {
 		);
 	}
 
-	public function test_discovers_endpoints(): void {
-		$meta = Discovery::discover( $this->client->url );
-		$this->assertIsArray( $meta );
-		$this->assertSame( 'Client Test', $meta['site_name'] );
-		$this->assertStringEndsWith( '/oauth/token', $meta['token_endpoint'] );
+	public function test_looks_the_site_up_on_wordpress_com(): void {
+		$found = Wpcom::lookup( $this->client->url );
+		$this->assertIsArray( $found );
+		$this->assertSame( $this->client->site_id, $found['id'] );
+		$this->assertSame( 'Client Test', $found['name'] );
+		$this->assertTrue( $found['jetpack'] );
+		$this->assertSame( array( 'GET /rest/v1.1/sites/client.test' ), $this->client->calls, 'asked without a token' );
 	}
 
-	/** @dataProvider bad_metadata */
-	public function test_refuses_endpoints_off_the_site( string $key, string $value ): void {
-		$this->client->metadata_override = array( $key => $value );
-		$meta = Discovery::discover( $this->client->url );
-		$this->assertWPError( $meta );
-		$this->assertSame( 'cpub_bad_metadata', $meta->get_error_code() );
+	public function test_a_site_in_a_folder_is_looked_up_as_host_and_path(): void {
+		$this->client->url = 'https://client.test/blog';
+		$this->assertIsArray( Wpcom::lookup( 'https://client.test/blog' ) );
+		$this->assertSame( array( 'GET /rest/v1.1/sites/client.test::blog' ), $this->client->calls );
 	}
 
-	public static function bad_metadata(): array {
-		return array(
-			'token elsewhere'   => array( 'token_endpoint', 'https://evil.test/token' ),
-			'token over http'   => array( 'token_endpoint', 'http://client.test/wp-json/cpub-connector/v1/oauth/token' ),
-			'approval elsewhere'=> array( 'authorization_endpoint', 'https://evil.test/approve' ),
-		);
+	public function test_a_site_without_jetpack(): void {
+		$this->client->known = false;
+		$err                 = Wpcom::lookup( $this->client->url );
+		$this->assertSame( 'cpub_no_jetpack', $err->get_error_code() );
+		$this->assertStringContainsString( 'needs Jetpack', $err->get_error_message() );
 	}
 
-	public function test_no_pkce_s256_is_refused(): void {
-		$this->client->metadata_override = array( 'code_challenge_methods_supported' => array( 'plain' ) );
-		$this->assertSame( 'cpub_bad_metadata', Discovery::discover( $this->client->url )->get_error_code() );
-	}
-
-	public function test_unreachable_site(): void {
+	public function test_wordpress_com_unreachable(): void {
 		$this->client->offline = true;
-		$err = Discovery::discover( $this->client->url );
+		$err                   = Wpcom::lookup( $this->client->url );
 		$this->assertSame( 'cpub_unreachable', $err->get_error_code() );
 		$this->assertStringContainsString( 'timed out', $err->get_error_message() );
 	}
 
-	public function test_site_without_connector(): void {
-		$err = Discovery::discover( 'https://no-connector.test' ); // not handled by the fake: real HTTP is blocked in tests
-		$this->assertWPError( $err );
+	/** @dataProvider roles */
+	public function test_role_from_capabilities( array $caps, string $role ): void {
+		$this->assertSame( $role, Wpcom::role( $caps ) );
+	}
+
+	public static function roles(): array {
+		return array(
+			'administrator' => array( array( 'manage_options' => true, 'edit_others_posts' => true, 'publish_posts' => true, 'edit_posts' => true ), 'administrator' ),
+			'editor'        => array( array( 'edit_others_posts' => true, 'publish_posts' => true, 'edit_posts' => true ), 'editor' ),
+			'author'        => array( array( 'publish_posts' => true, 'edit_posts' => true ), 'author' ),
+			'contributor'   => array( array( 'edit_posts' => true ), 'contributor' ),
+			'subscriber'    => array( array( 'read' => true ), '' ),
+		);
 	}
 }
