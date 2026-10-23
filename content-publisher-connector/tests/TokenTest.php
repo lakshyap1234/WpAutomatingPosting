@@ -13,7 +13,7 @@ class TokenTest extends OAuthTestCase {
 		$this->assertSame( array( 'S256' ), $data['code_challenge_methods_supported'] );
 		$this->assertStringContainsString( 'page=cpub-connector-authorize', $data['authorization_endpoint'] );
 		$this->assertStringContainsString( 'cpub-connector/v1/oauth/token', $data['token_endpoint'] );
-		$this->assertSame( array( 'posts:write', 'pages:write', 'media:write', 'terms:read', 'terms:write', 'account:read' ), $data['scopes_supported'] );
+		$this->assertSame( array( 'posts:write', 'pages:write', 'media:write', 'terms:read', 'terms:write', 'account:read', 'proposals:write' ), $data['scopes_supported'] );
 	}
 
 	public function test_code_exchange_issues_tokens_and_activates_connection(): void {

@@ -14,21 +14,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 final class Scopes {
 
-	public const POSTS_WRITE  = 'posts:write';
-	public const PAGES_WRITE  = 'pages:write';
-	public const MEDIA_WRITE  = 'media:write';
-	public const TERMS_READ   = 'terms:read';
-	public const TERMS_WRITE  = 'terms:write';
-	public const ACCOUNT_READ = 'account:read';
+	public const POSTS_WRITE     = 'posts:write';
+	public const PAGES_WRITE     = 'pages:write';
+	public const MEDIA_WRITE     = 'media:write';
+	public const TERMS_READ      = 'terms:read';
+	public const TERMS_WRITE     = 'terms:write';
+	public const ACCOUNT_READ    = 'account:read';
+	public const PROPOSALS_WRITE = 'proposals:write';
 
 	/** scope => plain-language description for the consent screen. */
 	public const LABELS = array(
-		self::POSTS_WRITE  => 'Create posts, and edit the posts it created (publishing only if you allow it below)',
-		self::PAGES_WRITE  => 'Create pages, and edit the pages it created (publishing only if you allow it below)',
-		self::MEDIA_WRITE  => 'Upload images to the Media Library',
-		self::TERMS_READ   => 'Read the list of categories and tags',
-		self::TERMS_WRITE  => 'Add new tags (not change or delete existing ones)',
-		self::ACCOUNT_READ => 'Check that the connection is working',
+		self::POSTS_WRITE     => 'Create posts, and edit the posts it created (publishing only if you allow it below)',
+		self::PAGES_WRITE     => 'Create pages, and edit the pages it created (publishing only if you allow it below)',
+		self::MEDIA_WRITE     => 'Upload images to the Media Library',
+		self::TERMS_READ      => 'Read the list of categories and tags',
+		self::TERMS_WRITE     => 'Add new tags (not change or delete existing ones)',
+		self::ACCOUNT_READ    => 'Check that the connection is working',
+		self::PROPOSALS_WRITE => 'Suggest changes to your published posts and pages, reading their text to do so. Your editors apply or reject each suggestion; it can\'t change them itself',
 	);
 
 	/**
@@ -36,30 +38,35 @@ final class Scopes {
 	 * the /wp-json prefix, e.g. "/wp/v2/posts/12".
 	 */
 	private const RULES = array(
-		self::ACCOUNT_READ => array(
+		self::ACCOUNT_READ    => array(
 			array( array( 'GET' ), '#^/wp/v2/users/me$#' ),
 			array( array( 'GET' ), '#^/cpub-connector/v1/connection$#' ),
 		),
-		self::POSTS_WRITE  => array(
+		self::POSTS_WRITE     => array(
 			array( array( 'GET' ), '#^/wp/v2/posts(?:/\d+)?$#' ),
 			array( array( 'POST', 'PUT', 'PATCH' ), '#^/wp/v2/posts(?:/\d+)?$#' ),
 			array( array( 'GET' ), '#^/cpub-connector/v1/preview/\d+$#' ), // checked per post type: Rest\Preview
 		),
-		self::PAGES_WRITE  => array(
+		self::PAGES_WRITE     => array(
 			array( array( 'GET' ), '#^/wp/v2/pages(?:/\d+)?$#' ),
 			array( array( 'POST', 'PUT', 'PATCH' ), '#^/wp/v2/pages(?:/\d+)?$#' ),
 			array( array( 'GET' ), '#^/cpub-connector/v1/preview/\d+$#' ),
 		),
-		self::MEDIA_WRITE  => array(
+		self::MEDIA_WRITE     => array(
 			array( array( 'GET' ), '#^/wp/v2/media(?:/\d+)?$#' ),
 			array( array( 'POST', 'PUT', 'PATCH' ), '#^/wp/v2/media(?:/\d+)?$#' ),
 			array( array( 'DELETE' ), '#^/wp/v2/media/\d+$#' ),
 		),
-		self::TERMS_READ   => array(
+		self::TERMS_READ      => array(
 			array( array( 'GET' ), '#^/wp/v2/(?:categories|tags)(?:/\d+)?$#' ),
 		),
-		self::TERMS_WRITE  => array(
+		self::TERMS_WRITE     => array(
 			array( array( 'POST' ), '#^/wp/v2/tags$#' ),
+		),
+		self::PROPOSALS_WRITE => array(
+			array( array( 'GET', 'POST' ), '#^/cpub-connector/v1/proposals$#' ),
+			array( array( 'GET' ), '#^/cpub-connector/v1/proposals/\d+$#' ),
+			array( array( 'GET' ), '#^/cpub-connector/v1/proposals/source/\d+$#' ),
 		),
 	);
 

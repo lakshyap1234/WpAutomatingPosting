@@ -15,9 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 final class Installer {
 
-	public const SCHEMA_VERSION = 3;
+	public const SCHEMA_VERSION = 4;
 	public const SCHEMA_OPTION  = 'cpub_connector_schema_version';
-	public const TABLES         = array( 'grants', 'tokens', 'log' );
+	public const TABLES         = array( 'grants', 'tokens', 'log', 'proposals' );
 	public const DAILY_HOOK     = 'cpub_connector_daily';
 
 	public static function activate(): void {
@@ -60,6 +60,7 @@ final class Installer {
 		$grants  = self::table( 'grants' );
 		$tokens  = self::table( 'tokens' );
 		$log     = self::table( 'log' );
+		$props   = self::table( 'proposals' );
 
 		dbDelta(
 			array(
@@ -114,6 +115,25 @@ final class Installer {
   KEY created_at (created_at),
   KEY grant_id (grant_id)
 ) {$collate};",
+				// Changes the agency suggested to the site's posts and pages (Proposals).
+				// NULL in title, content or excerpt: that field is left as it is.
+				"CREATE TABLE {$props} (
+  id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  grant_id bigint(20) unsigned NOT NULL,
+  post_id bigint(20) unsigned NOT NULL,
+  state varchar(20) NOT NULL DEFAULT 'pending',
+  title text NULL,
+  content longtext NULL,
+  excerpt text NULL,
+  base_hash char(64) NOT NULL DEFAULT '',
+  created_at datetime NOT NULL,
+  decided_at datetime NULL,
+  decided_by bigint(20) unsigned NOT NULL DEFAULT 0,
+  note text NULL,
+  PRIMARY KEY  (id),
+  KEY post_state (post_id,state),
+  KEY state (state)
+) {$collate};",
 			)
 		);
 		update_option( self::SCHEMA_OPTION, self::SCHEMA_VERSION, false );
@@ -140,15 +160,17 @@ final class Installer {
 		delete_option( self::SCHEMA_OPTION );
 	}
 
-	/** Daily: remove expired codes and tokens, abandoned approvals and old log entries. */
+	/** Daily: remove expired codes and tokens, abandoned approvals, old log entries and old decided proposals. */
 	public static function cleanup(): void {
 		global $wpdb;
 		$tokens = self::table( 'tokens' );
 		$grants = self::table( 'grants' );
 		$log    = self::table( 'log' );
+		$props  = self::table( 'proposals' );
 		$now    = time();
 		$wpdb->query( $wpdb->prepare( "DELETE FROM {$tokens} WHERE expires_at < %s", gmdate( 'Y-m-d H:i:s', $now - 7 * DAY_IN_SECONDS ) ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		$wpdb->query( $wpdb->prepare( "DELETE FROM {$grants} WHERE status = 'pending' AND created_at < %s", gmdate( 'Y-m-d H:i:s', $now - DAY_IN_SECONDS ) ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		$wpdb->query( $wpdb->prepare( "DELETE FROM {$log} WHERE created_at < %s", gmdate( 'Y-m-d H:i:s', $now - ActivityLog::RETENTION_DAYS * DAY_IN_SECONDS ) ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$wpdb->query( $wpdb->prepare( "DELETE FROM {$props} WHERE state <> 'pending' AND decided_at < %s", gmdate( 'Y-m-d H:i:s', $now - ActivityLog::RETENTION_DAYS * DAY_IN_SECONDS ) ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 	}
 }

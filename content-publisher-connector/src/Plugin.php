@@ -45,6 +45,7 @@ final class Plugin {
 		Rest\Ownership::register();
 		Rest\Idempotency::register();
 		Rest\Preview::register();
+		Rest\ProposalsController::register();
 		PublisherUser::register();
 
 		add_action( 'rest_api_init', array( new AuthorizationProbe(), 'register_routes' ) );
@@ -53,6 +54,7 @@ final class Plugin {
 		if ( is_admin() ) {
 			( new StatusPage() )->register();
 			( new AuthorizePage() )->register();
+			( new Admin\ProposalsPage() )->register();
 			ConnectionActions::register();
 		}
 	}

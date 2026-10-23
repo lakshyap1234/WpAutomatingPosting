@@ -11,6 +11,7 @@ use CPub\Connector\ActivityLog;
 use CPub\Connector\OAuth\Agency;
 use CPub\Connector\OAuth\Grants;
 use CPub\Connector\OAuth\Scopes;
+use CPub\Connector\Proposals;
 use CPub\Connector\PublisherUser;
 use CPub\Connector\Status\Checks;
 
@@ -56,6 +57,10 @@ final class StatusPage {
 				<div class="notice notice-success is-dismissible" id="cpub-disconnected-notice"><p>Disconnected. <?php echo esc_html( $agency ); ?> can no longer reach this site.</p></div>
 			<?php endif; ?>
 			<p>Lets <?php echo esc_html( $agency ); ?> create <strong>draft</strong> posts and upload images on this site, after an administrator approves. It can't publish, change anything else, or log in here.</p>
+			<?php $waiting = Proposals::count_pending(); ?>
+			<?php if ( $waiting ) : ?>
+				<div class="notice notice-info inline" id="cpub-proposals-waiting"><p><a href="<?php echo esc_url( ProposalsPage::url() ); ?>"><?php echo esc_html( sprintf( _n( '%1$d suggested change from %2$s is waiting', '%1$d suggested changes from %2$s are waiting', $waiting ), $waiting, $agency ) ); ?></a> under Posts &rarr; Proposed changes.</p></div>
+			<?php endif; ?>
 
 			<h2>Connection</h2>
 			<div id="cpub-connection" data-state="<?php echo $grant ? 'connected' : 'disconnected'; ?>">

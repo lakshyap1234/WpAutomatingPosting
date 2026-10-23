@@ -37,6 +37,8 @@ final class RouteGate {
 		'pages' => array( 'title', 'content', 'excerpt', 'status', 'parent', 'featured_media', 'date', 'date_gmt' ),
 		'media' => array( 'title', 'caption', 'alt_text', 'description', 'post', 'force' ),
 		'tags'  => array( 'name' ),
+		// Rest\ProposalsController: stored as a suggestion, never written to the post by a token.
+		'proposals' => array( 'post', 'title', 'content', 'excerpt' ),
 	);
 
 	/** Request controls that aren't content. */
@@ -70,7 +72,7 @@ final class RouteGate {
 			return $result;
 		}
 
-		$kind  = preg_match( '#^/wp/v2/(media|tags|pages)\b#', $route, $k ) ? $k[1] : 'posts';
+		$kind  = preg_match( '#^/(?:wp/v2|cpub-connector/v1)/(media|tags|pages|proposals)\b#', $route, $k ) ? $k[1] : 'posts';
 		$extra = array_diff( self::sent_fields( $request ), self::WRITABLE_FIELDS[ $kind ], self::CONTROL_PARAMS );
 		if ( $extra ) {
 			$fields = implode( ', ', $extra );
