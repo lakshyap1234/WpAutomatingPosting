@@ -23,5 +23,6 @@ require_once __DIR__ . '/src/Autoloader.php';
 \CPub\Connector\OAuth\Keys::delete();
 delete_option( \CPub\Connector\PublisherUser::OPTION );
 \CPub\Connector\Rest\Preview::delete_secret();
+delete_post_meta_by_key( \CPub\Connector\JsonLd::META_KEY ); // only this plugin prints it
 delete_transient( 'cpub_connector_auth_probe' );
 wp_clear_scheduled_hook( \CPub\Connector\Installer::DAILY_HOOK );

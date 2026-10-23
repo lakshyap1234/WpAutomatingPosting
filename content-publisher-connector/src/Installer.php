@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 final class Installer {
 
-	public const SCHEMA_VERSION = 4;
+	public const SCHEMA_VERSION = 5;
 	public const SCHEMA_OPTION  = 'cpub_connector_schema_version';
 	public const TABLES         = array( 'grants', 'tokens', 'log', 'proposals' );
 	public const DAILY_HOOK     = 'cpub_connector_daily';
@@ -116,7 +116,7 @@ final class Installer {
   KEY grant_id (grant_id)
 ) {$collate};",
 				// Changes the agency suggested to the site's posts and pages (Proposals).
-				// NULL in title, content or excerpt: that field is left as it is.
+				// NULL in title, content, excerpt or jsonld: that field is left as it is.
 				"CREATE TABLE {$props} (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   grant_id bigint(20) unsigned NOT NULL,
@@ -125,6 +125,7 @@ final class Installer {
   title text NULL,
   content longtext NULL,
   excerpt text NULL,
+  jsonld longtext NULL,
   base_hash char(64) NOT NULL DEFAULT '',
   created_at datetime NOT NULL,
   decided_at datetime NULL,

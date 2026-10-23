@@ -46,6 +46,7 @@ final class Plugin {
 		Rest\Idempotency::register();
 		Rest\Preview::register();
 		Rest\ProposalsController::register();
+		JsonLd::register();
 		PublisherUser::register();
 
 		add_action( 'rest_api_init', array( new AuthorizationProbe(), 'register_routes' ) );

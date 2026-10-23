@@ -28,6 +28,7 @@ final class ProposalsPage {
 		'title'   => 'Title',
 		'content' => 'Content',
 		'excerpt' => 'Excerpt',
+		'jsonld'  => 'Structured data (JSON-LD)',
 	);
 
 	private const STATES = array(
@@ -165,8 +166,8 @@ final class ProposalsPage {
 
 		<?php
 		foreach ( Proposals::changed( $proposal ) as $field ) {
-			$now  = $post ? (string) $post->{'post_' . $field} : '';
-			$diff = wp_text_diff( $now, (string) $proposal->$field, array( 'title_left' => 'Now', 'title_right' => 'Suggested', 'show_split_view' => true ) );
+			$now  = $post ? Proposals::current( $post, $field ) : '';
+			$diff = wp_text_diff( $now, Proposals::proposed( $proposal, $field ), array( 'title_left' => 'Now', 'title_right' => 'Suggested', 'show_split_view' => true ) );
 			echo '<h2>' . esc_html( self::LABELS[ $field ] ) . '</h2>';
 			echo $diff ? '<div class="cpub-proposal-diff" data-field="' . esc_attr( $field ) . '">' . $diff . '</div>' : '<p><em>Same as now.</em></p>'; // phpcs:ignore WordPress.Security.EscapeOutput -- wp_text_diff() escapes the text
 		}

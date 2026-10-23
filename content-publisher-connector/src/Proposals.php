@@ -27,8 +27,8 @@ final class Proposals {
 	public const REJECTED   = 'rejected';
 	public const SUPERSEDED = 'superseded'; // a newer suggestion for the same post arrived
 
-	/** What a proposal may change. */
-	public const FIELDS = array( 'title', 'content', 'excerpt' );
+	/** What a proposal may change. jsonld: structured data (JsonLd); '' removes it. */
+	public const FIELDS = array( 'title', 'content', 'excerpt', 'jsonld' );
 
 	/** post type => what it is called on screen */
 	public const TYPES = array(
@@ -53,7 +53,7 @@ final class Proposals {
 	 * event handlers. Only the fields that were sent; null for a field left as is.
 	 *
 	 * @param array<string,mixed> $sent
-	 * @return array{title:?string, content:?string, excerpt:?string}|\WP_Error
+	 * @return array{title:?string, content:?string, excerpt:?string, jsonld:?string}|\WP_Error
 	 */
 	public static function clean( array $sent ) {
 		$out = array_fill_keys( self::FIELDS, null );
@@ -71,10 +71,21 @@ final class Proposals {
 				$out[ $field ] = wp_kses_post( (string) $sent[ $field ] );
 			}
 		}
+		if ( isset( $sent['jsonld'] ) ) {
+			if ( JsonLd::is_removal( $sent['jsonld'] ) ) {
+				$out['jsonld'] = '';
+			} else {
+				$data = JsonLd::validate( $sent['jsonld'] );
+				if ( is_wp_error( $data ) ) {
+					return $data;
+				}
+				$out['jsonld'] = JsonLd::store( $data );
+			}
+		}
 		if ( '' === trim( (string) $out['content'] ) && null !== $out['content'] ) {
 			return new \WP_Error( 'cpub_proposal_invalid', 'The content can\'t be empty.', array( 'status' => 400 ) );
 		}
-		if ( array( null, null, null ) === array_values( $out ) ) {
+		if ( ! array_filter( $out, fn( $v ) => null !== $v ) ) {
 			return new \WP_Error( 'cpub_proposal_invalid', 'Send at least one of: ' . implode( ', ', self::FIELDS ) . '.', array( 'status' => 400 ) );
 		}
 		return $out;
@@ -84,7 +95,7 @@ final class Proposals {
 	 * Stores a suggestion. An older pending suggestion for the same post is
 	 * replaced (marked superseded), so editors only see the latest.
 	 *
-	 * @param array{title:?string, content:?string, excerpt:?string} $changes from clean()
+	 * @param array{title:?string, content:?string, excerpt:?string, jsonld:?string} $changes from clean()
 	 * @return int|\WP_Error the proposal ID
 	 */
 	public static function create( int $grant_id, \WP_Post $post, array $changes ) {
@@ -107,6 +118,7 @@ final class Proposals {
 				'title'             => $changes['title'],
 				'content'           => $changes['content'],
 				'excerpt'           => $changes['excerpt'],
+				'jsonld'            => $changes['jsonld'],
 				'base_hash'         => self::hash( $post ),
 				'created_at'        => $now,
 			)
@@ -167,7 +179,25 @@ final class Proposals {
 
 	/** The fields a proposal can change, as they are now. */
 	private static function hash( \WP_Post $post ): string {
-		return hash( 'sha256', $post->post_title . "\0" . $post->post_content . "\0" . $post->post_excerpt );
+		return hash( 'sha256', implode( "\0", array_map( fn( $f ) => self::current( $post, $f ), self::FIELDS ) ) );
+	}
+
+	/** A field of the post as it is now, as editors compare it. */
+	public static function current( \WP_Post $post, string $field ): string {
+		if ( 'jsonld' === $field ) {
+			$data = JsonLd::get( $post->ID );
+			return null === $data ? '' : JsonLd::pretty( $data );
+		}
+		return (string) $post->{'post_' . $field};
+	}
+
+	/** A field as the proposal would set it, as editors compare it ('' for structured data it removes). */
+	public static function proposed( object $proposal, string $field ): string {
+		$value = (string) $proposal->$field;
+		if ( 'jsonld' === $field && '' !== $value ) {
+			return JsonLd::pretty( (array) json_decode( $value, true ) );
+		}
+		return $value;
 	}
 
 	/**
@@ -200,14 +230,26 @@ final class Proposals {
 		if ( null !== $proposal->excerpt ) {
 			$update['post_excerpt'] = wp_kses_post( $proposal->excerpt );
 		}
+		$jsonld = null;
+		if ( null !== $proposal->jsonld && '' !== $proposal->jsonld ) {
+			$jsonld = JsonLd::validate( (string) $proposal->jsonld ); // checked again: the rules may have changed since
+			if ( is_wp_error( $jsonld ) ) {
+				return $jsonld;
+			}
+		}
 		// Claimed first, so two editors applying at once can't both write the post.
 		if ( ! self::decide( $proposal, self::APPLIED, $user_id ) ) {
 			return new \WP_Error( 'cpub_proposal_decided', 'Someone else decided on this suggestion a moment ago.' );
 		}
-		$result = wp_update_post( wp_slash( $update ), true );
-		if ( is_wp_error( $result ) ) {
-			self::undecide( $proposal );
-			return $result;
+		if ( count( $update ) > 1 ) {
+			$result = wp_update_post( wp_slash( $update ), true );
+			if ( is_wp_error( $result ) ) {
+				self::undecide( $proposal );
+				return $result;
+			}
+		}
+		if ( null !== $proposal->jsonld ) {
+			JsonLd::save( $post->ID, $jsonld );
 		}
 		ActivityLog::event( (int) $proposal->grant_id, 'proposal_applied', sprintf( 'Suggested changes applied to the %s "%s" (%d).', self::TYPES[ $post->post_type ], get_the_title( $post->ID ), $post->ID ), $user_id );
 		return true;

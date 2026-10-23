@@ -46,6 +46,9 @@ final class ProposalsController {
 						'title'   => array( 'type' => 'string' ),
 						'content' => array( 'type' => 'string' ),
 						'excerpt' => array( 'type' => 'string' ),
+						// JSON-LD as an object, a list or a JSON string ('' removes it). No type here, so
+						// WordPress passes it on as sent; JsonLd::validate() checks it.
+						'jsonld'  => array(),
 					),
 				),
 				array(
@@ -109,6 +112,7 @@ final class ProposalsController {
 				'title'        => $post->post_title,
 				'content'      => $post->post_content,
 				'excerpt'      => $post->post_excerpt,
+				'jsonld'       => \CPub\Connector\JsonLd::get( $post->ID ),
 				'modified_gmt' => mysql_to_rfc3339( $post->post_modified_gmt ),
 			)
 		);
@@ -135,6 +139,9 @@ final class ProposalsController {
 		if ( $full ) {
 			foreach ( Proposals::FIELDS as $field ) {
 				$out['proposed'][ $field ] = $proposal->$field;
+			}
+			if ( null !== $proposal->jsonld && '' !== $proposal->jsonld ) {
+				$out['proposed']['jsonld'] = json_decode( (string) $proposal->jsonld, true );
 			}
 		}
 		return $out;

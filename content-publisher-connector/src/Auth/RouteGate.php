@@ -32,13 +32,13 @@ final class RouteGate {
 	 */
 	public const WRITABLE_FIELDS = array(
 		// No 'slug': WordPress 7.1 core warns when a draft is created with one (reads ->id for ->ID).
-		'posts' => array( 'title', 'content', 'excerpt', 'status', 'categories', 'tags', 'featured_media', 'date', 'date_gmt' ),
+		'posts' => array( 'title', 'content', 'excerpt', 'status', 'categories', 'tags', 'featured_media', 'date', 'date_gmt', 'cpub_jsonld' ),
 		// No template or menu_order: they change how the site shows the page (or its menus).
-		'pages' => array( 'title', 'content', 'excerpt', 'status', 'parent', 'featured_media', 'date', 'date_gmt' ),
+		'pages' => array( 'title', 'content', 'excerpt', 'status', 'parent', 'featured_media', 'date', 'date_gmt', 'cpub_jsonld' ),
 		'media' => array( 'title', 'caption', 'alt_text', 'description', 'post', 'force' ),
 		'tags'  => array( 'name' ),
 		// Rest\ProposalsController: stored as a suggestion, never written to the post by a token.
-		'proposals' => array( 'post', 'title', 'content', 'excerpt' ),
+		'proposals' => array( 'post', 'title', 'content', 'excerpt', 'jsonld' ),
 	);
 
 	/** Request controls that aren't content. */

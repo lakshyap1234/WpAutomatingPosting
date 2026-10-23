@@ -159,7 +159,7 @@ class PagesTest extends OAuthTestCase {
 	public function test_the_writable_fields_are_exactly_these(): void {
 		// A new field here widens what every agency token can do: change it on purpose, with a test.
 		$this->assertSame(
-			array( 'title', 'content', 'excerpt', 'status', 'parent', 'featured_media', 'date', 'date_gmt' ),
+			array( 'title', 'content', 'excerpt', 'status', 'parent', 'featured_media', 'date', 'date_gmt', 'cpub_jsonld' ),
 			RouteGate::WRITABLE_FIELDS['pages']
 		);
 	}
